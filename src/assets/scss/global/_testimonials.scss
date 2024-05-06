@@ -1,0 +1,27 @@
+/* testimonials */
+.swiper-slide .testimonia {
+    .testimonia-img img {
+        width: inherit;
+    }
+}
+/* testimonials */
+
+.crypto-chart {
+	// inset-inline-start: -45px;
+	// inset-inline-end: -10px;
+	// inset-block-end: -10px;
+    // .apexcharts-toolbar, .apexcharts-xaxis-texts-g, .apexcharts-xaxis-tick,.apexcharts-xaxistooltip {
+    //     display: none;
+    // }
+    canvas {
+        position: relative;
+        width: 700px !important;
+        height: 180px !important;
+        inset-inline-start: -59px;
+        inset-block-end: 20px;
+    }
+}
+
+.custom-selectdropdown {
+    color: #000;
+}

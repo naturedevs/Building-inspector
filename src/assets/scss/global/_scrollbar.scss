@@ -1,0 +1,32 @@
+//messages
+.ScrollbarsCustom-Track {
+    width: 0px !important;
+    background-color: #fbfdff !important;
+}
+
+.ScrollbarsCustom-Thumb {
+    width: 0 !important;
+    background-color: #f3f6f8 !important;
+}
+
+.msg-footer {
+    z-index: 5;
+    position: relative;
+    background-color: $default-background;
+}
+
+.rdt_Pagination {
+    background-color: $default-background !important;
+    color: $default-text-color !important;
+    border-top: 0px solid $default-border !important;
+    svg {
+        fill: $default-text-color !important;
+    }
+}
+[dir="rtl"] {
+    .rdt_Pagination {
+        svg {
+            transform: scaleX(-1);
+        }
+    }
+}

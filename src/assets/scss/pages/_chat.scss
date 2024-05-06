@@ -1,0 +1,283 @@
+.contacts_body {
+	.contacts {
+		list-style: none;
+		padding: 0;
+		max-height: 690px;
+		li {
+			width: 100% !important;
+			padding: 10px 0px;
+			border-block-end: 1px solid $default-border;
+		}
+	}
+
+	.active {
+		background-color: $default-background;
+	}
+}
+.img_cont {
+    position: relative;
+    height: 50px;
+    width: 50px;
+}
+.chatbox {
+	.user_info {
+		margin-block-start: auto;
+		margin-block-end: auto;
+		margin-inline-start: 15px;
+
+		span {
+			color: $default-text-color;
+		}
+	}
+
+	.action-header small {
+		font-size: 10px;
+	}
+}
+.dot-label {
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	border-radius: 100%;
+	margin-inline-end: 5px;
+}
+.chat {
+	.action-header {
+		position: relative;
+		background: $white;
+		padding: 15px 13px 15px 17px;
+		border-block-end: 1px solid $default-border;
+		box-shadow: 0 1px 11px 1px $white-2;
+	}
+
+	.dropdown-menu.dropdown-menu-end.show {
+		width: 100%;
+		margin-block-end: 5px;
+		position: absolute;
+		transform: translate3d(-176px, 22px, 0px);
+		inset-block-start: 10px !important;
+		inset-inline-start: 0px;
+		will-change: transform;
+	}
+
+	.msb-reply textarea {
+		width: 100%;
+		font-size: 13px;
+		padding: 12px 47px;
+		resize: none;
+		height: 44px;
+		border: 1px solid $default-border;
+		background: $default-background;
+		margin-inline-start: -42px;
+		color: #8c8ea9;
+	}
+}
+.clearfix {
+	&:before {
+		content: "";
+		display: table;
+	}
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+	zoom: 1;
+}
+.chat {
+	.actions {
+		>li {
+			display: inline-block;
+			margin-block-start: 15px;
+		}
+
+		&:not(.a-alt)>li>a>i {
+			color: $default-text-color;
+		}
+	}
+
+	.justify-content-start,
+	.justify-content-end {
+		margin-block-end: 30px;
+	}
+}
+.chat {
+	.attach_btn {
+		background: transparent;
+		border: 0 !important;
+		cursor: pointer;
+		z-index: 1000;
+		margin-inline-start: 0px;
+	}
+
+	.dropdown-menu li {
+		padding: 7px;
+		font-size: 14px;
+		color: $default-text-color;
+
+		&:hover {
+			background: $default-background;
+		}
+
+		i {
+			padding: 7px;
+		}
+	}
+}
+.chat-box-single-line {
+	height: 12px;
+	margin: 7px 0 30px;
+	position: relative;
+	text-align: center;
+}
+.chat abbr.timestamp {
+	padding: 4px 14px;
+	background: $default-background;
+	border-radius: 4px;
+	font-size: 12px;
+}
+.chatbox {
+	.user_img {
+		height: 50px;
+		width: 50px;
+		border: 1px solid $default-border;
+	}
+
+	.user_img_msg {
+		height: 40px;
+		width: 40px;
+		border: 1px solid $default-border;
+	}
+
+	.img_cont {
+		position: relative;
+		height: 50px;
+		width: 50px;
+	}
+
+	.img_cont_msg {
+		height: 40px;
+		width: 40px;
+		display: contents;
+	}
+}
+.chat {
+	.video_cam {
+		margin-inline-start: 50px;
+		margin-block-start: 5px;
+
+		span {
+			color: white;
+			font-size: 20px;
+			cursor: pointer;
+			margin-inline-end: 20px;
+		}
+	}
+
+	.msg_cotainer {
+		margin-block-start: auto;
+		margin-block-end: auto;
+		margin-inline-start: 10px;
+		background-color: $primary-01;
+		padding: 10px;
+		position: relative;
+		border-start-start-radius: 10px;
+		border-start-end-radius: 10px;
+		border-end-start-radius: 0;
+		border-end-end-radius: 10px;
+	}
+
+	.msg_cotainer_send {
+		margin-block-start: auto;
+		margin-block-end: auto;
+		margin-inline-end: 10px;
+		background-color: $primary-01;
+		padding: 10px;
+		position: relative;
+		border-start-start-radius: 10px;
+		border-start-end-radius: 10px;
+		border-end-start-radius: 10px;
+		border-end-end-radius: 0;
+	}
+
+	.msg_time {
+		position: absolute;
+		inset-inline-start: 0;
+		inset-block-end: -18px;
+		color: $default-text-color;
+		opacity: 0.7;
+		font-size: 10px;
+	}
+
+	.msg_time_send {
+		position: absolute;
+		inset-inline-end: 0;
+		inset-block-end: -18px;
+		color: $default-text-color;
+		opacity: 0.7;
+		font-size: 10px;
+	}
+
+	.msg_head {
+		position: relative;
+		box-shadow: 0 1px 15px 1px rgba(58, 58, 62, 0.4);
+	}
+}
+.chat {
+	.action-header {
+		position: relative;
+		background: $custom-white;
+		padding: 15px 13px 15px 17px;
+		border-block-end: 1px solid $default-border;
+		box-shadow: 0 1px 11px 1px $white-2;
+	}
+
+	.dropdown-menu.dropdown-menu-end.show {
+		width: 100%;
+		margin-block-end: 5px;
+		position: absolute;
+		transform: translate3d(-176px, 22px, 0px);
+		inset-block-start: 10px !important;
+		inset-inline-start: 0px;
+		will-change: transform;
+	}
+
+	.msb-reply textarea {
+		width: 100%;
+		font-size: 13px;
+		padding: 12px 47px;
+		resize: none;
+		height: 44px;
+		border: 1px solid $default-border;
+		background: $default-background;
+		margin-inline-start: -42px;
+		color: #8c8ea9;
+		outline: none;
+	}
+}
+.msb-reply button {
+	position: absolute;
+	inset-block-start: 10px;
+	inset-inline-end: 4px;
+	border: 0;
+	height: 44px;
+	width: 44px;
+	font-size: 20px;
+	color: $white;
+    background: $primary;
+	border-start-start-radius: 0px;
+    border-start-end-radius: 3px;
+    border-end-end-radius: 3px;
+    border-end-start-radius: 0px;
+	line-height: 36px;
+}
+.crypto-chart {
+	bottom: 0;
+}
+.cryptoChart, .cryptoChart2, .cryptoChart3, .cryptoChart4 {
+	position: relative;
+    width: 700px !important;
+	height: 180px !important;
+    inset-inline-start: -59px;
+    inset-block-end: 20px;
+}

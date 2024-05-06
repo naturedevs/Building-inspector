@@ -1,0 +1,15 @@
+/*** app-sidebar styles **/
+@media (min-width: 992px) {
+    .app-sidebar .main-sidemenu {
+        margin-block-start: 80px;
+    }
+}
+
+
+.app-sidebar {
+
+    .slide-left,
+    .slide-right {
+        display: none;
+    }
+}

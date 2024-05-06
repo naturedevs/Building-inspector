@@ -1,0 +1,22 @@
+
+.app-header {
+    .header-right {
+        margin-inline-start: auto;
+    }
+}
+
+/*** modal styles **/
+.modal-bg-image {
+    position: relative;
+
+    .modal-image {
+        background-size: cover;
+        width: 100%;
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        border-radius: 0.5rem;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}

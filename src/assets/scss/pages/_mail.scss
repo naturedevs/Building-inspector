@@ -1,0 +1,132 @@
+.choices__list--dropdown .choices__item--selectable,
+.choices__list[aria-expanded] .choices__item--selectable {
+  padding: 10px !important;
+}
+.choices__list--dropdown .choices__item--selectable::after,
+.choices__list[aria-expanded] .choices__item--selectable::after {
+  display: none;
+}
+
+
+/* Start :: mail  */
+.mail-chats {
+	height: 100%;
+	min-height: 0;
+	padding: 0;
+	width: 100%;
+	list-style-type: none;
+	flex-direction: column !important;
+	display: flex !important;
+	li.chat-persons {
+		padding-block-end: 15px;
+		display: block;
+	}
+}
+
+li.chat-persons a {
+	text-decoration: none;
+}
+
+.mail-chats li.chat-persons a {
+	span.pro-pic {
+		img {
+			max-width: 100%;
+			width: 100%;
+			-webkit-border-radius: 100%;
+			-moz-border-radius: 100%;
+			-ms-border-radius: 100%;
+			border-radius: 100%;
+			flex-direction: column !important;
+		}
+		display: inline-block;
+		padding: 0;
+		width: 20%;
+		max-width: 40px;
+		margin-inline-end: 20px;
+	}
+	div.user {
+		flex-direction: column !important;
+	}
+}
+
+ul.mail-chats li.chat-persons a div.user {
+	display: flex !important;
+}
+
+.mail-chats li.chat-persons.user {
+	width: 80%;
+	padding: 5px 10px 0px 15px;
+	flex-direction: column !important;
+	display: flex !important;
+}
+
+.user p {
+	&.u-name {
+		margin: 0;
+		font-size: 14px;
+		font-weight: 500;
+		line-height: 18px;
+		color: $default-text-color;
+	}
+	&.u-designation {
+		margin: 0;
+		font-size: 11px;
+		color: $default-text-color;
+		opacity: 0.7;
+	}
+}
+
+div.online-status .status.status-online {
+	background: rgba(0, 128, 0, 0.68);
+}
+
+.online-status .status {
+	&.offline {
+		background: rgba(255, 0, 0, 0.7);
+	}
+	height: 10px;
+	width: 10px;
+	-webkit-border-radius: 100%;
+	-moz-border-radius: 100%;
+	-ms-border-radius: 100%;
+	border-radius: 100%;
+	display: inline-flex;
+	justify-content: flex-start;
+	transform: translateX(-60px) translateY(2px);
+}
+
+.status-online {
+	margin-inline-start: 20px;
+	margin-block-start: -3px;
+}
+.table-inbox tr td .fa-star {
+	color: #e3e8f7;
+	&.inbox-started,
+	&:hover {
+		color: #ffab00 ;
+	}
+}
+.chat-online {
+	.status {
+		transform: translateX(-45px) translateY(2px) !important;
+		.stauts-online {
+			margin-inline-start: 15px;
+		}
+	}
+}
+[dir=rtl] {
+  .chat-online .status {
+    transform: translateX(42px) translateY(2px) !important;
+}
+}
+/* End :: mail  */
+[dir="rtl"]{
+.online-status .status {
+    height: 10px;
+    width: 10px;
+    border-radius: 100%;
+    display: inline-flex;
+    justify-content: flex-start;
+    transform: translateX(60px) translateY(2px);
+}
+}

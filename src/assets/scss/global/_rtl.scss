@@ -1,0 +1,15 @@
+/**** rtl styles ***/
+[dir="rtl"] {
+    .demo_changer.active {
+        left: 0 !important;
+        right: inherit !important;
+
+    }
+    .page-header{
+        .breadcrumb-item+.breadcrumb-item::before{
+            content: "\f100" !important;
+            font-family: "FontAwesome";
+            color: "#7987a1";
+        }
+    }
+}

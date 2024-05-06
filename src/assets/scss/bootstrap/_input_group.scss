@@ -1,0 +1,20 @@
+.input-group-text {
+    border: 1px solid $default-border ;
+    font-size: 1rem;
+    border-radius: 0.275rem;
+    background-color: $default-background;
+    color: $color;
+    letter-spacing: 0;
+    .form-control {
+        border: 0;
+        border-start-start-radius: 0;
+        border-end-start-radius: 0;
+    }
+}
+.input-group .btn {
+	z-index: 0;
+}
+strong,
+b {
+	font-weight: 500;
+}

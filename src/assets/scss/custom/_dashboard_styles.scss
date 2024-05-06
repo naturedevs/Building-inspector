@@ -1,0 +1,212 @@
+/** Start :: CRM Dashboard Related **/
+.userprof-tab#tab-9 {
+	.fc .fc-view-harness {
+		height: 800px !important;
+	}
+}
+
+.view-arrow {
+	transition: transform ease .2s;
+
+	&:hover {
+		z-index: 1;
+		transform: scale(1.1);
+
+		i {
+			border: 1px solid $primary-04 !important;
+		}
+	}
+}
+
+/** End :: CRM Dashboard Related **/
+
+/* Start:: Crypto dashboard */
+.chart-data {
+	bottom: 20px;
+}
+#buy-crypto .choices__inner{
+	min-width: 5rem!important;
+}
+[dir="rtl"] {
+	.mySwiper {
+		.swiper-slide {
+			direction: rtl;
+		}
+	}
+}
+.card-options a:not(.btn) {
+	margin-inline-start: 0.5rem;
+    font-size: 14px;
+    display: inline-block;
+    min-width: 1rem;
+}
+/* Start:: Crypto dashboard */
+
+/* Analytics Dashboard::Start */
+[data-header-style="light"] {
+	.app-header {
+		--header-bg: #ffffff;
+		--border: #ebebeb;
+		--color: #3c4858;
+		--white: #fff;
+		--gray-700: #4d5875;
+		--primary-005: #{rgba(var(--primary-bg-color-rgb),0.05)};
+		--primary-01: #{rgb(var(--primary-bg-color-rgb), 0.1)};
+	}
+}
+
+.chart-circle-xs {
+	height: 2.5rem;
+	font-size: .8rem;
+}
+
+[data-theme-mode=dark] {
+	#world-map-markers path {
+		fill: rgba(255, 255, 255, 0.05);
+	}
+
+	#marker-maps path {
+		fill: rgba(255, 255, 255, 0.05);
+	}
+}
+
+#world-map-markers {
+	svg {
+		width: 100%;
+	}
+	.jvm-zoom-btn.jvm-zoomin {
+		position: absolute;
+		inset-block-start: 0px !important;
+		height: 10px !important;
+		width: 10px !important;
+		
+	}
+	.jvm-zoom-btn {
+		padding: 8px;
+	}
+	.jvm-zoom-btn.jvm-zoomout {
+		position: absolute;
+		inset-block-start: 22px !important;
+		height: 10px !important;
+		width: 10px !important;
+	}
+}
+
+#traffic-soruce .apexcharts-datalabels-group text {
+	fill: $default-text-color !important;
+}
+
+/* Analytics Dashboard::End */
+
+/* Start::Ecommerce-dashboard */
+#skip2 {
+	content: "";
+	position: absolute;
+	inset-inline-end: -10px;
+	inset-block-start: -6px;
+	width: 25px;
+	height: 25px;
+	color: $white;
+	font-size: 13px;
+	border-radius: 50%;
+	padding: 2px;
+	background-color: $danger;
+	border: 2px solid $white;
+
+	i {
+		margin-inline-start: 2px;
+	}
+}
+
+.product-timeline ul.timeline-1 {
+	list-style-type: none;
+	position: relative;
+
+	&:before {
+		content: ' ';
+		border: 1px solid $default-border;
+		margin-block-start: 20px;
+		margin-inline-end: 20px;
+		margin-block-end: 0px;
+		margin-inline-start: 22px;
+		display: inline-block;
+		position: absolute;
+		inset-inline-start: -2px;
+		width: 2px;
+		height: 94%;
+		z-index: 0;
+	}
+
+	>li {
+		margin: 27px 0;
+		padding-inline-start: 3.5rem;
+
+		.product-icon {
+			width: 40px;
+			height: 40px;
+			text-align: center;
+			border-radius: 50%;
+			position: absolute;
+			inset-inline-start: 1px;
+			background-color: #f3f6f7;
+			font-size: 20px;
+			line-height: 40px;
+			font-size: 21px;
+		}
+	}
+}
+
+.top-customers {
+	.list-item {
+		&:not(:last-child) {
+			margin-block-end: 1.65rem;
+		}
+	}
+}
+
+.daily-statistics {
+	.list-group-item {
+		&:not(:last-child) {
+			margin-block-end: 1.9rem;
+		}
+	}
+}
+
+#marker-maps {
+	svg {
+		width: 100%;
+	}
+
+	.jvm-zoom-btn.jvm-zoomin {
+		margin-block-start: -13rem !important;
+		position: relative;
+	}
+
+	.jvm-zoom-btn.jvm-zoomout {
+		margin-block-start: 1rem !important;
+		position: relative;
+	}
+}
+
+#Product-status-chart .apexcharts-datalabels-group text {
+	fill: $default-text-color !important;
+	font-size: 15px;
+}
+
+#timer .bg-danger-transparent {
+	border-radius: 50%;
+	padding: 0px;
+}
+#Inventory-chart {
+	.apexcharts-grid{
+	 display: none;
+	}
+	.apexcharts-grid-borders line {
+	   display: none;
+	}
+}
+.badge-default-light {
+	background-color: $default-background;
+	color: $default-text-color;
+}
+/* End::Ecommerce-dashboard */

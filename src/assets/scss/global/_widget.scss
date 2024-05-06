@@ -1,0 +1,39 @@
+
+.basicsteps {
+    .nav-item {
+        gap: 0.8rem;
+    }
+
+    .nav-item .btn.active {
+        background-color: var(--primary-rgb) !important;
+        color: #fff !important;
+        border-radius: 5px;
+    }
+
+    .nav-item .btn {
+        padding: 10px;
+        border: 0;
+        border-bottom: 2px solid var(--primary-rgb);
+        border-radius: 0;
+
+        i {
+            font-family: "Roboto", sans-serif;
+        }
+    }
+}
+
+.wideget-user-tab {
+    .nav-underline .nav-link.active {
+        color: var(--black);
+    }
+
+    .nav-link:hover,
+    .nav-link:focus {
+        color: var(--black);
+
+        & .nav-underline .nav-link {
+            border-bottom: none;
+        }
+
+    }
+}

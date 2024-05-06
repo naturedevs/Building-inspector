@@ -1,0 +1,35 @@
+.nav-tabs.tabs-style-1 .nav-link {
+    margin-inline-end: 10px;
+}
+
+.navbar-primary {
+    .nav-link {
+        color: #fff;
+    }
+}
+
+.nav-icons {
+    .btn.btn-primary {
+        border: 0;
+        background-color: transparent;
+        color: var(--color) !important;
+
+        &.show {
+            color: var(--color) !important;
+        }
+    }
+}
+
+.vertical-tabs {
+    .nav-tabs.nav {
+        display: block;
+    }
+}
+
+.nav-underline .nav-link.active,
+.nav-underline .show>.nav-link {
+    font-weight: 700;
+    color: var(--primary-rgb);
+    border-bottom-color: var(--primary-rgb);
+}
+

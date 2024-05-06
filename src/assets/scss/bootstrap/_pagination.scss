@@ -1,0 +1,268 @@
+.page-link {
+    color: $default-text-color;
+    background-color: $custom-white;
+    border: 1px solid $default-border;
+    &:focus {
+        box-shadow: none;
+        background-color: $light;
+    }
+    &:hover {
+        color: $primary;
+        background-color: $light;
+        border-color: $default-border;
+    }
+}
+.page-item.active .page-link {
+    color: $white;
+    background-color: $primary;
+    border-color: $primary;
+}
+.disabled>.page-link, .page-link.disabled {
+    color: $default-text-color;
+    background-color: $custom-white;
+    border-color: $default-border;
+    opacity: 0.7;
+}
+[dir="rtl"] { 
+    .pagination{
+        .page-link{
+            .bx-chevron-left::before{
+                content: "\ea50";
+            }
+            .bx-chevron-right::before{
+                content: "\ea4d";
+            }
+            .ri-arrow-right-s-line:before{
+                content: "\ea64";
+            }
+            .ri-arrow-left-s-line:before{
+                content: "\ea6e";
+            }
+        }
+    }
+}
+
+/* Start:: pagination-style-1 */
+.pagination-style-1 .pagination {
+    .page-item {
+        margin: 0 0.25rem;
+        .page-link {
+            border: 0;
+            border-radius: $default-radius;
+            font-size: 0.8125rem;
+            i {
+                font-weight: 600;
+            }
+        }
+        &.active {
+            .page-link {
+                border-radius: $default-radius;
+                background-color: $primary;
+                color: $white;
+            }
+            &:hover {
+                .page-link {
+                    border-radius: $default-radius;
+                    background-color: $primary;
+                    color: $white;
+                }
+            } 
+        }
+        &:hover {
+            .page-link {
+                background-color: $light;
+                color: $default-text-color;
+            }
+        }
+    }
+}
+/* End:: pagination-style-1 */
+
+/* Start:: pagination-style-2 */
+.pagination-style-2 .pagination {
+    border-radius: $default-radius;
+    .page-item {
+        margin: 0 0.25rem;
+        .page-link {
+            border: 0 !important;
+            font-size: 0.8125rem;
+        }
+        &.active {
+            .page-link {
+                background-color: $custom-white;
+                color: $primary;
+                position: relative;
+                font-weight: bold;
+                &:before {
+                    position: absolute;
+                    content: "";
+                    inset-block-end: 0;
+                    inset-inline-start: 0;
+                    width: 100%;
+                    height: 0.1rem;
+                    background-color: $primary;
+                }
+            }
+        }
+        &:hover {
+            .page-link {
+                background-color: transparent;
+            }
+        }
+    }
+}
+/* End:: pagination-style-2 */
+
+/* Start:: pagination-sytle-3 */
+.pagination-style-3 .pagination {
+    border-radius: 50px;
+    padding: 0.25rem;
+    align-items: center;
+    .page-item {
+        margin: 0 0.25rem;
+        .page-link {
+            border: 0;
+            border-radius: 50px;
+            font-size: 0.8125rem;
+            i {
+                font-weight: 600;
+            }
+        }
+        &.active {
+            .page-link {
+                background-color: $primary;
+                color: $white;
+            }
+            &:hover {
+                .page-link {
+                    background-color: $primary;
+                }
+            }
+        }
+        &:hover {
+            .page-link {
+                background-color: $light;
+            }
+        }
+    }
+}
+/* End:: pagination-sytle-3 */
+
+/* Start:: pagination-style-4 */
+.pagination-style-4 .pagination {
+    .page-item {
+        .page-link {
+            border: 0 !important;
+            font-size: 0.8125rem;
+            border-radius: $default-radius;
+            i {
+                font-weight: 600;
+            }
+        }
+        &.active {
+            .page-link {
+                border: 0;
+                border-radius: $default-radius;
+                background-color: $primary;
+                color: $white;
+            }
+            &:hover {
+                .page-link {
+                    background-color: $primary;
+                }
+            }
+        }
+        &:hover {
+            .page-link {
+                background-color: transparent;
+            }
+        }
+    }
+}
+/* End:: pagination-style-4 */
+
+/* start :: pagination CMR Dashboard header */
+.page-header {
+	display: block;
+	-ms-flex-align: stretch;
+	align-items: stretch;
+	justify-content: space-between;
+	position: relative;
+	min-height: 50px;
+	background: $custom-white;
+	margin-block-end: 1.5rem;
+	border-block-end: 1px solid $default-border;
+	box-shadow: 0 4px 8px 1px rgba(62, 57, 107, 0.02);
+    padding-inline-start: 1.5rem;
+    padding-inline-end: 1.5rem;
+}
+
+@media (min-width: 576px) {
+
+	.page-header {
+		display: flex;
+	}
+}
+.py-2-5 {
+    padding-block-start: 0.75rem;
+    padding-block-end: 0.75rem;
+}
+.page-title {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.8rem;
+    color: $color;
+}
+.banner-img {
+    height: 120px;
+    width: 100px;
+}
+
+/* End :: pagination CMR Dashboard header */
+
+/* start :: CMR Dashboard */
+.onsale {
+	background-color: #{$primary-02};
+	border-color: $primary-02 !important;
+
+	&:before {
+		background: url(../images/png/13.jpg);
+		background-size: cover;
+		opacity: 0.05;
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		inset-inline-start: 0;
+		inset-inline-end: 0;
+		display: block;
+		z-index: 0;
+		inset-block-start: 0;
+		border-radius: 6px;
+	}
+}
+
+#skip {
+	content: "";
+	position: absolute;
+	inset-inline-end: -12px;
+	inset-block-start: -67px;
+	width: 25px;
+	height: 25px;
+	color: $white;
+	font-size: 13px;
+	border-radius: 50%;
+	padding: 2px;
+	background-color: $danger;
+	border: 2px solid $white;
+	i {
+		margin-inline-end: 1px;
+	}
+}
+@media (max-width: 1200px){
+    #skip {
+        inset-block-start: -144px;
+    }
+    }
+
+/* start :: CMR Dashboard */
