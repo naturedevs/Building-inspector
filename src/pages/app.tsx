@@ -7,7 +7,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Provider } from "react-redux";
 import Modalsearch from '../components/common/modalsearch/modalsearch';
 import Footer from '../components/common/footer/footer';
-import TabToTop from '../components/common/backtotop/backtotop';
+// import TabToTop from '../components/common/backtotop/backtotop';
 import store from '../redux/store';
 import { useAuth } from '../config/authcontext';
 
@@ -48,20 +48,17 @@ function App() {
               "data-icon-text": MyclassName,
             }}
           />
-
-            <Switcher />
-            <div className='page'>
+          <Switcher />
+          <div className='page'>
             <Header />
             <Sidebar />
-            <div className='main-content app-content'
-              onClick={Bodyclickk}
-            >
-                <Outlet />
+            <div className='main-content app-content' onClick={Bodyclickk}>
+              <Outlet />
             </div>
             <Footer />
           </div>
-            <Modalsearch />
-            <TabToTop />
+          <Modalsearch />
+          {/* <TabToTop /> */}
         </HelmetProvider>
       </Provider>
     </Fragment>

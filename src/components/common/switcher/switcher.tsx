@@ -9,11 +9,9 @@ import { ThemeChanger } from "../../../redux/action";
 const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
     useEffect(() => {
         switcherdata.LocalStorageBackup(ThemeChanger);
-
     }, []);
     const Switcherclose = () => {
         if (document.querySelector(".offcanvas-end")?.classList.contains("show")) {
-
             document.querySelector(".offcanvas-end")?.classList.remove("show");
             document.querySelector(".switcher-backdrop")?.classList.remove("d-block");
             document.querySelector(".switcher-backdrop")?.classList.add("d-none");
@@ -27,7 +25,6 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
       ${local_varaiable.inputBorder != '' ? `--input-border:rgb(${local_varaiable.inputBorder})` : ''};`;
     return (
         <Fragment>
-
             <Helmet>
                 <html dir={local_varaiable.dir}
                     data-theme-mode={local_varaiable.dataThemeMode}
@@ -47,7 +44,6 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                     data-icon-text={local_varaiable.iconText}
                     style={customStyles}
                 >
-
                 </html>
             </Helmet>
             <div className="switcher-backdrop d-none" onClick={() => {

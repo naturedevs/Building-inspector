@@ -15,7 +15,9 @@ import { useState, ChangeEvent } from 'react';
 interface LoginProps { }
 
 const Login: FC<LoginProps> = () => {
+   
    const { isLoggedIn, login } = useAuth();
+   
    const [user, setUser] = useState({
       username:"",
       password:"",

@@ -20,23 +20,22 @@ const TabToTop: FC<BacktotopProps> = () => {
       //   smooth
     });
   };
-    return (
-        <>
-    <div
+  return (
+    <>
+      <div
         id="back-to-top"
         onClick={screenup}
         className={`scrollToTop ${BacktoTop}`}
       >
         <span className="arrow">
-<i className="fa fa-angle-double-up fs-lg"></i>
-</span>
+          <i className="fa fa-angle-double-up fs-lg"></i>
+        </span>
       </div>
-        </>
-    );
+    </>
+  );
 };
 
 TabToTop.propTypes = {};
-
 TabToTop.defaultProps = {};
 
 export default TabToTop;
