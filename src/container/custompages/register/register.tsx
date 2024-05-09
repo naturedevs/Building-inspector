@@ -1,6 +1,8 @@
-import  { FC } from 'react';
+import  { FC, useState, ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Col, Form, Row } from 'react-bootstrap';
+import axios from 'axios';
+import { API_ROUTES } from "../../../utils/constants"
 
 //IMAGE IMPORTS
 import img1 from "../../../assets/images/brand-logos/desktop-logo.png";
@@ -9,6 +11,43 @@ import img2 from "../../../assets/images/brand-logos/desktop-dark.png";
 interface RegisterProps { }
 
 const Register: FC<RegisterProps> = () => {
+
+   const [formData, setFormData] = useState({
+      username: 'Jonathan Viera',
+      email: 'david@gmail.com',
+      password: '123456',
+      confirmPassword: '123456'
+   });
+
+   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = event.target;
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+   };
+
+   const registerUser = async() => {
+
+      console.log("click sign up");
+      axios.post(API_ROUTES.REGISTER, formData)
+      .then(response => {
+         // Handle successful response
+         console.log(response.data);
+      })
+      .catch(error => {
+         if (error.response && error.response.status === 400) {
+            // Handle 400 error
+            console.error('Bad request');
+            // You can also access the response data if needed
+            console.error(error.response.data);
+         } else {
+            // Handle other errors
+            console.error('Server error');
+            console.error(error.message);
+         }
+      });
+   }
 
    return(
       <>
@@ -32,23 +71,23 @@ const Register: FC<RegisterProps> = () => {
                               <Card.Body>
                                  <Card.Title className="text-center fw-500 mb-3">SIGN UP</Card.Title>
                                  <Form.Group className='form-group'>
-                                    <Form.Control type="text" placeholder="Name" />
+                                    <Form.Control type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Name" />
                                  </Form.Group>
                                  <Form.Group className='form-group'>
-                                    <Form.Control type="email" className="form-control" placeholder="Email" />
+                                    <Form.Control type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
                                  </Form.Group>
                                  <Form.Group className='form-group'>
-                                    <Form.Control type="password" id="exampleInputPassword1" placeholder="Password" />
+                                    <Form.Control type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password"/>
                                  </Form.Group>
                                  <Form.Group className='form-group'>
-                                    <Form.Control type="password" id="exampleInputPassword2" placeholder="Retype-Password" />
+                                    <Form.Control type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Retype-Password" />
                                  </Form.Group>
                                  <div className="form-check text-start mb-4">
                                     <Form.Check type="checkbox" className="" id="agree_1" />
                                     <Form.Label htmlFor="agree_1" className="form-check-label fw-normal">I Agree With Terms and Conditions</Form.Label>
                                  </div>
                                  <div>
-                                    <Link to={`${import.meta.env.BASE_URL}crm/crmdashboard/`} role="button" className="btn btn-success btn-block">Sign Up</Link>
+                                    <button onClick={registerUser} role="button" className="btn btn-success btn-block">Sign Up</button>
                                  </div>
                                  <div className="text-center mt-3">
                                     Don't have account? <Link to={`${import.meta.env.BASE_URL}CustomPages/Login/`} className="text-primary">Login</Link>

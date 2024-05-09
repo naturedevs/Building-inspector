@@ -16,6 +16,7 @@
     "@reduxjs/toolkit": "^1.9.7",
     "@simonwep/pickr": "^1.9.0",
     "apexcharts": "^3.45.2",
+    "axios": "^1.6.8",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
     "react-bootstrap": "^2.10.1",
