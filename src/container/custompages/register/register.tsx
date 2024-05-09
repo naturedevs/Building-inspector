@@ -27,7 +27,7 @@ const Register: FC<RegisterProps> = () => {
       });
    };
 
-   const registerUser = async() => {
+   const handleRegister = async() => {
 
       console.log("click sign up");
       axios.post(API_ROUTES.REGISTER, formData)
@@ -87,7 +87,7 @@ const Register: FC<RegisterProps> = () => {
                                     <Form.Label htmlFor="agree_1" className="form-check-label fw-normal">I Agree With Terms and Conditions</Form.Label>
                                  </div>
                                  <div>
-                                    <button onClick={registerUser} role="button" className="btn btn-success btn-block">Sign Up</button>
+                                    <button onClick={handleRegister} role="button" className="btn btn-success btn-block">Sign Up</button>
                                  </div>
                                  <div className="text-center mt-3">
                                     Don't have account? <Link to={`${import.meta.env.BASE_URL}CustomPages/Login/`} className="text-primary">Login</Link>

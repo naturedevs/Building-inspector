@@ -8,41 +8,68 @@ import { toast } from 'react-hot-toast';
 import img1 from "../../../assets/images/brand-logos/desktop-logo.png";
 import img2 from "../../../assets/images/brand-logos/desktop-dark.png";
 
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../config/authcontext';
 import { useState, ChangeEvent } from 'react';
+import axios from 'axios';
+import { API_ROUTES } from "../../../utils/constants"
 
 interface LoginProps { }
 
 const Login: FC<LoginProps> = () => {
    
    const { isLoggedIn, login } = useAuth();
-   
-   const [user, setUser] = useState({
-      username:"",
-      password:"",
+
+   const navigate = useNavigate();
+
+   const [formData, setFormData] = useState({
+      username: 'Jonathan Viera',
+      password: '123456'
    });
 
+   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = event.target;
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+   };
+
    const handleLogin = () => {
-      const res = login(user);
-      if(res == "success"){
-         toast.success("You are successfully logged in");
-         return;
-      }
-      toast.error(res);
+
+      axios.post(API_ROUTES.LOGIN, formData)
+      .then(response => {
+        // Handle successful response
+         console.log(response.data);
+      //   storeTokenInLocalStorage(response.data.token);
+         login(formData);
+         navigate('/dashboard');
+      })
+      .catch(error => {
+         if (error.response && error.response.status === 400) {
+            // Handle 400 error
+            console.error('Bad request');
+            // You can also access the response data if needed
+            console.error(error.response.data);
+         } else {
+            // Handle other errors
+            console.error('Server error');
+            console.error(error.message);
+         }
+      });
+
+      // const res = login(user);
+      // if(res == "success"){
+      //    toast.success("You are successfully logged in");
+      //    return;
+      // }
+      // toast.error(res);
+
    };
 
    if (isLoggedIn) {
       return <Navigate to="/dashboard" />;
    }
-
-   const handleUserChange = (event: ChangeEvent<HTMLInputElement>) => {
-      // console.log(`${event.target.id} - ${event.target.value}`);
-      setUser({
-         ...user,
-         [event.target.id]:event.target.value,
-      });
-    };
 
    return (
       <>
@@ -68,10 +95,10 @@ const Login: FC<LoginProps> = () => {
                               <Card.Body>
                                  <Card.Title className="text-center fw-500 mb-3">LOGIN</Card.Title>
                                  <Form.Group className='form-group'>
-                                    <Form.Control type="text" placeholder="Name" id="username" value={user.username} onChange={handleUserChange}/>
+                                    <Form.Control type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Name" />
                                  </Form.Group>
                                  <Form.Group className='form-group'>
-                                    <Form.Control type="password" id="password" placeholder="Password" value={user.password} onChange={handleUserChange}/>
+                                    <Form.Control type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password" />
                                  </Form.Group>
                                  {/* <Form.Group >
                                     <label className="custom-control custom-checkbox">
