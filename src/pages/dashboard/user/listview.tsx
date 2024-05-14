@@ -9,19 +9,14 @@ import toast from 'react-hot-toast';
 import { ActionColumn } from '../../../components/ui/tabulator/ActionColumn';
 import { YesNoModal } from '../../../components/ui/modal/YesNo';
 import { getUsers, deleteUser } from '../../../apis/user';
-
+import { User } from "./types";
+import { UserForm } from './Form';
 import "react-tabulator/lib/styles.css";
 import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css";
 import "../../../assets/css/tabulator.css";
 
 interface UserListViewProps { }
 
-interface User {
-   id: string;
-   name: string;
-   created_at: string;
-   role: string[];
- }
 const UserListView: FC<UserListViewProps> = () => {
    const [currentPage, setCurrentPage] = useState(1);
 	const [pageSize] = useState(10);
@@ -31,6 +26,7 @@ const UserListView: FC<UserListViewProps> = () => {
    const [loading, setLoading] = useState(false);   
    const paginationRef = useRef(null);
    const [showDeleteAlertModal, setShowDeleteAlertModal] = useState(false);
+   const [showUserFormModal, setShowUserFormModal] = useState(false);
    const [deleting, setDeleting] = useState(false);
 
    useEffect(() => {
@@ -52,13 +48,18 @@ const UserListView: FC<UserListViewProps> = () => {
       if(type == "delete"){
          setShowDeleteAlertModal(true);
       }else if(type == "edit"){
-
+         setShowUserFormModal(true);
       }
    };
 
    const handleDeleteAlertModalOK = () => {
       console.log("handleDeleteAlertModalOK");
+      console.log(selectedUser?.id);
       setDeleting(true);
+      if(!selectedUser){
+         toast.error("Something went wrong, none user is selected");
+         return;
+      }
       deleteUser(selectedUser.id)
       .then(res => {
          setDeleting(false);
@@ -153,6 +154,12 @@ const UserListView: FC<UserListViewProps> = () => {
          content={'Are you sure to delete this user?'} 
          handleOK={handleDeleteAlertModalOK}
       />
+      <UserForm
+         user={selectedUser} 
+         modalShow={showUserFormModal} 
+         setModalShow={setShowUserFormModal}
+      />
+
    </div>
 )
 };

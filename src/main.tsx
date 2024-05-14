@@ -4,10 +4,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from "react-hot-toast";
 
 import { AuthProvider } from './config/authcontext';
-import App from './pages/app';
 import "./index.scss";
 import CrmDashboard from './container/dashboard/crmdashboard';
-import { Custom } from './pages/custom';
+import App from './layout/app';
+import { Custom } from './layout/custom';
 import Register from './container/custompages/register/register';
 import Login from "./container/custompages/login/login";
 import LockScreen from './container/custompages/lockscreen/lockscreen';
