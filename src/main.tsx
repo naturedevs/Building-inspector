@@ -13,10 +13,10 @@ import Login from "./pages/custompages/login/login";
 import LockScreen from './pages/custompages/lockscreen/lockscreen';
 import ForgotPassword from './pages/custompages/forgotpassword/forgotpassword';
 import Error404 from './pages/custompages/error404/error404';
-import UserListView from './pages/dashboard/user/listview';
-import ViolationListView from './pages/dashboard/violation/listview';
-import RoleListView from './pages/dashboard/role/listview';
-import TestListView from './pages/dashboard/test/listview';
+import UserListView from './pages/user/listview';
+import ViolationListView from './pages/violation/listview';
+import RoleListView from './pages/role/listview';
+import TestListView from './pages/test/listview';
 
 import PrivateRoute from './config/privateroute';
 

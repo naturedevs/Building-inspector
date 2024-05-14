@@ -6,14 +6,14 @@ import MultiValueFormatter from "react-tabulator/lib/formatters/MultiValueFormat
 import { ReactTabulator, reactFormatter } from "react-tabulator";
 import toast from 'react-hot-toast';
 
-import { ActionColumn } from '../../../components/ui/tabulator/ActionColumn';
-import { YesNoModal } from '../../../components/ui/modal/YesNo';
-import { getUsers, deleteUser } from '../../../apis/user';
+import { ActionColumn } from '../../components/ui/tabulator/ActionColumn';
+import { YesNoModal } from '../../components/ui/modal/YesNo';
+import { getUsers, deleteUser } from '../../apis/user';
 import { User } from "./types";
 import { UserForm } from './Form';
 import "react-tabulator/lib/styles.css";
 import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css";
-import "../../../assets/css/tabulator.css";
+import "../../assets/css/tabulator.css";
 
 interface UserListViewProps { }
 
