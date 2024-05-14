@@ -15,8 +15,8 @@ import MultiValueFormatter from 'react-tabulator/lib/formatters/MultiValueFormat
 import { reactFormatter } from 'react-tabulator/lib/Utils';
 import "react-tabulator/lib/styles.css"; // default theme
 
-// import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css"; // use Theme(s)
-// import "react-tabulator/lib/css/bootstrap/tabulator_bootstrap.min.css";
+import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css"; // use Theme(s)
+import "react-tabulator/lib/css/bootstrap/tabulator_bootstrap.min.css";
 
 interface TestListViewProps { }
 function SimpleButton(props: any) {

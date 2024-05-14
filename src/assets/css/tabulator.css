@@ -1,0 +1,18 @@
+.tabulator-footer{
+    position: sticky;
+    left: 0;
+}
+.tabulator{
+    display: inline;
+}
+.tabulator-row{
+    display: inline-flex;
+}
+.tabulator-header{
+    display: inline;
+}
+@media screen and (max-width: 1024px) {
+    .tabulator-col, .tabulator-cell {
+        /* width: fit-content !important; */
+    }
+}
