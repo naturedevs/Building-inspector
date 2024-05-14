@@ -11,6 +11,12 @@
 .tabulator-header{
     display: inline;
 }
+.tabulator-header-contents{
+    overflow-x: auto;
+}
+.tabulator-tableholder{
+    overflow-x: auto;
+}
 @media screen and (max-width: 1024px) {
     .tabulator-col, .tabulator-cell {
         /* width: fit-content !important; */
