@@ -80,6 +80,7 @@ const UserListView: FC<UserListViewProps> = () => {
    const columns:any= [
       { title:"No", field:"No", width:80, formatter:"rownum", headerSort:false},
       { title: "Name", field: "name", minWidth:200, sorter: "string", headerFilter: 'input'},
+      { title: "Email", field: "email", minWidth:200, sorter: "string", headerFilter: 'input'},
       { title: "Role", field: "role", minWidth:200,
          sorter: (a: string[], b: string[]) => a.toString().localeCompare(b.toString()),      
          formatter: MultiValueFormatter,

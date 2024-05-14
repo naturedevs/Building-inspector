@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@emotion/styled": "^11.11.0",
+    "@hookform/resolvers": "^3.3.4",
     "@reduxjs/toolkit": "^1.9.7",
     "@simonwep/pickr": "^1.9.0",
     "apexcharts": "^3.45.2",
@@ -33,7 +34,8 @@
     "sass": "^1.70.0",
     "simplebar": "^6.2.5",
     "simplebar-react": "^3.2.4",
-    "styled-components": "^6.1.8"
+    "styled-components": "^6.1.8",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/react": "^18.2.55",
