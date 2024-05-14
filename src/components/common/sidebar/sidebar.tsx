@@ -560,7 +560,7 @@ const [previousUrl , setPreviousUrl]= useState('/')
       <aside className="app-sidebar sticky" id="sidebar" onMouseEnter={() => Onhover()}
         onMouseLeave={() => Outhover()} >
         <div className="main-sidebar-header">
-          <Link to={`${import.meta.env.BASE_URL}crm/crmdashboard/`}  className="header-logo">
+          <Link to={`${import.meta.env.BASE_URL}dashboard/`}  className="header-logo">
             <img src={logo1} alt="logo" className="desktop-logo" />
             <img src={logo2} alt="logo" className="toggle-logo" />
             <img src={logo3} alt="logo" className="desktop-dark" />

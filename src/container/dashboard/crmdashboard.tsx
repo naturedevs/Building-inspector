@@ -2,14 +2,14 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, Col,  OverlayTrigger, ProgressBar, Row, Table, Tooltip } from 'react-bootstrap';
 import { Projectschart, RevenueMain, Revenuechart, Saleschart, Spark1, Totaldeals } from './data/dashboarddata';
-import img2 from "../../../assets/images/users/2.jpg";
-import img3 from "../../../assets/images/users/3.jpg";
-import img5 from "../../../assets/images/users/5.jpg";
-import img11 from "../../../assets/images/users/11.jpg";
-import img12 from "../../../assets/images/users/12.jpg";
-import img14 from "../../../assets/images/users/14.jpg";
-import img16 from "../../../assets/images/users/16.jpg";
-import crmDash from '../../../assets/images/svg/email-marketing.svg';
+import img2 from "../../assets/images/users/2.jpg";
+import img3 from "../../assets/images/users/3.jpg";
+import img5 from "../../assets/images/users/5.jpg";
+import img11 from "../../assets/images/users/11.jpg";
+import img12 from "../../assets/images/users/12.jpg";
+import img14 from "../../assets/images/users/14.jpg";
+import img16 from "../../assets/images/users/16.jpg";
+import crmDash from '../../assets/images/svg/email-marketing.svg';
 
 interface DashboardProps { }
 
@@ -20,45 +20,13 @@ const CrmDashboard: FC<DashboardProps> = () => {
 
             <div className="page-header">
                <div className="flex-grow-1 py-2-5">
-                  <h4 className="page-title mb-1">CRM Admin Dashboard</h4>
+                  <h4 className="page-title mb-1">Dashboard</h4>
                   <nav aria-label="breadcrumb">
                      <ol className="breadcrumb mb-0">
-                        <li className="breadcrumb-item"><Link to={`${import.meta.env.BASE_URL}crm/crmdashboard/`} className="text-primary">CRM</Link></li>
+                        <li className="breadcrumb-item"><Link to={`${import.meta.env.BASE_URL}dashboard/`} className="text-primary">CRM</Link></li>
                         <li className="breadcrumb-item active" aria-current="page">Dashboard</li>
                      </ol>
                   </nav>
-               </div>
-               <div className="min-w-fit-content d-sm-flex align-items-center">
-                  <div className="flex-grow-1 py-2-5">
-                     <p className="text-muted mb-2">Category</p>
-                     <h6 className="fw-500 mb-0">All Categories</h6>
-                  </div>
-                  <div className="vr mx-3 d-none d-sm-flex"></div>
-                  <div className="flex-grow-1 py-2-5">
-                     <p className="text-muted mb-1">Customer Rating</p>
-                     <div className="wideget-user-rating">
-                        <a href="#">
-                           <i className="fa fa-star text-warning me-1"></i>
-                        </a>
-                        <a href="#">
-                           <i className="fa fa-star text-warning me-1"></i>
-                        </a>
-                        <a href="#">
-                           <i className="fa fa-star text-warning me-1"></i>
-                        </a>
-                        <a href="#">
-                           <i className="fa fa-star text-warning me-1"></i>
-                        </a>
-                        <a href="#">
-                           <i className="fa fa-star-o text-warning"></i>
-                        </a>
-                        <span className="fs-13 fw-500 ms-2">(4.5/5)</span>
-                     </div>
-                  </div>
-                  <div className="vr mx-3 d-none d-sm-flex"></div>
-                  <div className="flex-grow-1 py-2-5">
-                     <a href="#" className="btn btn-primary"><i className="fe fe-shopping-cart me-1"></i>Buy Now</a>
-                  </div>
                </div>
             </div>
 

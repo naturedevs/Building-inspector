@@ -1,8 +1,9 @@
 import  { FC, useState, ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Col, Form, Row } from 'react-bootstrap';
-import axios from 'axios';
-import { API_ROUTES } from "../../../utils/constants"
+import axios from 'axios'; 
+import { API_ROUTES } from '../../../utils/constants';
+// import { Toast } from 'react-hot-toast'; 
 
 //IMAGE IMPORTS
 import img1 from "../../../assets/images/brand-logos/desktop-logo.png";
@@ -41,6 +42,7 @@ const Register: FC<RegisterProps> = () => {
             console.error('Bad request');
             // You can also access the response data if needed
             console.error(error.response.data);
+            
          } else {
             // Handle other errors
             console.error('Server error');
@@ -82,7 +84,7 @@ const Register: FC<RegisterProps> = () => {
                                  <Form.Group className='form-group'>
                                     <Form.Control type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Retype-Password" />
                                  </Form.Group>
-                                 <div className="form-check text-start mb-4">
+                                 <div className="form-check text-start mb-4" hidden>
                                     <Form.Check type="checkbox" className="" id="agree_1" />
                                     <Form.Label htmlFor="agree_1" className="form-check-label fw-normal">I Agree With Terms and Conditions</Form.Label>
                                  </div>
@@ -90,7 +92,7 @@ const Register: FC<RegisterProps> = () => {
                                     <button onClick={handleRegister} role="button" className="btn btn-success btn-block">Sign Up</button>
                                  </div>
                                  <div className="text-center mt-3">
-                                    Don't have account? <Link to={`${import.meta.env.BASE_URL}CustomPages/Login/`} className="text-primary">Login</Link>
+                                    Do you have account? <Link to={`${import.meta.env.BASE_URL}Login/`} className="text-primary">Login</Link>
                                  </div>
                               </Card.Body>
                            </div>

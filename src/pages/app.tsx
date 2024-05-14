@@ -43,7 +43,6 @@ function App() {
               "data-theme-mode": "light",
               "data-nav-layout": "vertical",
               "data-header-styles": "light",
-              "data-vertical-style": "overlay",
               "data-loader": "disable",
               "data-icon-text": MyclassName,
             }}

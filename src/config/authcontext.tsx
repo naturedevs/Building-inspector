@@ -7,7 +7,7 @@ interface AuthContextType {
   isLoggedIn: boolean;
   login: ({username, password}:{username:string, password:string}) => string;
   logout: () => void;
-  getUser: () => {};
+  getUser: () => {username:string, password:string};
 }
 
 // Create the context with a default value

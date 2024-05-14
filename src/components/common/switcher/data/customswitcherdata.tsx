@@ -141,7 +141,7 @@ export const IconHover = (actionfunction: any) => {
     actionfunction({
         ...theme,
         "dataNavStyle": "icon-hover",
-        "dataVerticalStyle": "",
+        // "dataVerticalStyle": "",
         "toggled": "icon-hover-closed"
     });
     localStorage.setItem("dashlotnavstyles", "icon-hover");

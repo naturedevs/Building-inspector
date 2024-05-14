@@ -14,68 +14,72 @@ export interface menu {
 
 export const MENUITEMS = [
 	{
-		menutitle: '',
+		menutitle: 'asdf',
+		class: 'text-center',
 	},
 	{
 		icon: (<i className="bi bi-house side_menu_img"></i>),
-		type: 'sub',
+		type: 'link',
 		Name: '',
 		active: false,
 		selected: false,
-		title: 'CRM',
+		title: 'Dashboard',
 		badge: '',
 		badgetxt: '',
 		class: '',
-		children: [
-			{ id: 3, path: `${import.meta.env.BASE_URL}crm/crmdashboard`, type: "link", active: false, selected: false, title: "Dashboard" },
-		]
-	},
-
-	{
-		menutitle: "",
+		path: `${import.meta.env.BASE_URL}dashboard`,
 	},
 	{
-		icon: (<i className="bx bx-layer side_menu_img"></i>),
-		type: "sub",
+		icon: (<i className="bi bi-person side_menu_img"></i>),
+		type: 'link',
+		Name: '',
+		active: false,
+		selected: false,
+		title: 'Users',
+		badge: '',
+		badgetxt: '',
+		class: '',
+		path: `${import.meta.env.BASE_URL}users`,
+	},
+	{
+		icon: (<i className="bx bx-user-check side_menu_img"></i>),
+		type: 'link',
+		Name: '',
+		active: false,
+		selected: false,
+		title: 'Roles',
+		badge: '',
+		badgetxt: '',
+		class: '',
+		path: `${import.meta.env.BASE_URL}roles`,
+	},
+	{
+		menutitle: 'asdf',
+		class: 'text-center',
+	},
+	{
+		icon: (<i className="bi bi-card-list side_menu_img"></i>),
+		type: "link",
 		Name: '',
 		active: false,
 		selected: false,
 		badge: '',
 		badgetxt: '',
 		class: ' ',
-		title: "Nested Menu",
-		children: [
-			{
-				path: `${import.meta.env.BASE_URL}crm/crmdashboard`,
-				title: "Nested-1",
-				type: "empty",
-				active: false,
-				selected: false,
-			},
-			{
-				title: "Nested-2",
-				type: "sub",
-				selected: false,
-				active: false,
-				children: [
-					{
-						path: '',
-						title: "Nested-2.1",
-						type: "empty",
-						active: false,
-						selected: false,
-					},
-					{
-						path: '',
-						title: "Nested-2.2",
-						type: "empty",
-						active: false,
-						selected: false,
-					},
-
-				],
-			},
-		],
+		title: "violations",
+		path: `${import.meta.env.BASE_URL}violations`,
+	},
+	{
+		icon: (<i className="bi bi-hammer side_menu_img"></i>),
+		type: "link",
+		Name: '',
+		active: false,
+		selected: false,
+		badge: '',
+		badgetxt: '',
+		class: ' ',
+		title: "tests",
+		path: `${import.meta.env.BASE_URL}tests`,
 	}
 
 
