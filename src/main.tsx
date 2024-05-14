@@ -5,18 +5,18 @@ import { Toaster } from "react-hot-toast";
 
 import { AuthProvider } from './config/authcontext';
 import "./index.scss";
-import CrmDashboard from './container/dashboard/crmdashboard';
 import App from './layout/app';
 import { Custom } from './layout/custom';
-import Register from './container/custompages/register/register';
-import Login from "./container/custompages/login/login";
-import LockScreen from './container/custompages/lockscreen/lockscreen';
-import ForgotPassword from './container/custompages/forgotpassword/forgotpassword';
-import Error404 from './container/custompages/error404/error404';
-import UserListView from './container/dashboard/user/listview';
-import ViolationListView from './container/dashboard/violation/listview';
-import RoleListView from './container/dashboard/role/listview';
-import TestListView from './container/dashboard/test/listview';
+import CrmDashboard from './pages/dashboard/crmdashboard';
+import Register from './pages/custompages/register/register';
+import Login from "./pages/custompages/login/login";
+import LockScreen from './pages/custompages/lockscreen/lockscreen';
+import ForgotPassword from './pages/custompages/forgotpassword/forgotpassword';
+import Error404 from './pages/custompages/error404/error404';
+import UserListView from './pages/dashboard/user/listview';
+import ViolationListView from './pages/dashboard/violation/listview';
+import RoleListView from './pages/dashboard/role/listview';
+import TestListView from './pages/dashboard/test/listview';
 
 import PrivateRoute from './config/privateroute';
 
