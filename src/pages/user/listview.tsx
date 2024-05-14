@@ -15,6 +15,8 @@ import "react-tabulator/lib/styles.css";
 import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css";
 import "../../assets/css/tabulator.css";
 
+import { API_ROUTES } from "../../utils/constants"
+
 interface UserListViewProps { }
 
 const UserListView: FC<UserListViewProps> = () => {
@@ -31,16 +33,25 @@ const UserListView: FC<UserListViewProps> = () => {
 
    useEffect(() => {
       setLoading(true);
-      getUsers()
-      .then(users => {
-         setUsers(users)
-         setLoading(false);
-      })
-      .catch(error =>{
-         toast.error(error.message);
-         setLoading(false);              
-      })
+      fetchData();
    },[])
+
+   const fetchData = async () => {
+
+      fetch(API_ROUTES.GET_USER_LIST, {
+         method: "GET"
+       })
+         .then((response) => response.json())
+         .then((data) => {
+            console.log(data);
+            setUsers(data);
+            setLoading(false);
+         })
+         .catch((error) => {
+            console.log(error);
+            setLoading(false);
+         });
+   };
 
    const handleAction = (type:string, data:any) => {
       console.log("handleStateChange");
@@ -79,7 +90,7 @@ const UserListView: FC<UserListViewProps> = () => {
 
    const columns:any= [
       { title:"No", field:"No", width:80, formatter:"rownum", headerSort:false},
-      { title: "Name", field: "name", minWidth:200, sorter: "string", headerFilter: 'input'},
+      { title: "Name", field: "username", minWidth:200, sorter: "string", headerFilter: 'input'},
       { title: "Email", field: "email", minWidth:200, sorter: "string", headerFilter: 'input'},
       { title: "Role", field: "role", minWidth:200,
          sorter: (a: string[], b: string[]) => a.toString().localeCompare(b.toString()),      
