@@ -13,7 +13,7 @@ export function YesNoModal (
     return(
     <>
         <Modal centered show={modalShow} onHide={() => setModalShow(false)} keyboard={false} className="modal fade">
-            <Modal.Header closeButton className="bg-danger">
+            <Modal.Header closeButton className={`bg-${type}`}>
                 <Modal.Title as="h6">{title}</Modal.Title>
             </Modal.Header>
             <Modal.Body>

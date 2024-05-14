@@ -42,7 +42,19 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             </Route>
             <Route path="*" element={<Error404 />} />
           </Routes>
-          <Toaster position="top-right" />
+          <Toaster position="top-right" toastOptions={{
+              success: {
+                style: {
+                  // background: 'green',
+                },
+              },
+              error: {
+                style: {
+                  // background: 'red',
+                },
+              },
+            }}
+            />
         </React.Suspense >
       </AuthProvider>
     </BrowserRouter>
