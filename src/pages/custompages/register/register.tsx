@@ -2,14 +2,23 @@ import  { FC, useState, ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Col, Form, Row } from 'react-bootstrap';
 import axios from 'axios'; 
+import toast from 'react-hot-toast'; 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+
 import { API_ROUTES } from '../../../utils/constants';
-// import { Toast } from 'react-hot-toast'; 
 
 //IMAGE IMPORTS
 import img1 from "../../../assets/images/brand-logos/desktop-logo.png";
 import img2 from "../../../assets/images/brand-logos/desktop-dark.png";
 
 interface RegisterProps { }
+
+const schema = z.object({
+   name: z.string().min(1, { message: 'Required' }),
+   age: z.number().min(10),
+});
 
 const Register: FC<RegisterProps> = () => {
 
