@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 
 import { ActionColumn } from '../../components/ui/tabulator/ActionColumn';
 import { YesNoModal } from '../../components/ui/modal/YesNo';
-import { getUsers, deleteUser } from '../../apis/user';
+import { deleteUser } from '../../apis/user';
 import { User } from "./types";
 import { UserForm } from './Form';
 import "react-tabulator/lib/styles.css";
@@ -40,7 +40,7 @@ const UserListView: FC<UserListViewProps> = () => {
 
       fetch(API_ROUTES.GET_USER_LIST, {
          method: "GET"
-       })
+      })
          .then((response) => response.json())
          .then((data) => {
             console.log(data);
@@ -71,21 +71,7 @@ const UserListView: FC<UserListViewProps> = () => {
          toast.error("Something went wrong, none user is selected");
          return;
       }
-      deleteUser(selectedUser.id)
-      .then(res => {
-         setDeleting(false);
-         if(res == "success"){
-            toast.success("The user successfully deleted.");
-         }else{
-            toast.error(res);
-         }
-         setShowDeleteAlertModal(false);
-      })
-      .catch(error => {
-         setDeleting(false);
-         toast.error(error.message);
-         setShowDeleteAlertModal(false);
-      })
+
    }
 
    const columns:any= [
