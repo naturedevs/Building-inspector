@@ -39,11 +39,12 @@ const schema = z.object({
  });
 
 export function UserForm (
-{user, modalShow, setModalShow}:
+{user, modalShow, setModalShow, updateUsers}:
 {
     user:User | undefined, 
     modalShow:boolean, 
     setModalShow: (b:boolean) => void,
+    updateUsers: () => void,
 }) {
     const {
         register,
@@ -66,6 +67,7 @@ export function UserForm (
         .then(response => {
             console.log(response.data);
             toast.success("The user is successfully added.");
+            updateUsers();
         })
         .catch(error => {
             if (error.response && error.response.status === 400) {

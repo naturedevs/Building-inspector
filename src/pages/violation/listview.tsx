@@ -36,18 +36,7 @@ const ViolationListView: FC<ViolationListViewProps> = () => {
 		setCurrentPage(page);
 	};
    return (
-   <div className='main-container container-fluid'>
-      <div className="page-header">
-         <div className="flex-grow-1 py-2-5">
-            <h4 className="page-title mb-1">Violations</h4>
-            <nav aria-label="breadcrumb">
-               <ol className="breadcrumb mb-0">
-                  <li className="breadcrumb-item"><Link to={`${import.meta.env.BASE_URL}dashboard/`} className="text-primary">CRM</Link></li>
-                  <li className="breadcrumb-item active" aria-current="page">Violations</li>
-               </ol>
-            </nav>
-         </div>
-      </div>
+   <div className='main-container container-fluid mt-3'>
       <Row>
          <Col xl={12}>
             <Card className="custom-card">
