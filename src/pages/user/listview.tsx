@@ -37,7 +37,6 @@ const UserListView: FC<UserListViewProps> = () => {
    },[])
 
    const fetchData = async () => {
-
       fetch(API_ROUTES.GET_USER_LIST, {
          method: "GET"
       })

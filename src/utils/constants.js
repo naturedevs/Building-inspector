@@ -5,4 +5,5 @@ export const API_ROUTES = {
    ME: `${API_URL}/auth/me`,
    GET_USER_LIST: `${API_URL}/user/list`,
    DELETE_USER: `${API_URL}/user/delete`,
+   ADD_USER: `${API_URL}/user/add`,
 }

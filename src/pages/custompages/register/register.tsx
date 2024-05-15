@@ -63,6 +63,10 @@ const Register: FC<RegisterProps> = () => {
 
       console.log("click sign up");
       console.log(data);
+      if(data.password != data.confirmPassword){
+         toast.error("The confirmpassword mismatch.");
+         return;
+      }
       axios.post(API_ROUTES.REGISTER, formData)
       .then(response => {
          // Handle successful response
@@ -109,25 +113,25 @@ const Register: FC<RegisterProps> = () => {
                                  <Form.Group className='form-group'>
                                     <Form.Control type="text" {...register('username')} placeholder="Name" />
                                     {errors.username?.message && (
-                                       <p className="text-danger align-content-start">{errors.username.message}</p>
+                                       <p className="text-danger text-start">{errors.username.message}</p>
                                     )}
                                  </Form.Group>
                                  <Form.Group className='form-group'>
                                     <Form.Control type="email" {...register('email')} placeholder="Email" />
                                     {errors.email?.message && (
-                                       <p className="text-danger align-self-start">{errors.email.message}</p>
+                                       <p className="text-danger  text-start">{errors.email.message}</p>
                                     )}
                                  </Form.Group>
                                  <Form.Group className='form-group'>
                                     <Form.Control type="password" {...register('password')} placeholder="Password"/>
                                     {errors.password?.message && (
-                                       <p className="text-danger align-self-start">{errors.password.message}</p>
+                                       <p className="text-danger  text-start">{errors.password.message}</p>
                                     )}
                                  </Form.Group>
                                  <Form.Group className='form-group'>
                                     <Form.Control type="password" {...register('confirmPassword')} placeholder="Retype-Password" />
                                     {errors.confirmPassword?.message && (
-                                       <p className="text-danger align-self-start">{errors.confirmPassword.message}</p>
+                                       <p className="text-danger  text-start">{errors.confirmPassword.message}</p>
                                     )}
                                  </Form.Group>
                                  <div className="form-check text-start mb-4" hidden>
