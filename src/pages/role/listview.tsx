@@ -12,6 +12,8 @@ import { ActionColumn } from '../../components/ui/tabulator/ActionColumn';
 import { Role } from './types';
 // import "react-tabulator/lib/css/bootstrap/tabulator_bootstrap.min.css";
 
+import { API_ROUTES } from "../../utils/constants"
+
 interface RoleListViewProps { }
 const data = [
    { id: 1, name: "Admin"},
