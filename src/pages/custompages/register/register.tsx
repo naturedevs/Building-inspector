@@ -4,7 +4,7 @@ import { Card, Col, Form, Row } from 'react-bootstrap';
 import axios from 'axios'; 
 import toast from 'react-hot-toast'; 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, FieldValues } from "react-hook-form";
 import * as z from "zod";
 
 import { API_ROUTES } from '../../../utils/constants';
@@ -16,8 +16,22 @@ import img2 from "../../../assets/images/brand-logos/desktop-dark.png";
 interface RegisterProps { }
 
 const schema = z.object({
-   name: z.string().min(1, { message: 'Required' }),
-   age: z.number().min(10),
+   username: z.string().min(1, { 
+      message: 'Required' 
+   }).min(4, { 
+      message: 'Must be 4 or more characters long.' 
+   }),
+   email: z.string().min(1, {
+      message: 'Required'
+   }).email({       
+      message: 'Must be an email address' 
+   }),
+   password: z.string().min(1, {
+      message: 'Required'
+   }).min(4, {
+     message: "Must be 4 or more characters long.",
+   }),
+   confirmPassword: z.string(),
 });
 
 const Register: FC<RegisterProps> = () => {
@@ -29,6 +43,14 @@ const Register: FC<RegisterProps> = () => {
       confirmPassword: '123456'
    });
 
+   const {
+      register,
+      handleSubmit,
+      formState: { errors },
+   } = useForm({
+      resolver: zodResolver(schema),
+   });
+
    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = event.target;
       setFormData({
@@ -37,13 +59,15 @@ const Register: FC<RegisterProps> = () => {
       });
    };
 
-   const handleRegister = async() => {
+   const handleRegister = async (data:FieldValues) => {
 
       console.log("click sign up");
+      console.log(data);
       axios.post(API_ROUTES.REGISTER, formData)
       .then(response => {
          // Handle successful response
          console.log(response.data);
+         toast.success("You are successfully registered.");
       })
       .catch(error => {
          if (error.response && error.response.status === 400) {
@@ -51,11 +75,12 @@ const Register: FC<RegisterProps> = () => {
             console.error('Bad request');
             // You can also access the response data if needed
             console.error(error.response.data);
-            
+            toast.error(error.response.data);            
          } else {
             // Handle other errors
             console.error('Server error');
             console.error(error.message);
+            toast.error(error.message);
          }
       });
    }
@@ -73,7 +98,7 @@ const Register: FC<RegisterProps> = () => {
                   </Link>
                </div>
             </div>
-            <div className="container">
+            <form className="container" onSubmit={handleSubmit((d) => handleRegister(d))}>
                <Row>
                   <Col md={6} xl={5} className="justify-content-center mx-auto text-center">
                      <Card className="overflow-hidden">
@@ -82,23 +107,35 @@ const Register: FC<RegisterProps> = () => {
                               <Card.Body>
                                  <Card.Title className="text-center fw-500 mb-3">SIGN UP</Card.Title>
                                  <Form.Group className='form-group'>
-                                    <Form.Control type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Name" />
+                                    <Form.Control type="text" {...register('username')} placeholder="Name" />
+                                    {errors.username?.message && (
+                                       <p className="text-danger align-content-start">{errors.username.message}</p>
+                                    )}
                                  </Form.Group>
                                  <Form.Group className='form-group'>
-                                    <Form.Control type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
+                                    <Form.Control type="email" {...register('email')} placeholder="Email" />
+                                    {errors.email?.message && (
+                                       <p className="text-danger align-self-start">{errors.email.message}</p>
+                                    )}
                                  </Form.Group>
                                  <Form.Group className='form-group'>
-                                    <Form.Control type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password"/>
+                                    <Form.Control type="password" {...register('password')} placeholder="Password"/>
+                                    {errors.password?.message && (
+                                       <p className="text-danger align-self-start">{errors.password.message}</p>
+                                    )}
                                  </Form.Group>
                                  <Form.Group className='form-group'>
-                                    <Form.Control type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Retype-Password" />
+                                    <Form.Control type="password" {...register('confirmPassword')} placeholder="Retype-Password" />
+                                    {errors.confirmPassword?.message && (
+                                       <p className="text-danger align-self-start">{errors.confirmPassword.message}</p>
+                                    )}
                                  </Form.Group>
                                  <div className="form-check text-start mb-4" hidden>
                                     <Form.Check type="checkbox" className="" id="agree_1" />
                                     <Form.Label htmlFor="agree_1" className="form-check-label fw-normal">I Agree With Terms and Conditions</Form.Label>
                                  </div>
                                  <div>
-                                    <button onClick={handleRegister} role="button" className="btn btn-success btn-block">Sign Up</button>
+                                    <button type="submit" role="button" className="btn btn-success btn-block">Sign Up</button>
                                  </div>
                                  <div className="text-center mt-3">
                                     Do you have account? <Link to={`${import.meta.env.BASE_URL}Login/`} className="text-primary">Login</Link>
@@ -109,7 +146,7 @@ const Register: FC<RegisterProps> = () => {
                      </Card>
                   </Col>
                </Row>
-            </div>
+            </form>
          </div> 
       </>
 ); };
