@@ -6,4 +6,7 @@ export const API_ROUTES = {
    GET_USER_LIST: `${API_URL}/user/list`,
    DELETE_USER: `${API_URL}/user/delete`,
    ADD_USER: `${API_URL}/user/add`,
+   GET_ROLE_LIST: `${API_URL}/role/list`,
+   DELETE_ROLE: `${API_URL}/role/delete`,
+   ADD_ROLE: `${API_URL}/role/add`,
 }

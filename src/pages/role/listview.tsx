@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Col, Row } from 'react-bootstrap';
 import DateEditor from "react-tabulator/lib/editors/DateEditor";
@@ -29,12 +29,33 @@ const RoleListView: FC<RoleListViewProps> = () => {
    const [currentPage, setCurrentPage] = useState(1);
 	const [pageSize] = useState(10);
 	const [totalPages] = useState(1);
-   // const [selectedUser, setSelectedUser] = useState<User>();
+   const [roles, setRoles] = useState<Role[]>([]);   
    const [selectedRole, setSelectedRole] = useState<Role>();
    const [loading, setLoading] = useState(false);  
    const [showDeleteAlertModal, setShowDeleteAlertModal] = useState(false);
    const [showUserFormModal, setShowUserFormModal] = useState(false);
    const [deleting, setDeleting] = useState(false);
+
+   useEffect(() => {
+      fetchUsers();
+   },[])
+
+   const fetchUsers = async () => {
+      setLoading(true);
+      fetch(API_ROUTES.GET_USER_LIST, {
+         method: "GET"
+      })
+      .then((response) => response.json())
+      .then((data) => {
+         console.log(data);
+         setRoles(data);
+         setLoading(false);
+      })
+      .catch((error) => {
+         console.log(error);
+         setLoading(false);
+      });
+   };
 
    const handleAction = (type:string, data:any) => {
       console.log("handleStateChange");
