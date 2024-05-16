@@ -3,7 +3,7 @@
     left: 0;
 }
 .tabulator{
-    display: inline;
+    /* display: inline; */
 }
 .tabulator-row{
     display: inline-flex;

@@ -39427,7 +39427,7 @@ textarea {
 }
 
 [dir=ltr] .tabulator .tabulator-row .tabulator-cell:nth-child(9) {
-  border-inline-end-width: 0px !important;
+  /* border-inline-end-width: 0px !important; */
 }
 
 [dir=rtl] .tabulator .tabulator-row .tabulator-cell:nth-child(9) {
@@ -39435,7 +39435,7 @@ textarea {
 }
 
 [dir=ltr] .tabulator .tabulator-header .tabulator-col:nth-child(9) {
-  border-inline-end-width: 0px !important;
+  /* border-inline-end-width: 0px !important; */
 }
 
 .tabulator .tabulator-footer {
