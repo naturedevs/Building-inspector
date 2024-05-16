@@ -17,6 +17,9 @@
 .tabulator-tableholder{
     overflow-x: auto;
 }
+.tabulator .tabulator-row .tabulator-cell{
+    align-content: center;
+}
 @media screen and (max-width: 1024px) {
     .tabulator-col, .tabulator-cell {
         /* width: fit-content !important; */

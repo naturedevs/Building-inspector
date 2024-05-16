@@ -1,6 +1,6 @@
 import { FC, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Col, Row } from 'react-bootstrap';
+import { Card, Col, Row, Form, Button } from 'react-bootstrap';
 import DateEditor from "react-tabulator/lib/editors/DateEditor";
 import MultiValueFormatter from "react-tabulator/lib/formatters/MultiValueFormatter";
 import { ReactTabulator, reactFormatter } from "react-tabulator";
@@ -34,7 +34,7 @@ const RoleListView: FC<RoleListViewProps> = () => {
    const [selectedRole, setSelectedRole] = useState<Role>();
    const [loading, setLoading] = useState(false);  
    const [showDeleteAlertModal, setShowDeleteAlertModal] = useState(false);
-   const [showUserFormModal, setShowUserFormModal] = useState(false);
+   const [showRoleFormModal, setShowRoleFormModal] = useState(false);
    const [deleting, setDeleting] = useState(false);
 
    useEffect(() => {
@@ -65,7 +65,7 @@ const RoleListView: FC<RoleListViewProps> = () => {
       if(type == "delete"){
          setShowDeleteAlertModal(true);
       }else if(type == "edit"){
-         setShowUserFormModal(true);
+         setShowRoleFormModal(true);
       }
    };
 
@@ -98,11 +98,10 @@ const RoleListView: FC<RoleListViewProps> = () => {
       });
    }
 
-	const handlePageChange = (page:any) => {
-      console.log("page")
-      console.log(page)
-		setCurrentPage(page);
-	};
+   const handleAddRole = () => {
+      setSelectedRole(undefined);
+      setShowRoleFormModal(true);
+   }
 
    const columns:any= [
       { title:"No", field:"No", width:80, formatter:"rownum", headerSort:false},
@@ -120,18 +119,23 @@ const RoleListView: FC<RoleListViewProps> = () => {
                      </Card.Title>
                   </Card.Header>
                   <Card.Body>
-                  <div className="table-responsive  " style={{ border: '1px solid #dee2e6' }}>
-                     <ReactTabulator className="table-hover table-bordered"
-                        data={data}
-                        columns={columns} 
-                        options={{pagination: 'local',
-                           paginationSize: pageSize,
-                           paginationSizeSelector: [ 20, 50, 100], // Define available page sizes
-                           paginationInitialPage: currentPage,
-                           paginationButtonCount: 5, // Number of pagination buttons to display
-                           paginationDataReceived: { last_page: totalPages },
-                           paginationDataSent: { page: currentPage, size: pageSize }}}
-                           onPageChange={(data:any) => handlePageChange(data.page)} />
+                     <div className="input-group mb-3 flex justify-content-between">
+                        <Button className="btn btn-primary rounded-1" onClick={handleAddRole}>
+                           Add Role
+                        </Button>
+                     </div>
+                     <div className="table-responsive  " >
+                        <ReactTabulator className="table-hover table-bordered"
+                           data={data}
+                           columns={columns} 
+                           options={{pagination: 'local',
+                              paginationSize: pageSize,
+                              paginationSizeSelector: [ 20, 50, 100], // Define available page sizes
+                              paginationInitialPage: currentPage,
+                              paginationButtonCount: 5, // Number of pagination buttons to display
+                              paginationDataReceived: { last_page: totalPages },
+                              paginationDataSent: { page: currentPage, size: pageSize }}}
+                        />
                      </div>
                   </Card.Body>
             </Card>

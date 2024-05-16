@@ -11,7 +11,7 @@ export function ActionColumn(props: any) {
     };
  
     return (
-       <div className="hstack gap-2 justify-content-center">
+       <div className="hstack gap-2 justify-content-center border-end-0">
           <div className="btn btn-icon btn-sm btn-info" onClick={handleEdit}>
              <i className="ri-edit-line"></i></div>
           <div className="btn btn-icon btn-sm btn-danger"  onClick={handleDelete}>
