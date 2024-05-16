@@ -84,7 +84,7 @@ export function UserForm (
                 ...data,
                 _id:user._id
             }
-            axios.post(API_ROUTES.ADD_USER, data)
+            axios.post(API_ROUTES.UPDATE_USER, data)
             .then(response => {
                 console.log(response.data);
                 toast.success("The user is successfully updated.");
@@ -103,7 +103,7 @@ export function UserForm (
                 }
             });
         }else{//New
-            axios.post(API_ROUTES.UPDATE_USER, data)
+            axios.post(API_ROUTES.ADD_USER, data)
             .then(response => {
                 console.log(response.data);
                 toast.success("The user is successfully added.");

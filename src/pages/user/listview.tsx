@@ -25,12 +25,14 @@ const UserListView: FC<UserListViewProps> = () => {
 	const [pageSize] = useState(10);
 	const [totalPages] = useState(1);
    const [users, setUsers] = useState<User[]>([]);
+   const [filterdUsers, setFilteredUsers] = useState<User[]>([]);
    const [selectedUser, setSelectedUser] = useState<User>();
    const [loading, setLoading] = useState(false);   
    const paginationRef = useRef(null);
    const [showDeleteAlertModal, setShowDeleteAlertModal] = useState(false);
    const [showUserFormModal, setShowUserFormModal] = useState(false);
    const [deleting, setDeleting] = useState(false);
+   const [searchKey, setSearchKey] = useState("");
 
    useEffect(() => {
       fetchUsers();
@@ -45,6 +47,7 @@ const UserListView: FC<UserListViewProps> = () => {
       .then((data) => {
          console.log(data);
          setUsers(data);
+         handleSearch();
          setLoading(false);
       })
       .catch((error) => {
@@ -53,6 +56,19 @@ const UserListView: FC<UserListViewProps> = () => {
          setLoading(false);
       });
    };
+
+   const handleSearch = () => {
+      console.log(users)
+      setFilteredUsers(users.filter(user => {
+         if(user.username.includes(searchKey)){
+            return true;
+         }
+         if(user.email.includes(searchKey)){
+            return true;
+         }
+         return false;
+      }));
+   }
 
    const handleAction = (type:string, data:any) => {
       console.log("handleStateChange");
@@ -132,17 +148,17 @@ const UserListView: FC<UserListViewProps> = () => {
                         <div>
                            <div className="input-group mb-3 flex justify-content-between">
                               <div className='input-group w-50'>
-                                 <Form.Control type="text" className='w-50 flex-grow-0' placeholder="" />
-                                 <Button className="btn btn-primary rounded">
+                                 <Form.Control type="text" className='w-50 flex-grow-0' value={searchKey} onChange={(d) => setSearchKey(d.target.value)} placeholder="" />
+                                 <Button className="btn btn-primary rounded" onClick={handleSearch}>
                                     <i className="fa fa-search" aria-hidden="true"></i>
                                  </Button>
                               </div>
-                              <Button className="btn btn-info rounded-1" onClick={handleAddUser}>
+                              <Button className="btn btn-primary " onClick={handleAddUser}>
                                  Add User
                               </Button>
                            </div>
                            <ReactTabulator className="table-hover table-bordered"
-                              data={users}
+                              data={filterdUsers}
                               columns={columns} 
                               options={{pagination: 'local',
                                  paginationSize: pageSize,
@@ -151,12 +167,12 @@ const UserListView: FC<UserListViewProps> = () => {
                                  paginationButtonCount: 3, // Number of pagination buttons to display
                                  paginationDataReceived: { last_page: totalPages },
                                  paginationDataSent: { page: currentPage, size: pageSize },
-                                 paginationElement: paginationRef.current
+                                 // paginationElement: paginationRef.current
                                  // paginationElement: "#paginationContainer"
                               }}
                            />
-                           <div ref={paginationRef} id="paginationContainer">
-                           </div>
+                           {/* <div ref={paginationRef} id="paginationContainer"> */}
+                           {/* </div> */}
                         </div>
                         }
                      </div>
