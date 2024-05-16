@@ -119,7 +119,7 @@ const RoleListView: FC<RoleListViewProps> = () => {
                      </Card.Title>
                   </Card.Header>
                   <Card.Body>
-                     <div className="input-group mb-3 flex justify-content-between">
+                     <div className="input-group mb-3 flex flex-row-reverse">
                         <Button className="btn btn-primary rounded-1" onClick={handleAddRole}>
                            Add Role
                         </Button>
