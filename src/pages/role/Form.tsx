@@ -52,7 +52,6 @@ export function RoleForm (
         }
         data = {
             ...data,
-            roles
         }
         console.log(data);
         if(role){//update
@@ -79,7 +78,7 @@ export function RoleForm (
                 }
             });
         }else{//New
-            axios.post(API_ROUTES.ADD_Role, data)
+            axios.post(API_ROUTES.ADD_ROLE, data)
             .then(response => {
                 console.log(response.data);
                 toast.success("The role is successfully added.");
@@ -111,7 +110,7 @@ export function RoleForm (
                 <div className="mb-3">
                     <Form.Label htmlFor="form-text1" className=" fs-14 text-dark">Enter title</Form.Label>
                     <InputGroup>
-                        <InputGroup.Text className=""><i className="ri-user-line"></i></InputGroup.Text>
+                        <InputGroup.Text className=""><i className="bx bx-user-check"></i></InputGroup.Text>
                         <Form.Control type="text" {...register('title')} className="" id="form-text1" placeholder=""/>
                     </InputGroup>
                     {errors.title?.message && (

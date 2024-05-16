@@ -18,13 +18,13 @@ import { API_ROUTES } from "../../utils/constants"
 
 interface RoleListViewProps { }
 const data = [
-   { id: 1, title: "Admin" },
-   { id: 2, title: "Vadett Summers", position: "UI Developer", office: "Japan", age: 28, salary: "$270,750" },
-   { id: 3, title: "Lisbon Mox", position: "Junior Lecturer", office: "San Deigo", age: 45, salary: "$286,000" },
-   { id: 4, title: "Medric Belly", position: "Javascript Developer", office: "Eden Gards", age: 25, salary: "$1,060" },
-   { id: 5, title: "Ayri Satovu", position: "Senior Engineer", office: "Elitr stet", age: 25, salary: "$262,700" },
-   { id: 6, title: "Billie William", position: "Software Engineer", office: "Paris", age: 52, salary: "$472,000" },
-   { id: 7, title: "Merrod Sailor", position: "Sales Assosiative", office: "Sydney", age: 35, salary: "$237,500" },
+   { _id: 1, title: "Admin" },
+   { _id: 2, title: "Vadett Summers", position: "UI Developer", office: "Japan", age: 28, salary: "$270,750" },
+   { _id: 3, title: "Lisbon Mox", position: "Junior Lecturer", office: "San Deigo", age: 45, salary: "$286,000" },
+   { _id: 4, title: "Medric Belly", position: "Javascript Developer", office: "Eden Gards", age: 25, salary: "$1,060" },
+   { _id: 5, title: "Ayri Satovu", position: "Senior Engineer", office: "Elitr stet", age: 25, salary: "$262,700" },
+   { _id: 6, title: "Billie William", position: "Software Engineer", office: "Paris", age: 52, salary: "$472,000" },
+   { _id: 7, title: "Merrod Sailor", position: "Sales Assosiative", office: "Sydney", age: 35, salary: "$237,500" },
 ];
 
 const RoleListView: FC<RoleListViewProps> = () => {
@@ -79,7 +79,7 @@ const RoleListView: FC<RoleListViewProps> = () => {
          return;
       }
       axios.post(API_ROUTES.DELETE_ROLE,{
-         id:selectedRole._id
+         _id:selectedRole._id
       })
       .then(response => {
          console.log(response.data);
