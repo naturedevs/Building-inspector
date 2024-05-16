@@ -17,7 +17,7 @@ import { RoleForm } from './Form';
 import { API_ROUTES } from "../../utils/constants"
 
 interface RoleListViewProps { }
-const data = [
+const data1 = [
    { _id: 1, title: "Admin" },
    { _id: 2, title: "Vadett Summers", position: "UI Developer", office: "Japan", age: 28, salary: "$270,750" },
    { _id: 3, title: "Lisbon Mox", position: "Junior Lecturer", office: "San Deigo", age: 45, salary: "$286,000" },
@@ -127,7 +127,7 @@ const RoleListView: FC<RoleListViewProps> = () => {
                      </div>
                      <div className="table-responsive  " >
                         <ReactTabulator className="table-hover table-bordered"
-                           data={data}
+                           data={roles}
                            columns={columns} 
                            options={{pagination: 'local',
                               paginationSize: pageSize,
