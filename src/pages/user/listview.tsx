@@ -188,7 +188,7 @@ const UserListView: FC<UserListViewProps> = () => {
                               </Button>
                            </div>
                            
-                           <div className="" style={{ border: '1px solid #dee2e6' }}>
+                           <div className="" >
                               {dataTable}
                            </div>
                            {/* <div ref={paginationRef} id="paginationContainer"> */}
