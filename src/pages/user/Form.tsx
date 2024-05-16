@@ -4,7 +4,7 @@ import Select from 'react-select';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FieldValues } from "react-hook-form";
 import * as z from "zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Role } from "../role/types";
 import { API_ROUTES } from '../../utils/constants';
@@ -14,7 +14,7 @@ const Multipleselectdata=[
     {value:'Choice 1', label:'Choice 1'},
     {value:'Choice 2', label:'Choice 2'},
     {value:'Choice 3', label:'Choice 3'},
-    {value:'Choice 4', label:'Choice 4'},
+    {value:'Choice 4'},
     {value:'Choice 5', label:'Choice 5'},
     {value:'Choice 6', label:'Choice 6'},
 ];
@@ -50,9 +50,25 @@ export function UserForm (
         register,
         handleSubmit,
         formState: { errors },
+        reset
     } = useForm({
         resolver: zodResolver(schema),
     });
+
+    useEffect(() => {
+        if (user && typeof user === 'object') {
+            reset({
+                ...user,
+                password:"",
+            });
+        }else{
+            reset({
+                username:"",
+                email:"",
+            });
+        }
+    }, [modalShow]); 
+
     const handleRegister = async (data:FieldValues) => {
         if(data.password != data.confirmPassword){
             toast.error("The confirmpassword mismatch.");
@@ -63,30 +79,57 @@ export function UserForm (
             roles
         }
         console.log(data);
-        axios.post(API_ROUTES.ADD_USER, data)
-        .then(response => {
-            console.log(response.data);
-            toast.success("The user is successfully added.");
-            updateUsers();
-        })
-        .catch(error => {
-            if (error.response && error.response.status === 400) {
-                console.error('Bad request');
-                console.error(error.response.data);
-                toast.error(error.response.data);            
-            } else {
-                console.error('Server error');
-                console.error(error.message);
-                toast.error(error.message);
+        if(user){//update
+            data = {
+                ...data,
+                _id:user._id
             }
-        });
+            axios.post(API_ROUTES.ADD_USER, data)
+            .then(response => {
+                console.log(response.data);
+                toast.success("The user is successfully updated.");
+                updateUsers();
+                setModalShow(false)     
+            })
+            .catch(error => {
+                if (error.response && error.response.status === 400) {
+                    console.error('Bad request');
+                    console.error(error.response.data);
+                    toast.error(error.response.data);       
+                } else {
+                    console.error('Server error');
+                    console.error(error.message);
+                    toast.error(error.message);
+                }
+            });
+        }else{//New
+            axios.post(API_ROUTES.UPDATE_USER, data)
+            .then(response => {
+                console.log(response.data);
+                toast.success("The user is successfully added.");
+                updateUsers();
+                setModalShow(false)
+            })
+            .catch(error => {
+                if (error.response && error.response.status === 400) {
+                    console.error('Bad request');
+                    console.error(error.response.data);
+                    toast.error(error.response.data);            
+                } else {
+                    console.error('Server error');
+                    console.error(error.message);
+                    toast.error(error.message);
+                }
+            });
+
+        }
     }
     const [roles, setRoles] = useState<Role[]>([]);
     return(
     <Modal as="form" centered show={modalShow} onHide={() => setModalShow(false)} keyboard={false} className="modal fade">
         <form onSubmit={handleSubmit((d) => handleRegister(d))}>
             <Modal.Header closeButton className={`bg-success1`}>
-                <Modal.Title as="h6">{user?.name}</Modal.Title>
+                <Modal.Title as="h6">{user?.username?user.username:"New User"}</Modal.Title>
             </Modal.Header>
             <Modal.Body>                
                 <div className="mb-3">
@@ -144,9 +187,9 @@ export function UserForm (
             </Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={() => setModalShow(false)}>
-                No
+                Cancel
             </Button>
-            <button className="btn btn-success" type="submit">Yes</button>
+            <button className="btn btn-success" type="submit">{user?"Update":"Add"}</button>
             </Modal.Footer>
         </form>
     </Modal>

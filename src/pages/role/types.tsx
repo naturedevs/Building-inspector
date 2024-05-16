@@ -1,6 +1,6 @@
 
 export interface Role {
-  id: string;
+  _id: string;
   value: string;
   label: string;
 }

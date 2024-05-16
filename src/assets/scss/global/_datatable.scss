@@ -373,7 +373,7 @@ select.tabulator-page-size option{
 @media screen and (max-width: 1024px) {
   .tabulator-col, 
 .tabulator-cell{
-    width: 15rem !important;
+    // width: 15rem !important;
   }
 }
 .tabulator .tabulator-header .tabulator-col.tabulator-sortable[aria-sort=ascending] .tabulator-col-content .tabulator-col-sorter{

@@ -5,6 +5,7 @@ import DateEditor from "react-tabulator/lib/editors/DateEditor";
 import MultiValueFormatter from "react-tabulator/lib/formatters/MultiValueFormatter";
 import { ReactTabulator, reactFormatter } from "react-tabulator";
 import toast from 'react-hot-toast';
+import axios from 'axios';
 import "react-tabulator/lib/styles.css"; // default theme
 import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css"; // use Theme(s)
 import { YesNoModal } from '../../components/ui/modal/YesNo';
@@ -16,13 +17,13 @@ import { API_ROUTES } from "../../utils/constants"
 
 interface RoleListViewProps { }
 const data = [
-   { id: 1, name: "Admin"},
-   { id: 2, name: "Vadett Summers", position: "UI Developer", office: "Japan", age: 28, salary: "$270,750" },
-   { id: 3, name: "Lisbon Mox", position: "Junior Lecturer", office: "San Deigo", age: 45, salary: "$286,000" },
-   { id: 4, name: "Medric Belly", position: "Javascript Developer", office: "Eden Gards", age: 25, salary: "$1,060" },
-   { id: 5, name: "Ayri Satovu", position: "Senior Engineer", office: "Elitr stet", age: 25, salary: "$262,700" },
-   { id: 6, name: "Billie William", position: "Software Engineer", office: "Paris", age: 52, salary: "$472,000" },
-   { id: 7, name: "Merrod Sailor", position: "Sales Assosiative", office: "Sydney", age: 35, salary: "$237,500" },
+   { id: 1, value: "Admin" },
+   { id: 2, value: "Vadett Summers", position: "UI Developer", office: "Japan", age: 28, salary: "$270,750" },
+   { id: 3, value: "Lisbon Mox", position: "Junior Lecturer", office: "San Deigo", age: 45, salary: "$286,000" },
+   { id: 4, value: "Medric Belly", position: "Javascript Developer", office: "Eden Gards", age: 25, salary: "$1,060" },
+   { id: 5, value: "Ayri Satovu", position: "Senior Engineer", office: "Elitr stet", age: 25, salary: "$262,700" },
+   { id: 6, value: "Billie William", position: "Software Engineer", office: "Paris", age: 52, salary: "$472,000" },
+   { id: 7, value: "Merrod Sailor", position: "Sales Assosiative", office: "Sydney", age: 35, salary: "$237,500" },
 ];
 
 const RoleListView: FC<RoleListViewProps> = () => {
@@ -37,12 +38,12 @@ const RoleListView: FC<RoleListViewProps> = () => {
    const [deleting, setDeleting] = useState(false);
 
    useEffect(() => {
-      fetchUsers();
+      fetchRoles();
    },[])
 
-   const fetchUsers = async () => {
+   const fetchRoles = async () => {
       setLoading(true);
-      fetch(API_ROUTES.GET_USER_LIST, {
+      fetch(API_ROUTES.GET_ROLE_LIST, {
          method: "GET"
       })
       .then((response) => response.json())
@@ -54,6 +55,7 @@ const RoleListView: FC<RoleListViewProps> = () => {
       .catch((error) => {
          console.log(error);
          setLoading(false);
+         toast.error(error.message);
       });
    };
 
@@ -69,23 +71,42 @@ const RoleListView: FC<RoleListViewProps> = () => {
 
    const handleDeleteAlertModalOK = () => {
       console.log("handleDeleteAlertModalOK");
-      console.log(selectedRole?.id);
+      console.log(selectedRole?._id);
       setDeleting(true);
       if(!selectedRole){
          toast.error("Something went wrong, none user is selected");
          return;
       }
+      axios.post(API_ROUTES.DELETE_ROLE,{
+         id:selectedRole._id
+      })
+      .then(response => {
+         console.log(response.data);
+         if(response.data == "success"){
+            toast.success("The role is successfully deleted");
+            fetchRoles();
+         }else{
+            toast.error(response.data);
+         }
+         setDeleting(false);
+         setShowDeleteAlertModal(false);
+      })
+      .catch(error => {
+         console.log(error);
+         toast.error(error.message);
+         setDeleting(false);
+      });
    }
 
 	const handlePageChange = (page:any) => {
-      console.log("asdf")
+      console.log("page")
       console.log(page)
 		setCurrentPage(page);
 	};
 
    const columns:any= [
       { title:"No", field:"No", width:80, formatter:"rownum", headerSort:false},
-      { title: "Name", field: "name", sorter: "string"},
+      { title: "Title", field: "value", minWidth:200, sorter: "string"},
       { title: 'Actions', width:120, field: 'action', hozAlign: 'center',headerSort:false, formatter: reactFormatter(<ActionColumn handleAction={handleAction}/>) }
    ];
    return (
@@ -121,7 +142,7 @@ const RoleListView: FC<RoleListViewProps> = () => {
          setModalShow={setShowDeleteAlertModal} 
          title={"Confirm"} 
          type={"danger"}
-         content={'Are you sure to delete this user?'} 
+         content={'Are you sure to delete this role?'} 
          handleOK={handleDeleteAlertModalOK}
       />
    </div>

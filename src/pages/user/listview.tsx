@@ -65,6 +65,11 @@ const UserListView: FC<UserListViewProps> = () => {
       }
    };
 
+   const handleAddUser = () => {
+      setSelectedUser(undefined);
+      setShowUserFormModal(true);
+   }
+
    const handleDeleteAlertModalOK = async () => {
       console.log("handleDeleteAlertModalOK");
       console.log(selectedUser?._id);
@@ -125,10 +130,15 @@ const UserListView: FC<UserListViewProps> = () => {
                         users.length == 0 ?
                         "No users found.":
                         <div>
-                           <div className="input-group mb-3">
-                              <Form.Control type="text" placeholder="" />
-                              <Button className="btn btn-primary">
-                                 <i className="fa fa-search" aria-hidden="true"></i>
+                           <div className="input-group mb-3 flex justify-content-between">
+                              <div className='input-group w-50'>
+                                 <Form.Control type="text" className='w-50 flex-grow-0' placeholder="" />
+                                 <Button className="btn btn-primary rounded">
+                                    <i className="fa fa-search" aria-hidden="true"></i>
+                                 </Button>
+                              </div>
+                              <Button className="btn btn-primary rounded-1" onClick={handleAddUser}>
+                                 Add User
                               </Button>
                            </div>
                            <ReactTabulator className="table-hover table-bordered"
