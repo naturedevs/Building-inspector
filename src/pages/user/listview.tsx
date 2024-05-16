@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useRef } from 'react';
+import { FC, useEffect, useState, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Col, Row, Form, Button } from 'react-bootstrap';
 import DateEditor from "react-tabulator/lib/editors/DateEditor";
@@ -44,9 +44,21 @@ const UserListView: FC<UserListViewProps> = () => {
          method: "GET"
       })
       .then((response) => response.json())
-      .then((data) => {
+      .then((data : User[]) => {
          console.log(data);
          setUsers(data);
+         setFilteredUsers(data.filter(user => {
+            if(searchKey == ""){
+               return true;
+            }
+            if(user.username.includes(searchKey)){
+               return true;
+            }
+            if(user.email.includes(searchKey)){
+               return true;
+            }
+            return false;
+         }));
          setLoading(false);
       })
       .catch((error) => {
@@ -55,10 +67,6 @@ const UserListView: FC<UserListViewProps> = () => {
          setLoading(false);
       });
    };
-
-   useEffect(() => {
-      handleSearch();
-   }, [users]);
 
    const handleSearch = () => {
       setFilteredUsers(users.filter(user => {
@@ -134,6 +142,23 @@ const UserListView: FC<UserListViewProps> = () => {
       { title: 'Actions', width:120, field: 'action', hozAlign: 'center',headerSort:false, formatter: reactFormatter(<ActionColumn handleAction={handleAction}/>) }
    ];
 
+   const dataTable = useMemo(()=>{
+      return (
+         <ReactTabulator className="table-hover table-bordered"
+            data={filterdUsers}
+            columns={columns} 
+            options={{pagination: 'local',
+               paginationSize: pageSize,
+               paginationSizeSelector: [20, 50, 100], // Define available page sizes
+               paginationInitialPage: currentPage,
+               paginationButtonCount: 3, // Number of pagination buttons to display
+               paginationDataReceived: { last_page: totalPages },
+               paginationDataSent: { page: currentPage, size: pageSize },
+            }}
+         />
+      )
+   }, [filterdUsers]);
+
    return (
    <div className='main-container container-fluid mt-3'>
       <Row>
@@ -164,20 +189,7 @@ const UserListView: FC<UserListViewProps> = () => {
                            </div>
                            
                            <div className="" style={{ border: '1px solid #dee2e6' }}>
-                              <ReactTabulator className="table-hover table-bordered"
-                                 data={filterdUsers}
-                                 columns={columns} 
-                                 options={{pagination: 'local',
-                                    paginationSize: pageSize,
-                                    paginationSizeSelector: [20, 50, 100], // Define available page sizes
-                                    paginationInitialPage: currentPage,
-                                    paginationButtonCount: 3, // Number of pagination buttons to display
-                                    paginationDataReceived: { last_page: totalPages },
-                                    paginationDataSent: { page: currentPage, size: pageSize },
-                                    // paginationElement: paginationRef.current
-                                    // paginationElement: "#paginationContainer"
-                                 }}
-                              />
+                              {dataTable}
                            </div>
                            {/* <div ref={paginationRef} id="paginationContainer"> */}
                            {/* </div> */}

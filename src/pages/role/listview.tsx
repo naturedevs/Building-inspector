@@ -120,7 +120,7 @@ const RoleListView: FC<RoleListViewProps> = () => {
                      </Card.Title>
                   </Card.Header>
                   <Card.Body>
-                  <div className="table-responsive  ">
+                  <div className="table-responsive  " style={{ border: '1px solid #dee2e6' }}>
                      <ReactTabulator className="table-hover table-bordered"
                         data={data}
                         columns={columns} 
