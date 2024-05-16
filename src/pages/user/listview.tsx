@@ -183,7 +183,7 @@ const UserListView: FC<UserListViewProps> = () => {
                                     <i className="fa fa-search" aria-hidden="true"></i>
                                  </Button>
                               </div>
-                              <Button className="btn btn-primary " onClick={handleAddUser}>
+                              <Button className="btn btn-primary rounded-1" onClick={handleAddUser}>
                                  Add User
                               </Button>
                            </div>
