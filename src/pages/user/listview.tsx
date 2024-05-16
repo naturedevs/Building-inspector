@@ -47,7 +47,6 @@ const UserListView: FC<UserListViewProps> = () => {
       .then((data) => {
          console.log(data);
          setUsers(data);
-         handleSearch();
          setLoading(false);
       })
       .catch((error) => {
@@ -57,9 +56,15 @@ const UserListView: FC<UserListViewProps> = () => {
       });
    };
 
+   useEffect(() => {
+      handleSearch();
+   }, [users]);
+
    const handleSearch = () => {
-      console.log(users)
       setFilteredUsers(users.filter(user => {
+         if(searchKey == ""){
+            return true;
+         }
          if(user.username.includes(searchKey)){
             return true;
          }
@@ -157,20 +162,23 @@ const UserListView: FC<UserListViewProps> = () => {
                                  Add User
                               </Button>
                            </div>
-                           <ReactTabulator className="table-hover table-bordered"
-                              data={filterdUsers}
-                              columns={columns} 
-                              options={{pagination: 'local',
-                                 paginationSize: pageSize,
-                                 paginationSizeSelector: [20, 50, 100], // Define available page sizes
-                                 paginationInitialPage: currentPage,
-                                 paginationButtonCount: 3, // Number of pagination buttons to display
-                                 paginationDataReceived: { last_page: totalPages },
-                                 paginationDataSent: { page: currentPage, size: pageSize },
-                                 // paginationElement: paginationRef.current
-                                 // paginationElement: "#paginationContainer"
-                              }}
-                           />
+                           
+                           <div className="" style={{ border: '1px solid #dee2e6' }}>
+                              <ReactTabulator className="table-hover table-bordered"
+                                 data={filterdUsers}
+                                 columns={columns} 
+                                 options={{pagination: 'local',
+                                    paginationSize: pageSize,
+                                    paginationSizeSelector: [20, 50, 100], // Define available page sizes
+                                    paginationInitialPage: currentPage,
+                                    paginationButtonCount: 3, // Number of pagination buttons to display
+                                    paginationDataReceived: { last_page: totalPages },
+                                    paginationDataSent: { page: currentPage, size: pageSize },
+                                    // paginationElement: paginationRef.current
+                                    // paginationElement: "#paginationContainer"
+                                 }}
+                              />
+                           </div>
                            {/* <div ref={paginationRef} id="paginationContainer"> */}
                            {/* </div> */}
                         </div>
