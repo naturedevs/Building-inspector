@@ -11,7 +11,7 @@ import { API_ROUTES } from '../../utils/constants';
 import toast from "react-hot-toast";
 
 const schema = z.object({
-    title: z.string().min(1, { 
+    name: z.string().min(1, { 
        message: 'Required' 
     })
 });
@@ -55,18 +55,22 @@ export function RoleForm (
         }
         console.log(data);
         if(role){//update
-            data = {
-                ...data,
-                _id:role._id
-            }
-            axios.post(API_ROUTES.UPDATE_ROLE, role)
-            .then(response => {
-                console.log(response.data);
+            
+            fetch(API_ROUTES.ROLE_API + `/${role._id}`, {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then((res) => res.json())
+            .then((result) => {
+                console.log(result);
                 toast.success("The role is successfully updated.");
                 updateRoles();
-                setModalShow(false)     
+                setModalShow(false);
             })
-            .catch(error => {
+            .catch((error) => {
                 if (error.response && error.response.status === 400) {
                     console.error('Bad request');
                     console.error(error.response.data);
@@ -77,15 +81,24 @@ export function RoleForm (
                     toast.error(error.message);
                 }
             });
+
         }else{//New
-            axios.post(API_ROUTES.ADD_ROLE, data)
-            .then(response => {
-                console.log(response.data);
+
+            fetch(API_ROUTES.ROLE_API, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then((res) => res.json())
+            .then((result) => {
+                console.log(result);
                 toast.success("The role is successfully added.");
                 updateRoles();
                 setModalShow(false)
             })
-            .catch(error => {
+            .catch((error) => {
                 if (error.response && error.response.status === 400) {
                     console.error('Bad request');
                     console.error(error.response.data);
@@ -96,7 +109,6 @@ export function RoleForm (
                     toast.error(error.message);
                 }
             });
-
         }
     }
     const [roles, setRoles] = useState<Role[]>([]);
@@ -104,14 +116,14 @@ export function RoleForm (
     <Modal as="form" centered show={modalShow} onHide={() => setModalShow(false)} keyboard={false} className="modal fade">
         <form onSubmit={handleSubmit((d) => handleRegister(d))}>
             <Modal.Header closeButton className={`bg-success1`}>
-                <Modal.Title as="h6">{role?.title?role.title:"New Role"}</Modal.Title>
+                <Modal.Title as="h6">{role?.name?role.name:"New Role"}</Modal.Title>
             </Modal.Header>
             <Modal.Body>                
                 <div className="mb-3">
                     <Form.Label htmlFor="form-text1" className=" fs-14 text-dark">Enter title</Form.Label>
                     <InputGroup>
                         <InputGroup.Text className=""><i className="bx bx-user-check"></i></InputGroup.Text>
-                        <Form.Control type="text" {...register('title')} className="" id="form-text1" placeholder=""/>
+                        <Form.Control type="text" {...register('name')} className="" id="form-text1" placeholder=""/>
                     </InputGroup>
                     {errors.title?.message && (
                         <p className="text-danger text-start">{errors.title.message}</p>

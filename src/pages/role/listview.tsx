@@ -44,7 +44,7 @@ const RoleListView: FC<RoleListViewProps> = () => {
 
    const fetchRoles = async () => {
       setLoading(true);
-      fetch(API_ROUTES.GET_ROLE_LIST, {
+      fetch(API_ROUTES.ROLE_API, {
          method: "GET"
       })
       .then((response) => response.json())
@@ -78,25 +78,23 @@ const RoleListView: FC<RoleListViewProps> = () => {
          toast.error("Something went wrong, none user is selected");
          return;
       }
-      axios.post(API_ROUTES.DELETE_ROLE,{
-         _id:selectedRole._id
+
+      fetch(API_ROUTES.ROLE_API + `/${selectedRole._id}`, {
+         method: "DELETE",
       })
-      .then(response => {
-         console.log(response.data);
-         if(response.data == "success"){
-            toast.success("The role is successfully deleted");
-            fetchRoles();
-         }else{
-            toast.error(response.data);
-         }
+      .then((res) => res.json())
+      .then((result) => {
+         console.log(result);
+         fetchRoles();
          setDeleting(false);
          setShowDeleteAlertModal(false);
       })
-      .catch(error => {
+      .catch((error) => {
          console.log(error);
          toast.error(error.message);
          setDeleting(false);
       });
+
    }
 
    const handleAddRole = () => {
@@ -106,7 +104,7 @@ const RoleListView: FC<RoleListViewProps> = () => {
 
    const columns:any= [
       { title:"No", field:"No", width:80, formatter:"rownum", headerSort:false},
-      { title: "Title", field: "title", minWidth:200, sorter: "string"},
+      { title: "Title", field: "name", minWidth:200, sorter: "string"},
       { title: 'Actions', width:120, field: 'action', hozAlign: 'center',headerSort:false, formatter: reactFormatter(<ActionColumn handleAction={handleAction}/>) }
    ];
    return (
