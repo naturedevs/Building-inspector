@@ -5,12 +5,12 @@ export const API_ROUTES = {
    ME: `${API_URL}/auth/me`,
 
    GET_USER_LIST: `${API_URL}/users`,
-   DELETE_USER: `${API_URL}/users/delete`,
-   ADD_USER: `${API_URL}/users/add`,
-   UPDATE_USER: `${API_URL}/users/update`,
-   
-   GET_ROLE_LIST: `${API_URL}/role/list`,
-   DELETE_ROLE: `${API_URL}/role/delete`,
-   ADD_ROLE: `${API_URL}/role/add`,
-   UPDATE_ROLE: `${API_URL}/role/update`,
+   DELETE_USER: `${API_URL}/users`,
+   ADD_USER: `${API_URL}/users`,
+   UPDATE_USER: `${API_URL}/users`,
+
+   GET_ROLE_LIST: `${API_URL}/roles`,
+   DELETE_ROLE: `${API_URL}/roles`,
+   ADD_ROLE: `${API_URL}/roles`,
+   UPDATE_ROLE: `${API_URL}/roles`,
 }
