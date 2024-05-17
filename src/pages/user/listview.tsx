@@ -38,7 +38,7 @@ const UserListView: FC<UserListViewProps> = () => {
 
    const fetchUsers = async () => {
       setLoading(true);
-      fetch(API_ROUTES.GET_USER_LIST, {
+      fetch(API_ROUTES.USER_API, {
          method: "GET"
       })
       .then((response) => response.json())
@@ -106,25 +106,38 @@ const UserListView: FC<UserListViewProps> = () => {
          setDeleting(false);
          return;
       }
-      axios.post(API_ROUTES.DELETE_USER,{
-         id:selectedUser._id
+
+      fetch(API_ROUTES.USER_API + `/${selectedUser._id}`, {
+         method: "DELETE",
       })
-      .then(response => {
-         console.log(response.data);
-         if(response.data == "success"){
-            toast.success("The user is successfully deleted");
-            fetchUsers();
-         }else{
-            toast.error(response.data);
-         }
-         setDeleting(false);
-         setShowDeleteAlertModal(false);
+      .then((res) => res.json())
+      .then((result) => {
+         console.log(result);
       })
-      .catch(error => {
+      .catch((error) => {
          console.log(error);
-         toast.error(error.message);
-         setDeleting(false);
       });
+
+      // axios.post(API_ROUTES.USER_API,{
+      //    id:selectedUser._id
+      // })
+      // .then(response => {
+      //    console.log(response.data);
+      //    if(response.data == "success"){
+      //       toast.success("The user is successfully deleted");
+      //       fetchUsers();
+      //    }else{
+      //       toast.error(response.data);
+      //    }
+      //    setDeleting(false);
+      //    setShowDeleteAlertModal(false);
+      // })
+      // .catch(error => {
+      //    console.log(error);
+      //    toast.error(error.message);
+      //    setDeleting(false);
+      // });
+
    }
 
    const columns:any= [

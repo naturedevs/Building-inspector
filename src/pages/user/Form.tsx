@@ -88,43 +88,79 @@ export function UserForm (
                 ...data,
                 _id:user._id
             }
-            axios.post(API_ROUTES.UPDATE_USER, data)
-            .then(response => {
-                console.log(response.data);
+
+            fetch(API_ROUTES.USER_API + `/${user._id}`, {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then((res) => res.json())
+            .then((result) => {
+                console.log(result);
                 toast.success("The user is successfully updated.");
                 updateUsers();
-                setModalShow(false)     
+                setModalShow(false);
             })
-            .catch(error => {
-                if (error.response && error.response.status === 400) {
-                    console.error('Bad request');
-                    console.error(error.response.data);
-                    toast.error(error.response.data);       
-                } else {
-                    console.error('Server error');
-                    console.error(error.message);
-                    toast.error(error.message);
-                }
+            .catch((error) => {
+                console.log(error);
             });
+
+            // axios.post(API_ROUTES.USER_API, data)
+            // .then(response => {
+            //     console.log(response.data);
+            //     toast.success("The user is successfully updated.");
+            //     updateUsers();
+            //     setModalShow(false)     
+            // })
+            // .catch(error => {
+            //     if (error.response && error.response.status === 400) {
+            //         console.error('Bad request');
+            //         console.error(error.response.data);
+            //         toast.error(error.response.data);       
+            //     } else {
+            //         console.error('Server error');
+            //         console.error(error.message);
+            //         toast.error(error.message);
+            //     }
+            // });
+
         }else{//New
-            axios.post(API_ROUTES.ADD_USER, data)
-            .then(response => {
-                console.log(response.data);
-                toast.success("The user is successfully added.");
-                updateUsers();
-                setModalShow(false)
+
+            fetch(API_ROUTES.USER_API, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
             })
-            .catch(error => {
-                if (error.response && error.response.status === 400) {
-                    console.error('Bad request');
-                    console.error(error.response.data);
-                    toast.error(error.response.data);            
-                } else {
-                    console.error('Server error');
-                    console.error(error.message);
-                    toast.error(error.message);
-                }
+            .then((res) => res.json())
+            .then((result) => {
+                console.log(result);
+            })
+            .catch((error) => {
+                console.log(error);
             });
+
+            // axios.post(API_ROUTES.USER_API, data)
+            // .then(response => {
+            //     console.log(response.data);
+            //     toast.success("The user is successfully added.");
+            //     updateUsers();
+            //     setModalShow(false)
+            // })
+            // .catch(error => {
+            //     if (error.response && error.response.status === 400) {
+            //         console.error('Bad request');
+            //         console.error(error.response.data);
+            //         toast.error(error.response.data);            
+            //     } else {
+            //         console.error('Server error');
+            //         console.error(error.message);
+            //         toast.error(error.message);
+            //     }
+            // });
 
         }
     }
