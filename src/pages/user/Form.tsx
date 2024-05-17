@@ -84,11 +84,7 @@ export function UserForm (
         }
         console.log(data);
         if(user){//update
-            data = {
-                ...data,
-                _id:user._id
-            }
-
+            
             fetch(API_ROUTES.USER_API + `/${user._id}`, {
                 method: "PUT",
                 headers: {
@@ -104,27 +100,16 @@ export function UserForm (
                 setModalShow(false);
             })
             .catch((error) => {
-                console.log(error);
+                if (error.response && error.response.status === 400) {
+                    console.error('Bad request');
+                    console.error(error.response.data);
+                    toast.error(error.response.data);       
+                } else {
+                    console.error('Server error');
+                    console.error(error.message);
+                    toast.error(error.message);
+                }
             });
-
-            // axios.post(API_ROUTES.USER_API, data)
-            // .then(response => {
-            //     console.log(response.data);
-            //     toast.success("The user is successfully updated.");
-            //     updateUsers();
-            //     setModalShow(false)     
-            // })
-            // .catch(error => {
-            //     if (error.response && error.response.status === 400) {
-            //         console.error('Bad request');
-            //         console.error(error.response.data);
-            //         toast.error(error.response.data);       
-            //     } else {
-            //         console.error('Server error');
-            //         console.error(error.message);
-            //         toast.error(error.message);
-            //     }
-            // });
 
         }else{//New
 
@@ -138,30 +123,21 @@ export function UserForm (
             .then((res) => res.json())
             .then((result) => {
                 console.log(result);
+                toast.success("The user is successfully added.");
+                updateUsers();
+                setModalShow(false)
             })
             .catch((error) => {
-                console.log(error);
+                if (error.response && error.response.status === 400) {
+                    console.error('Bad request');
+                    console.error(error.response.data);
+                    toast.error(error.response.data);            
+                } else {
+                    console.error('Server error');
+                    console.error(error.message);
+                    toast.error(error.message);
+                }
             });
-
-            // axios.post(API_ROUTES.USER_API, data)
-            // .then(response => {
-            //     console.log(response.data);
-            //     toast.success("The user is successfully added.");
-            //     updateUsers();
-            //     setModalShow(false)
-            // })
-            // .catch(error => {
-            //     if (error.response && error.response.status === 400) {
-            //         console.error('Bad request');
-            //         console.error(error.response.data);
-            //         toast.error(error.response.data);            
-            //     } else {
-            //         console.error('Server error');
-            //         console.error(error.message);
-            //         toast.error(error.message);
-            //     }
-            // });
-
         }
     }
     const [roles, setRoles] = useState<Role[]>([]);

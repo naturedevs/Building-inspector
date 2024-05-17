@@ -113,30 +113,15 @@ const UserListView: FC<UserListViewProps> = () => {
       .then((res) => res.json())
       .then((result) => {
          console.log(result);
+         fetchUsers();
+         setDeleting(false);
+         setShowDeleteAlertModal(false);
       })
       .catch((error) => {
          console.log(error);
+         toast.error(error.message);
+         setDeleting(false);
       });
-
-      // axios.post(API_ROUTES.USER_API,{
-      //    id:selectedUser._id
-      // })
-      // .then(response => {
-      //    console.log(response.data);
-      //    if(response.data == "success"){
-      //       toast.success("The user is successfully deleted");
-      //       fetchUsers();
-      //    }else{
-      //       toast.error(response.data);
-      //    }
-      //    setDeleting(false);
-      //    setShowDeleteAlertModal(false);
-      // })
-      // .catch(error => {
-      //    console.log(error);
-      //    toast.error(error.message);
-      //    setDeleting(false);
-      // });
 
    }
 
