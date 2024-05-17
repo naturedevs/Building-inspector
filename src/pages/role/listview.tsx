@@ -11,19 +11,20 @@ import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css"; // use Theme
 import { YesNoModal } from '../../components/ui/modal/YesNo';
 import { ActionColumn } from '../../components/ui/tabulator/ActionColumn';
 import { Role } from './types';
+import { RoleForm } from './Form';
 // import "react-tabulator/lib/css/bootstrap/tabulator_bootstrap.min.css";
 
 import { API_ROUTES } from "../../utils/constants"
 
 interface RoleListViewProps { }
-const data = [
-   { id: 1, value: "Admin" },
-   { id: 2, value: "Vadett Summers", position: "UI Developer", office: "Japan", age: 28, salary: "$270,750" },
-   { id: 3, value: "Lisbon Mox", position: "Junior Lecturer", office: "San Deigo", age: 45, salary: "$286,000" },
-   { id: 4, value: "Medric Belly", position: "Javascript Developer", office: "Eden Gards", age: 25, salary: "$1,060" },
-   { id: 5, value: "Ayri Satovu", position: "Senior Engineer", office: "Elitr stet", age: 25, salary: "$262,700" },
-   { id: 6, value: "Billie William", position: "Software Engineer", office: "Paris", age: 52, salary: "$472,000" },
-   { id: 7, value: "Merrod Sailor", position: "Sales Assosiative", office: "Sydney", age: 35, salary: "$237,500" },
+const data1 = [
+   { _id: 1, title: "Admin" },
+   { _id: 2, title: "Vadett Summers", position: "UI Developer", office: "Japan", age: 28, salary: "$270,750" },
+   { _id: 3, title: "Lisbon Mox", position: "Junior Lecturer", office: "San Deigo", age: 45, salary: "$286,000" },
+   { _id: 4, title: "Medric Belly", position: "Javascript Developer", office: "Eden Gards", age: 25, salary: "$1,060" },
+   { _id: 5, title: "Ayri Satovu", position: "Senior Engineer", office: "Elitr stet", age: 25, salary: "$262,700" },
+   { _id: 6, title: "Billie William", position: "Software Engineer", office: "Paris", age: 52, salary: "$472,000" },
+   { _id: 7, title: "Merrod Sailor", position: "Sales Assosiative", office: "Sydney", age: 35, salary: "$237,500" },
 ];
 
 const RoleListView: FC<RoleListViewProps> = () => {
@@ -78,7 +79,7 @@ const RoleListView: FC<RoleListViewProps> = () => {
          return;
       }
       axios.post(API_ROUTES.DELETE_ROLE,{
-         id:selectedRole._id
+         _id:selectedRole._id
       })
       .then(response => {
          console.log(response.data);
@@ -105,7 +106,7 @@ const RoleListView: FC<RoleListViewProps> = () => {
 
    const columns:any= [
       { title:"No", field:"No", width:80, formatter:"rownum", headerSort:false},
-      { title: "Title", field: "value", minWidth:200, sorter: "string"},
+      { title: "Title", field: "title", minWidth:200, sorter: "string"},
       { title: 'Actions', width:120, field: 'action', hozAlign: 'center',headerSort:false, formatter: reactFormatter(<ActionColumn handleAction={handleAction}/>) }
    ];
    return (
@@ -119,14 +120,14 @@ const RoleListView: FC<RoleListViewProps> = () => {
                      </Card.Title>
                   </Card.Header>
                   <Card.Body>
-                     <div className="input-group mb-3 flex justify-content-between">
+                     <div className="input-group mb-3 flex flex-row-reverse">
                         <Button className="btn btn-primary rounded-1" onClick={handleAddRole}>
                            Add Role
                         </Button>
                      </div>
                      <div className="table-responsive  " >
                         <ReactTabulator className="table-hover table-bordered"
-                           data={data}
+                           data={roles}
                            columns={columns} 
                            options={{pagination: 'local',
                               paginationSize: pageSize,
@@ -146,8 +147,14 @@ const RoleListView: FC<RoleListViewProps> = () => {
          setModalShow={setShowDeleteAlertModal} 
          title={"Confirm"} 
          type={"danger"}
-         content={'Are you sure to delete this role?'} 
+         content={`Are you sure to delete ${selectedRole?.title}?`} 
          handleOK={handleDeleteAlertModalOK}
+      />
+      <RoleForm 
+         modalShow={showRoleFormModal}
+         setModalShow={setShowRoleFormModal}
+         role={selectedRole}
+         updateRoles={fetchRoles}
       />
    </div>
 )

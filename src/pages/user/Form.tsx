@@ -11,12 +11,12 @@ import { API_ROUTES } from '../../utils/constants';
 import toast from "react-hot-toast";
 
 const Multipleselectdata=[
-    {value:'Choice 1', label:'Choice 1'},
-    {value:'Choice 2', label:'Choice 2'},
-    {value:'Choice 3', label:'Choice 3'},
-    {value:'Choice 4'},
-    {value:'Choice 5', label:'Choice 5'},
-    {value:'Choice 6', label:'Choice 6'},
+    {title:'Choice 1'},
+    {title:'Choice 2'},
+    {title:'Choice 3'},
+    {title:'Choice 4'},
+    {title:'Choice 5'},
+    {title:'Choice 6'},
 ];
 
 const schema = z.object({
@@ -76,7 +76,11 @@ export function UserForm (
         }
         data = {
             ...data,
-            roles
+            roles:roles.map(d => {
+                return {
+                    title:d.value
+                }
+            }),
         }
         console.log(data);
         if(user){//update
@@ -179,7 +183,12 @@ export function UserForm (
                         Role</Form.Label>
                     <InputGroup>
                         <InputGroup.Text className=""><i className="bx bx-user-check"></i></InputGroup.Text>                        
-                        <Select isMulti name="colors" options={Multipleselectdata} value={roles} onChange={(d) => setRoles(d)} className="flex-grow-1 flex" id="choices-multiple-default"
+                        <Select isMulti name="colors" options={Multipleselectdata.map(d=>{
+                            return {
+                                value: d.title,
+                                label: d.title
+                            }
+                        })} value={roles} onChange={(d) => setRoles(d)} className="flex-grow-1 flex" id="choices-multiple-default"
                             menuPlacement='auto' classNamePrefix="Select2" defaultValue={[Multipleselectdata[0]]}
                         />
                     </InputGroup>

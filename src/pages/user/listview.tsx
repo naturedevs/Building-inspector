@@ -205,7 +205,7 @@ const UserListView: FC<UserListViewProps> = () => {
          setModalShow={setShowDeleteAlertModal} 
          title={"Confirm"} 
          type={"danger"}
-         content={'Are you sure to delete this user?'} 
+         content={`Are you sure to delete ${selectedUser?.username}?`} 
          handleOK={handleDeleteAlertModalOK}
       />
       <UserForm
