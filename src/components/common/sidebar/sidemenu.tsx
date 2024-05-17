@@ -70,6 +70,18 @@ export const MENUITEMS = [
 		path: `${import.meta.env.BASE_URL}violations`,
 	},
 	{
+		icon: (<i className="bi bi-card-checklist side_menu_img"></i>),
+		type: "link",
+		Name: '',
+		active: false,
+		selected: false,
+		badge: '',
+		badgetxt: '',
+		class: ' ',
+		title: "gforms",
+		path: `${import.meta.env.BASE_URL}gforms`,
+	},
+	{
 		icon: (<i className="bi bi-hammer side_menu_img"></i>),
 		type: "link",
 		Name: '',

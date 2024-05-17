@@ -4,11 +4,9 @@ import Header from '../components/common/header/header';
 import Sidebar from '../components/common/sidebar/sidebar';
 import Switcher from '../components/common/switcher/switcher';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { Provider } from "react-redux";
 import Modalsearch from '../components/common/modalsearch/modalsearch';
 import Footer from '../components/common/footer/footer';
 // import TabToTop from '../components/common/backtotop/backtotop';
-import store from '../redux/store';
 import { useAuth } from '../config/authcontext';
 
 function App() {
@@ -33,7 +31,6 @@ function App() {
 
   return (
     <Fragment>
-      <Provider store={store}>
         <HelmetProvider>
           <Helmet
             htmlAttributes={{
@@ -59,7 +56,6 @@ function App() {
           <Modalsearch />
           {/* <TabToTop /> */}
         </HelmetProvider>
-      </Provider>
     </Fragment>
   );
 }

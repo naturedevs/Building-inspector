@@ -5,15 +5,17 @@ import logo1 from "../../../assets/images/brand-logos/desktop-logo.png";
 import logo2 from "../../../assets/images/brand-logos/toggle-logo.png";
 import logo3 from "../../../assets/images/brand-logos/desktop-dark.png";
 import logo4 from "../../../assets/images/brand-logos/toggle-dark.png";
-
-import { connect } from 'react-redux';
-import { ThemeChanger } from "../../../redux/action";
-import store from '../../../redux/store';
 import SimpleBar from 'simplebar-react';
 import Menuloop from '../../ui/menuloop';
+import { useAppSelector, useAppDispatch } from '../../../redux/hooks'
+import { themeChanger } from '../../../redux/features/theme/themeSlice'
 
-const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
+const Sidebar = () => {
+  console.log("Sidebar")
   const [menuitems, setMenuitems] = useState<any>(MENUITEMS);
+  const dispatch = useAppDispatch()  
+  const local_varaiable = useAppSelector((state) => state.theme)
+
 
   function closeMenuFn() {
     const closeMenuRecursively = (items: any) => {
@@ -31,8 +33,8 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
     const mainContent = document.querySelector(".main-content");
     if (window.innerWidth <= 992) {
       if (mainContent) {
-        const theme = store.getState();
-        ThemeChanger({ ...theme, toggled: "close" });
+        const theme = local_varaiable
+        dispatch(themeChanger({ toggled: "close" }));
 
       }
       else if (document.documentElement.getAttribute('data-nav-layout') == 'horizontal') {
@@ -48,24 +50,24 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
 
 
   function Onhover() {
-    const theme = store.getState();
+    const theme = local_varaiable
     if ((theme.toggled == 'icon-overlay-close' || theme.toggled == 'detached-close') && theme.iconOverlay != 'open') {
-      ThemeChanger({ ...theme, "iconOverlay": "open" });
+      dispatch(themeChanger({ ...theme, "iconOverlay": "open" }));
     }
   }
   function Outhover() {
-    const theme = store.getState();
+        const theme = local_varaiable
     if ((theme.toggled == 'icon-overlay-close' || theme.toggled == 'detached-close') && theme.iconOverlay == 'open') {
-      ThemeChanger({ ...theme, "iconOverlay": "" });
+      dispatch(themeChanger({ ...theme, "iconOverlay": "" }));
     }
   }
 
 
   function menuClose() {
 
-    const theme = store.getState();
+        const theme = local_varaiable
     if (window.innerWidth <= 992) {
-      ThemeChanger({ ...theme, toggled: "close" });
+      dispatch(themeChanger({ ...theme, toggled: "close" }));
     }
     const overlayElement = document.querySelector("#responsive-overlay") as HTMLElement | null;
     if (overlayElement) {
@@ -80,20 +82,20 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
   const WindowPreSize = [window.innerWidth]
 
   function menuResizeFn() {
-    // console.log("presize");
+    console.log("menuResizeFn");
 
     WindowPreSize.push(window.innerWidth);
     if (WindowPreSize.length > 2) { WindowPreSize.shift() }
-    const theme = store.getState();
+        const theme = local_varaiable
     if (WindowPreSize.length > 1) {
       if ((WindowPreSize[WindowPreSize.length - 1] < 992) && (WindowPreSize[WindowPreSize.length - 2] >= 992)) {
         // less than 992;
-        ThemeChanger({ ...theme, toggled: "close" });
+        dispatch(themeChanger({ ...theme, toggled: "close" }));
       }
 
       if ((WindowPreSize[WindowPreSize.length - 1] >= 992) && (WindowPreSize[WindowPreSize.length - 2] < 992)) {
         // greater than 992
-        ThemeChanger({ ...theme, toggled: theme.dataVerticalStyle == "doublemenu" ? "double-menu-open" : "" });
+        dispatch(themeChanger({ ...theme, toggled: theme.dataVerticalStyle == "doublemenu" ? "double-menu-open" : "" }));
       }
     }
   }
@@ -137,7 +139,7 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
       let mainContainer1Width = mainContainer1.offsetWidth;
 
       if (menuNav.scrollWidth > mainContainer1.offsetWidth) {
-        if (!(local_varaiable.dataVerticalStyle.dir === "rtl")) {
+        if (!(local_varaiable.dir === "rtl")) {
           if (Math.abs(check) > Math.abs(marginLeftValue)) {
             menuNav.style.marginInlineEnd = "0";
 
@@ -212,7 +214,7 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
       let mainContainer1Width = mainContainer1.offsetWidth;
 
       if (menuNav.scrollWidth > mainContainer1.offsetWidth) {
-        if (!(local_varaiable.dataVerticalStyle.dir === "rtl")) {
+        if (!(local_varaiable.dir === "rtl")) {
           if (Math.abs(check) <= Math.abs(marginLeftValue)) {
             menuNav.style.marginInlineStart = "0px";
           }
@@ -280,7 +282,7 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
   function setSubmenu(event: any, targetObject: any, MENUITEMS = menuitems) {
     // console.log(MENUITEMS)
 
-    const theme = store.getState();
+      const theme = local_varaiable
     // let setMenu = false 
     // if ((theme.dataNavStyle != "icon-hover" && theme.dataNavStyle != "menu-hover") || window.innerWidth < 992 || (theme.dataNavLayout != "horizontal"  && (theme.toggled  != "menu-hover-closed" || theme.toggled  != "icon-hover-closed")) ) {
          if((window.screen.availWidth <= 992 || theme.dataNavStyle != "icon-hover") && (window.screen.availWidth <= 992 || theme.dataNavStyle != "menu-hover")){
@@ -325,7 +327,7 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
   }
   function setMenuAncestorsActive(targetObject: any) {
     const parent = getParentObject(menuitems, targetObject);
-    const theme = store.getState();
+        const theme = local_varaiable
     if (parent) {
       if (hasParentLevel > 2) {
         hasParent = true;
@@ -337,7 +339,7 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
     }
     else if (!hasParent) {
       if (theme.dataVerticalStyle == 'doublemenu') {
-        ThemeChanger({ ...theme, toggled: "double-menu-close" });
+        dispatch(themeChanger({ ...theme, toggled: "double-menu-close" }));
       }
     }
   }
@@ -420,10 +422,10 @@ const [previousUrl , setPreviousUrl]= useState('/')
 
 
   function toggleSidemenu(event: any, targetObject: any, MENUITEMS = menuitems) {
-    const theme = store.getState();
+    const theme = local_varaiable
     let element = event.target;
     // if (theme.dataNavStyle != "icon-hover" && theme.dataNavStyle != "menu-hover") {
-     if ((theme.dataNavStyle != "icon-hover" && theme.dataNavStyle != "menu-hover") || window.innerWidth < 992 || (theme.dataNavLayout != "horizontal"  && (theme.toggled  != "menu-hover-closed" || theme.toggled  != "icon-hover-closed")) ) {
+     if ((theme.dataNavStyle != "icon-hover" && theme.dataNavStyle != "menu-hover") || window.innerWidth < 992 || (theme.dataNavLayout != "horizontal"  && (theme.toggled  != "menu-hover-closed" && theme.toggled  != "icon-hover-closed")) ) {
       // if((window.screen.availWidth <= 992 || theme.dataNavStyle != "icon-hover") && (window.screen.availWidth <= 992 || theme.dataNavStyle != "menu-hover") && (theme.dataNavLayout !="horizontal"  &&  theme.toggled  != "menu-hover-closed" || theme.toggled  != "icon-hover-closed")){
       for (const item of MENUITEMS) {
         if (item === targetObject) {
@@ -435,7 +437,7 @@ const [previousUrl , setPreviousUrl]= useState('/')
           } else {
             if (theme.dataVerticalStyle == 'doublemenu') {
               // html.setAttribute('data-toggled', 'double-menu-close');
-              ThemeChanger({ ...theme, toggled: "double-menu-close" });
+              dispatch(themeChanger({ ...theme, toggled: "double-menu-close" }));
             }
           }
           setAncestorsActive(MENUITEMS, item);
@@ -453,7 +455,7 @@ const [previousUrl , setPreviousUrl]= useState('/')
       if (targetObject?.children && targetObject.active) {
         if (theme.dataVerticalStyle == 'doublemenu' && theme.toggled != 'double-menu-open') {
           // html.setAttribute('data-toggled', 'double-menu-open');
-          ThemeChanger({ ...theme, toggled: "double-menu-open" });
+          dispatch(themeChanger({ ...theme, toggled: "double-menu-open" }));
         }
       }
       if (element && theme.dataNavLayout == 'horizontal' && (theme.dataNavStyle == 'menu-click' || theme.dataNavStyle == 'icon-click')) {
@@ -500,18 +502,18 @@ const [previousUrl , setPreviousUrl]= useState('/')
   }
 
   function setAncestorsActive(MENUITEMS: any, targetObject: any) {
-    const theme = store.getState();
+        const theme = local_varaiable
     const parent = findParent(MENUITEMS, targetObject);
     if (parent) {
       parent.active = true;
       if (parent.active) {
-        ThemeChanger({ ...theme, toggled: "double-menu-open" });
+        dispatch(themeChanger({ ...theme, toggled: "double-menu-open" }));
       }
 
       setAncestorsActive(MENUITEMS, parent);
     } else {
       if (theme.dataVerticalStyle == "doublemenu") {
-        ThemeChanger({ ...theme, toggled: "double-menu-close" });
+        dispatch(themeChanger({ ...theme, toggled: "double-menu-close" }));
       }
 
     }
@@ -635,7 +637,4 @@ const [previousUrl , setPreviousUrl]= useState('/')
     </Fragment>
   );
 };
-const mapStateToProps = (state: any) => ({
-  local_varaiable: state
-});
-export default connect(mapStateToProps, { ThemeChanger })(Sidebar);
+export default Sidebar;

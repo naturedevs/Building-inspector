@@ -1,14 +1,17 @@
-import reducer from "./reducer";
-import thunk from "redux-thunk";
-import {  configureStore } from "@reduxjs/toolkit";
-import { Middleware } from "redux"; // Import Middleware type
+import { configureStore } from '@reduxjs/toolkit'
+import formReducer from './features/form/formSlice'
+import msgsReducer from './features/msgs/msgSlice'
+import themeReducer from './features/theme/themeSlice'
 
-const middleware: Middleware[] = [thunk]; // Define an array of middleware
+const store =  configureStore({
+  reducer: {
+    form  : formReducer,
+    msgs  : msgsReducer,
+    theme : themeReducer,
+  },
+})
 
-const store = configureStore({
-  reducer: reducer,
-  middleware: middleware, // Pass the middleware array
-});
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
 
-export default store;
-
+export default store

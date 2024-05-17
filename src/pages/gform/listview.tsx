@@ -9,43 +9,44 @@ import axios from 'axios';
 
 import { ActionColumn } from '../../components/ui/tabulator/ActionColumn';
 import { YesNoModal } from '../../components/ui/modal/YesNo';
-import { User } from "./types";
-import { UserForm } from './Form';
+import { GFormI } from "./types";
+// import { GForm } from './Form';
 import "react-tabulator/lib/styles.css";
 import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css";
 import "../../assets/css/tabulator.css";
 
 import { API_ROUTES } from "../../utils/constants"
 
-interface UserListViewProps { }
+interface GFormListViewProps { }
 
-const UserListView: FC<UserListViewProps> = () => {
+const GFormListView: FC<GFormListViewProps> = () => {
    const [currentPage, setCurrentPage] = useState(1);
 	const [pageSize] = useState(10);
 	const [totalPages] = useState(1);
-   const [users, setUsers] = useState<User[]>([]);
-   const [filterdUsers, setFilteredUsers] = useState<User[]>([]);
-   const [selectedUser, setSelectedUser] = useState<User>();
+   const [gforms, setGForms] = useState<GFormI[]>([]);
+   const [filterdGForms, setFilteredGForms] = useState<GFormI[]>([]);
+   const [selectedGForm, setSelectedGForm] = useState<GFormI>();
    const [loading, setLoading] = useState(false);   
+   const paginationRef = useRef(null);
    const [showDeleteAlertModal, setShowDeleteAlertModal] = useState(false);
-   const [showUserFormModal, setShowUserFormModal] = useState(false);
+   const [showGFormFormModal, setShowGFormFormModal] = useState(false);
    const [deleting, setDeleting] = useState(false);
    const [searchKey, setSearchKey] = useState("");
 
    useEffect(() => {
-      fetchUsers();
+      fetchGForms();
    },[])
 
-   const fetchUsers = async () => {
+   const fetchGForms = async () => {
       setLoading(true);
       fetch(API_ROUTES.GET_USER_LIST, {
          method: "GET"
       })
       .then((response) => response.json())
-      .then((data : User[]) => {
+      .then((data : GFormI[]) => {
          console.log(data);
-         setUsers(data);
-         setFilteredUsers(data.filter(user => {
+         setGForms(data);
+         setFilteredGForms(data.filter(user => {
             if(searchKey == ""){
                return true;
             }
@@ -67,7 +68,7 @@ const UserListView: FC<UserListViewProps> = () => {
    };
 
    const handleSearch = () => {
-      setFilteredUsers(users.filter(user => {
+      setFilteredGForms(gforms.filter(user => {
          if(searchKey == ""){
             return true;
          }
@@ -84,36 +85,36 @@ const UserListView: FC<UserListViewProps> = () => {
    const handleAction = (type:string, data:any) => {
       console.log("handleStateChange");
       console.log(data)
-      setSelectedUser(data);
+      setSelectedGForm(data);
       if(type == "delete"){
          setShowDeleteAlertModal(true);
       }else if(type == "edit"){
-         setShowUserFormModal(true);
+         setShowGFormFormModal(true);
       }
    };
 
-   const handleAddUser = () => {
-      setSelectedUser(undefined);
-      setShowUserFormModal(true);
+   const handleAddGForm = () => {
+      setSelectedGForm(undefined);
+      setShowGFormFormModal(true);
    }
 
    const handleDeleteAlertModalOK = async () => {
       console.log("handleDeleteAlertModalOK");
-      console.log(selectedUser?._id);
+      console.log(selectedGForm?._id);
       setDeleting(true);
-      if(!selectedUser){
+      if(!selectedGForm){
          toast.error("Something went wrong, none user is selected");
          setDeleting(false);
          return;
       }
       axios.post(API_ROUTES.DELETE_USER,{
-         id:selectedUser._id
+         id:selectedGForm._id
       })
       .then(response => {
          console.log(response.data);
          if(response.data == "success"){
             toast.success("The user is successfully deleted");
-            fetchUsers();
+            fetchGForms();
          }else{
             toast.error(response.data);
          }
@@ -143,7 +144,7 @@ const UserListView: FC<UserListViewProps> = () => {
    const dataTable = useMemo(()=>{
       return (
          <ReactTabulator className="table-hover table-bordered"
-            data={filterdUsers}
+            data={filterdGForms}
             columns={columns} 
             options={{pagination: 'local',
                paginationSize: pageSize,
@@ -155,7 +156,7 @@ const UserListView: FC<UserListViewProps> = () => {
             }}
          />
       )
-   }, [filterdUsers]);
+   }, [filterdGForms]);
 
    return (
    <div className='main-container container-fluid mt-3'>
@@ -164,15 +165,15 @@ const UserListView: FC<UserListViewProps> = () => {
             <Card className="custom-card">
                   <Card.Header>
                      <Card.Title>
-                        Users
+                        GForms
                      </Card.Title>
                   </Card.Header>
                   <Card.Body>
                      <div className="table-responsive  ">
                         {loading?
                         "Loading...":
-                        users.length == 0 ?
-                        "No users found.":
+                        gforms.length == 0 ?
+                        "No gforms found.":
                         <div>
                            <div className="input-group mb-3 flex justify-content-between">
                               <div className='input-group w-50'>
@@ -181,9 +182,9 @@ const UserListView: FC<UserListViewProps> = () => {
                                     <i className="fa fa-search" aria-hidden="true"></i>
                                  </Button>
                               </div>
-                              <Button className="btn btn-primary rounded-1" onClick={handleAddUser}>
-                                 Add User
-                              </Button>
+                              <Link to={`${import.meta.env.BASE_URL}gform/create`} className="btn btn-primary rounded-1" >
+                                 Add GForm
+                              </Link>
                            </div>
                            
                            <div className="" >
@@ -203,18 +204,11 @@ const UserListView: FC<UserListViewProps> = () => {
          setModalShow={setShowDeleteAlertModal} 
          title={"Confirm"} 
          type={"danger"}
-         content={`Are you sure to delete ${selectedUser?.username}?`} 
+         content={`Are you sure to delete ${selectedGForm?.username}?`} 
          handleOK={handleDeleteAlertModalOK}
       />
-      <UserForm
-         user={selectedUser} 
-         modalShow={showUserFormModal} 
-         setModalShow={setShowUserFormModal}
-         updateUsers={fetchUsers}
-      />
-
    </div>
 )
 };
 
-export default UserListView;
+export default GFormListView;

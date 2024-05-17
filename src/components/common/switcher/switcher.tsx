@@ -4,11 +4,15 @@ import { Link } from 'react-router-dom';
 import Themeprimarycolor, * as switcherdata from "../switcher/data/switcherdata";
 import { Helmet } from 'react-helmet-async';
 import { connect } from "react-redux";
-import { ThemeChanger } from "../../../redux/action";
+import { useAppSelector, useAppDispatch } from '../../../redux/hooks'
+import { themeChanger} from '../../../redux/features/theme/themeSlice'
 
-const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
+const Switcher = () => {
+    const dispatch = useAppDispatch()
+    const local_varaiable = useAppSelector((state) => state.theme)
+    console.log("switcher")
     useEffect(() => {
-        switcherdata.LocalStorageBackup(ThemeChanger);
+        switcherdata.LocalStorageBackup((d) => dispatch(themeChanger(d)));
     }, []);
     const Switcherclose = () => {
         if (document.querySelector(".offcanvas-end")?.classList.contains("show")) {
@@ -23,7 +27,8 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
       ${local_varaiable.darkBg != '' ? `--light-rgb:${local_varaiable.darkBg}` : ''};
       ${local_varaiable.darkBg != '' ? `--form-control-bg:rgb(${local_varaiable.darkBg})` : ''};
       ${local_varaiable.inputBorder != '' ? `--input-border:rgb(${local_varaiable.inputBorder})` : ''};`;
-    return (
+
+      return (
         <Fragment>
             <Helmet>
                 <html dir={local_varaiable.dir}
@@ -84,7 +89,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="theme-style" id="switcher-light-theme"
                                                     checked={local_varaiable.dataThemeMode !== 'dark'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.Light(ThemeChanger)} />
+                                                    onClick={() => switcherdata.Light(themeChanger)} />
                                             </div>
                                         </div>
                                         <div className="col-6">
@@ -94,7 +99,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="theme-style" id="switcher-dark-theme"
                                                     checked={local_varaiable.dataThemeMode == 'dark'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.Dark(ThemeChanger)} />
+                                                    onClick={() => switcherdata.Dark(themeChanger)} />
                                             </div>
                                         </div>
                                     </div>
@@ -109,7 +114,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="direction" id="switcher-ltr"
                                                     checked={local_varaiable.dir == 'ltr'} onChange={(_e) => { }}
-                                                    onClick={() => { switcherdata.Ltr(ThemeChanger); }} />
+                                                    onClick={() => { switcherdata.Ltr(themeChanger); }} />
                                             </div>
                                         </div>
                                         <div className="col-6">
@@ -119,7 +124,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="direction" id="switcher-rtl"
                                                     checked={local_varaiable.dir == 'rtl'} onChange={(_e) => { }}
-                                                    onClick={() => { switcherdata.Rtl(ThemeChanger); }} />
+                                                    onClick={() => { switcherdata.Rtl(themeChanger); }} />
                                             </div>
                                         </div>
                                     </div>
@@ -134,7 +139,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="navigation-style" id="switcher-vertical"
                                                     checked={local_varaiable.dataNavLayout == 'vertical'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.Vertical(ThemeChanger)} />
+                                                    onClick={() => switcherdata.Vertical(themeChanger)} />
                                             </div>
                                         </div>
                                         <div className="col-6">
@@ -144,7 +149,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="navigation-style"
                                                     checked={local_varaiable.dataNavLayout == 'horizontal'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.HorizontalClick(ThemeChanger)}
+                                                    onClick={() => switcherdata.HorizontalClick(themeChanger)}
                                                     id="switcher-horizontal" />
                                             </div>
                                         </div>
@@ -160,7 +165,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="navigation-menu-styles"
                                                     checked={local_varaiable.dataNavStyle == 'menu-click'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.Menuclick(ThemeChanger)}
+                                                    onClick={() => switcherdata.Menuclick(themeChanger)}
                                                     id="switcher-menu-click" />
                                             </div>
                                         </div>
@@ -171,7 +176,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="navigation-menu-styles"
                                                     checked={local_varaiable.dataNavStyle == 'menu-hover'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.MenuHover(ThemeChanger)}
+                                                    onClick={() => switcherdata.MenuHover(themeChanger)}
                                                     id="switcher-menu-hover" />
                                             </div>
                                         </div>
@@ -182,7 +187,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="navigation-menu-styles"
                                                     checked={local_varaiable.dataNavStyle == 'icon-click'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.IconClick(ThemeChanger)}
+                                                    onClick={() => switcherdata.IconClick(themeChanger)}
                                                     id="switcher-icon-click" />
                                             </div>
                                         </div>
@@ -193,7 +198,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="navigation-menu-styles"
                                                     checked={local_varaiable.dataNavStyle == 'icon-hover'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.IconHover(ThemeChanger)}
+                                                    onClick={() => switcherdata.IconHover(themeChanger)}
                                                     id="switcher-icon-hover" />
                                             </div>
                                         </div>
@@ -212,7 +217,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                     //  checked={local_varaiable.dataVerticalStyle == 'default' || local_varaiable.dataVerticalStyle == 'overlay'}
                                                     // checked={local_varaiable.dataVerticalStyle == 'default'}
                                                     // onChange={(_e) => { }}
-                                                     onClick={() => switcherdata.Defaultmenu(ThemeChanger)} />
+                                                     onClick={() => switcherdata.Defaultmenu(themeChanger)} />
                                             </div>
                                         </div>
                                         <div className="col-6">
@@ -222,7 +227,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="sidemenu-layout-styles"
                                                     checked={local_varaiable.toggled == 'close-menu-close'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.Closedmenu(ThemeChanger)}
+                                                    onClick={() => switcherdata.Closedmenu(themeChanger)}
                                                     id="switcher-closed-menu" />
                                             </div>
                                         </div>
@@ -233,7 +238,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="sidemenu-layout-styles"
                                                     checked={local_varaiable.toggled == 'icon-text-close'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.iconTextfn(ThemeChanger)}
+                                                    onClick={() => switcherdata.iconTextfn(themeChanger)}
                                                     id="switcher-icontext-menu" />
                                             </div>
                                         </div>
@@ -244,7 +249,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="sidemenu-layout-styles"
                                                     // checked={local_varaiable.toggled == 'icon-overlay-close'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.iconOverayFn(ThemeChanger)}
+                                                    onClick={() => switcherdata.iconOverayFn(themeChanger)}
                                                     id="switcher-icon-overlay" />
                                             </div>
                                         </div>
@@ -255,7 +260,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="sidemenu-layout-styles"
                                                     checked={local_varaiable.toggled == 'detached-close'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.DetachedFn(ThemeChanger)}
+                                                    onClick={() => switcherdata.DetachedFn(themeChanger)}
                                                     id="switcher-detached" />
                                             </div>
                                         </div>
@@ -266,7 +271,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="sidemenu-layout-styles"
                                                     checked={local_varaiable.dataVerticalStyle == 'doublemenu'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.DoubletFn(ThemeChanger)}
+                                                    onClick={() => switcherdata.DoubletFn(themeChanger)}
                                                     id="switcher-double-menu" />
                                             </div>
                                         </div>
@@ -282,7 +287,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="page-styles" id="switcher-regular"
                                                     checked={local_varaiable.dataPageStyle == 'regular'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.Regular(ThemeChanger)} />
+                                                    onClick={() => switcherdata.Regular(themeChanger)} />
                                             </div>
                                         </div>
                                         <div className="col-6">
@@ -291,7 +296,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                     Classic
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="page-styles" id="switcher-classic" checked={local_varaiable.dataPageStyle == 'classic'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.Classic(ThemeChanger)} />
+                                                    onClick={() => switcherdata.Classic(themeChanger)} />
                                             </div>
                                         </div>
                                         <div className="col-6">
@@ -300,7 +305,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                     Modern
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="page-styles" id="switcher-modern" checked={local_varaiable.dataPageStyle == 'modern'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.Modern(ThemeChanger)} />
+                                                    onClick={() => switcherdata.Modern(themeChanger)} />
                                             </div>
                                         </div>
                                     </div>
@@ -315,7 +320,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="layout-width" id="switcher-full-width"
                                                     checked={local_varaiable.dataWidth == 'fullwidth'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.Fullwidth(ThemeChanger)} />
+                                                    onClick={() => switcherdata.Fullwidth(themeChanger)} />
                                             </div>
                                         </div>
                                         <div className="col-6">
@@ -325,7 +330,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="layout-width"
                                                     checked={local_varaiable.dataWidth == 'boxed'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.Boxed(ThemeChanger)} id="switcher-boxed" />
+                                                    onClick={() => switcherdata.Boxed(themeChanger)} id="switcher-boxed" />
                                             </div>
                                         </div>
                                     </div>
@@ -340,7 +345,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="menu-positions" id="switcher-menu-fixed"
                                                     checked={local_varaiable.dataMenuPosition == 'fixed'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.FixedMenu(ThemeChanger)} />
+                                                    onClick={() => switcherdata.FixedMenu(themeChanger)} />
                                             </div>
                                         </div>
                                         <div className="col-6">
@@ -350,7 +355,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="menu-positions"
                                                     checked={local_varaiable.dataMenuPosition == 'scrollable'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.scrollMenu(ThemeChanger)} id="switcher-menu-scroll" />
+                                                    onClick={() => switcherdata.scrollMenu(themeChanger)} id="switcher-menu-scroll" />
                                             </div>
                                         </div>
                                     </div>
@@ -365,7 +370,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="header-positions"
                                                     id="switcher-header-fixed" checked={local_varaiable.dataHeaderPosition == 'fixed'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.Headerpostionfixed(ThemeChanger)} />
+                                                    onClick={() => switcherdata.Headerpostionfixed(themeChanger)} />
                                             </div>
                                         </div>
                                         <div className="col-6">
@@ -375,7 +380,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 </label>
                                                 <input className="form-check-input" type="radio" name="header-positions"
                                                     checked={local_varaiable.dataHeaderPosition == 'scrollable'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.Headerpostionscroll(ThemeChanger)}
+                                                    onClick={() => switcherdata.Headerpostionscroll(themeChanger)}
                                                     id="switcher-header-scroll"
                                                 />
                                             </div>
@@ -392,28 +397,28 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 <OverlayTrigger placement="top" overlay={<Tooltip>Light Menu </Tooltip>}>
                                                     <input className="form-check-input color-input color-white" type="radio" name="menu-colors"
                                                         checked={local_varaiable.dataMenuStyles == 'light'} onChange={(_e) => { }}
-                                                        onClick={() => switcherdata.lightMenu(ThemeChanger)} id="switcher-menu-light" />
+                                                        onClick={() => switcherdata.lightMenu(themeChanger)} id="switcher-menu-light" />
                                                 </OverlayTrigger>
                                             </div>
                                             <div className="form-check switch-select me-3">
                                                 <OverlayTrigger placement="top" overlay={<Tooltip>Dark Menu</Tooltip>}>
                                                     <input className="form-check-input color-input color-dark" type="radio" name="menu-colors"
                                                         checked={local_varaiable.dataMenuStyles == 'dark'} onChange={(_e) => { }}
-                                                        onClick={() => switcherdata.darkMenu(ThemeChanger)} id="switcher-menu-dark" />
+                                                        onClick={() => switcherdata.darkMenu(themeChanger)} id="switcher-menu-dark" />
                                                 </OverlayTrigger>
                                             </div>
                                             <div className="form-check switch-select me-3">
                                                 <OverlayTrigger placement="top" overlay={<Tooltip>Color Menu</Tooltip>}>
                                                     <input className="form-check-input color-input color-primary" data-bs-toggle="tooltip" type="radio"
                                                         checked={local_varaiable.dataMenuStyles == 'color'} onChange={(_e) => { }}
-                                                        onClick={() => switcherdata.colorMenu(ThemeChanger)} id="switcher-menu-primary" />
+                                                        onClick={() => switcherdata.colorMenu(themeChanger)} id="switcher-menu-primary" />
                                                 </OverlayTrigger>
                                             </div>
                                             <div className="form-check switch-select me-3">
                                                 <OverlayTrigger placement="top" overlay={<Tooltip>Gradient Menu</Tooltip>}>
                                                     <input className="form-check-input color-input color-gradient" data-bs-toggle="tooltip" type="radio"
                                                         checked={local_varaiable.dataMenuStyles == 'gradient'} onChange={(_e) => { }}
-                                                        onClick={() => switcherdata.gradientMenu(ThemeChanger)} id="switcher-menu-gradient" />
+                                                        onClick={() => switcherdata.gradientMenu(themeChanger)} id="switcher-menu-gradient" />
                                                 </OverlayTrigger>
                                             </div>
                                             <div className="form-check switch-select me-3">
@@ -421,7 +426,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                     <input className="form-check-input color-input color-transparent"
                                                         data-bs-toggle="tooltip" data-bs-placement="top" title="Transparent Menu"
                                                         type="radio" name="menu-colors" checked={local_varaiable.dataMenuStyles == 'transparent'} onChange={(_e) => { }}
-                                                        onClick={() => switcherdata.transparentMenu(ThemeChanger)}
+                                                        onClick={() => switcherdata.transparentMenu(themeChanger)}
                                                         id="switcher-menu-transparent" />
                                                 </OverlayTrigger>
                                             </div>
@@ -436,14 +441,14 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                     <input className="form-check-input color-input color-white" data-bs-toggle="tooltip"
                                                         data-bs-placement="top" title="Light Header" type="radio" name="header-colors"
                                                         checked={local_varaiable.dataHeaderStyles == 'light'} onChange={(_e) => { }}
-                                                        id="switcher-header-light" onClick={() => switcherdata.lightHeader(ThemeChanger)} />
+                                                        id="switcher-header-light" onClick={() => switcherdata.lightHeader(themeChanger)} />
                                                 </OverlayTrigger>
                                             </div>
                                             <div className="form-check switch-select me-3">
                                                 <OverlayTrigger placement="top" overlay={<Tooltip>Dark Header</Tooltip>}>
                                                     <input className="form-check-input color-input color-dark" data-bs-toggle="tooltip" type='radio'
                                                         checked={local_varaiable.dataHeaderStyles == 'dark'} onChange={(_e) => { }}
-                                                        onClick={() => switcherdata.darkHeader(ThemeChanger)}
+                                                        onClick={() => switcherdata.darkHeader(themeChanger)}
                                                         id="switcher-header-dark" />
                                                 </OverlayTrigger>
                                             </div>
@@ -451,7 +456,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                 <OverlayTrigger placement="top" overlay={<Tooltip>Color Header</Tooltip>}>
                                                     <input className="form-check-input color-input color-primary" data-bs-toggle="tooltip"
                                                         checked={local_varaiable.dataHeaderStyles == 'color'} onChange={(_e) => { }} type='radio'
-                                                        onClick={() => switcherdata.colorHeader(ThemeChanger)}
+                                                        onClick={() => switcherdata.colorHeader(themeChanger)}
                                                         id="switcher-header-primary" />
                                                 </OverlayTrigger>
                                             </div>
@@ -460,7 +465,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                     <input className="form-check-input color-input color-gradient" data-bs-toggle="tooltip"
                                                         data-bs-placement="top" title="Gradient Header" type="radio" name="header-colors"
                                                         checked={local_varaiable.dataHeaderStyles == 'gradient'} onChange={(_e) => { }}
-                                                        onClick={() => switcherdata.gradientHeader(ThemeChanger)}
+                                                        onClick={() => switcherdata.gradientHeader(themeChanger)}
                                                         id="switcher-header-gradient" />
                                                 </OverlayTrigger>
                                             </div>
@@ -469,7 +474,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                     <input className="form-check-input color-input color-transparent" data-bs-toggle="tooltip"
                                                         data-bs-placement="top" title="Transparent Header" type="radio" name="header-colors"
                                                         checked={local_varaiable.dataHeaderStyles == 'transparent'} onChange={(_e) => { }}
-                                                        onClick={() => switcherdata.transparentHeader(ThemeChanger)}
+                                                        onClick={() => switcherdata.transparentHeader(themeChanger)}
                                                         id="switcher-header-transparent" />
                                                 </OverlayTrigger>
                                             </div>
@@ -482,31 +487,31 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                             <div className="form-check switch-select me-3">
                                                 <input className="form-check-input color-input color-primary-1" type="radio"
                                                     checked={local_varaiable.colorPrimaryRgb == '58, 88, 146'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.primaryColor1(ThemeChanger)}
+                                                    onClick={() => switcherdata.primaryColor1(themeChanger)}
                                                     name="theme-primary" id="switcher-primary" />
                                             </div>
                                             <div className="form-check switch-select me-3">
                                                 <input className="form-check-input color-input color-primary-2" type="radio"
                                                     checked={local_varaiable.colorPrimaryRgb == '92, 144, 163'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.primaryColor2(ThemeChanger)}
+                                                    onClick={() => switcherdata.primaryColor2(themeChanger)}
                                                     name="theme-primary" id="switcher-primary1" />
                                             </div>
                                             <div className="form-check switch-select me-3">
                                                 <input className="form-check-input color-input color-primary-3" type="radio" name="theme-primary"
                                                     checked={local_varaiable.colorPrimaryRgb == '161, 90, 223'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.primaryColor3(ThemeChanger)}
+                                                    onClick={() => switcherdata.primaryColor3(themeChanger)}
                                                     id="switcher-primary2" />
                                             </div>
                                             <div className="form-check switch-select me-3">
                                                 <input className="form-check-input color-input color-primary-4" type="radio" name="theme-primary"
                                                     checked={local_varaiable.colorPrimaryRgb == '78, 172, 76'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.primaryColor4(ThemeChanger)}
+                                                    onClick={() => switcherdata.primaryColor4(themeChanger)}
                                                     id="switcher-primary3" />
                                             </div>
                                             <div className="form-check switch-select me-3">
                                                 <input className="form-check-input color-input color-primary-5" type="radio" name="theme-primary"
                                                       checked={local_varaiable.colorPrimaryRgb == '223, 90, 90'} onChange={(_e) => { }}
-                                                    onClick={() => switcherdata.primaryColor5(ThemeChanger)}
+                                                    onClick={() => switcherdata.primaryColor5(themeChanger)}
                                                     id="switcher-primary4" />
                                             </div>
                                             <div className="form-check switch-select ps-0 mt-1 color-primary-light">
@@ -520,7 +525,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                                 ele.target.querySelector("input").click();
                                                             }
                                                         }}>
-                                                            <Themeprimarycolor theme={local_varaiable} actionfunction={ThemeChanger} />
+                                                            <Themeprimarycolor theme={local_varaiable} actionfunction={themeChanger} />
                                                         </Button>
 
                                                     </div>
@@ -534,30 +539,30 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                             <div className="form-check switch-select me-3">
                                                 <input className="form-check-input color-input color-bg-1" type="radio"
                                                     checked={local_varaiable.bodyBg1 == '20, 30, 96'}
-                                                    onClick={() => switcherdata.backgroundColor1(ThemeChanger)} onChange={(_e) => { }}
+                                                    onClick={() => switcherdata.backgroundColor1(themeChanger)} onChange={(_e) => { }}
                                                     name="theme-background" id="switcher-background" />
                                             </div>
                                             <div className="form-check switch-select me-3">
                                                 <input className="form-check-input color-input color-bg-2" type="radio"
                                                     checked={local_varaiable.bodyBg1 == '8, 78, 115'}
-                                                    onClick={() => switcherdata.backgroundColor2(ThemeChanger)} onChange={(_e) => { }}
+                                                    onClick={() => switcherdata.backgroundColor2(themeChanger)} onChange={(_e) => { }}
                                                     name="theme-background" id="switcher-background1" />
                                             </div>
                                             <div className="form-check switch-select me-3">
                                                 <input className="form-check-input color-input color-bg-3" type="radio" name="theme-background"
                                                     checked={local_varaiable.bodyBg1 == '90, 37, 135'}
-                                                    onClick={() => switcherdata.backgroundColor3(ThemeChanger)} onChange={(_e) => { }}
+                                                    onClick={() => switcherdata.backgroundColor3(themeChanger)} onChange={(_e) => { }}
                                                     id="switcher-background2" />
                                             </div>
                                             <div className="form-check switch-select me-3">
                                                 <input className="form-check-input color-input color-bg-4" type="radio"
-                                                    onClick={() => switcherdata.backgroundColor4(ThemeChanger)} onChange={(_e) => { }}
+                                                    onClick={() => switcherdata.backgroundColor4(themeChanger)} onChange={(_e) => { }}
                                                     checked={local_varaiable.bodyBg1 == '24, 101, 51'}
                                                     name="theme-background" id="switcher-background3" />
                                             </div>
                                             <div className="form-check switch-select me-3">
                                                 <input className="form-check-input color-input color-bg-5" type="radio"
-                                                    onClick={() => switcherdata.backgroundColor5(ThemeChanger)} onChange={(_e) => { }}
+                                                    onClick={() => switcherdata.backgroundColor5(themeChanger)} onChange={(_e) => { }}
                                                     checked={local_varaiable.bodyBg1 == '120, 66, 20'}
                                                     name="theme-background" id="switcher-background4" />
                                             </div>
@@ -572,7 +577,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                                                 ele.target.querySelector("input").click();
                                                             }
                                                         }}>
-                                                            <switcherdata.Themebackgroundcolor theme={local_varaiable} actionfunction={ThemeChanger} />
+                                                            <switcherdata.Themebackgroundcolor theme={local_varaiable} actionfunction={themeChanger} />
                                                         </Button>
 
                                                     </div>
@@ -585,27 +590,27 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                                         <div className="d-flex flex-wrap align-items-center switcher-style">
                                             <div className="form-check switch-select m-2">
                                                 <input className="form-check-input bgimage-input bg-img1" type="radio"
-                                                    onClick={() => switcherdata.bgImage1(ThemeChanger)}
+                                                    onClick={() => switcherdata.bgImage1(themeChanger)}
                                                     name="theme-background" id="switcher-bg-img" />
                                             </div>
                                             <div className="form-check switch-select m-2">
                                                 <input className="form-check-input bgimage-input bg-img2" type="radio"
-                                                    onClick={() => switcherdata.bgImage2(ThemeChanger)}
+                                                    onClick={() => switcherdata.bgImage2(themeChanger)}
                                                     name="theme-background" id="switcher-bg-img1" />
                                             </div>
                                             <div className="form-check switch-select m-2">
                                                 <input className="form-check-input bgimage-input bg-img3" type="radio" name="theme-background"
-                                                    onClick={() => switcherdata.bgImage3(ThemeChanger)}
+                                                    onClick={() => switcherdata.bgImage3(themeChanger)}
                                                     id="switcher-bg-img2" />
                                             </div>
                                             <div className="form-check switch-select m-2">
                                                 <input className="form-check-input bgimage-input bg-img4" type="radio"
-                                                    onClick={() => switcherdata.bgImage4(ThemeChanger)}
+                                                    onClick={() => switcherdata.bgImage4(themeChanger)}
                                                     name="theme-background" id="switcher-bg-img3" />
                                             </div>
                                             <div className="form-check switch-select m-2">
                                                 <input className="form-check-input bgimage-input bg-img5" type="radio"
-                                                    onClick={() => switcherdata.bgImage5(ThemeChanger)}
+                                                    onClick={() => switcherdata.bgImage5(themeChanger)}
                                                     name="theme-background" id="switcher-bg-img4" />
                                             </div>
                                         </div>
@@ -614,7 +619,7 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
                             </Tab.Pane>
                             <div className="d-grid canvas-footer">
                                 <Link to="#"
-                                    onClick={() => switcherdata.Reset(ThemeChanger)} id="reset-all" className="btn btn-danger m-1">Reset</Link>
+                                    onClick={() => switcherdata.Reset(themeChanger)} id="reset-all" className="btn btn-danger m-1">Reset</Link>
                             </div>
                         </Tab.Content>
                     </Tab.Container>
@@ -624,8 +629,5 @@ const Switcher = ({ local_varaiable, ThemeChanger }: any) => {
         </Fragment>
     );
 };
-const mapStateToProps = (state: any) => ({
-    local_varaiable: state
-});
 
-export default connect(mapStateToProps, { ThemeChanger })(Switcher);
+export default Switcher;

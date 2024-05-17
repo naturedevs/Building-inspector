@@ -1,12 +1,13 @@
 import  { useState } from 'react';
-import store from '../../../../redux/store';
 import { MENUITEMS } from '../../sidebar/sidemenu';
+import { useAppSelector, useAppDispatch } from '../../../../redux/hooks'
 
 
 export function Dark(actionfunction: any) {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
+    console.log("dark")
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataThemeMode": "dark",
         "dataHeaderStyles": localStorage.dashlotHeader ? localStorage.dashlotHeader :localStorage.dashlotdarktheme ? "dark" :"dark",
         "dataMenuStyles": localStorage.dashlotMenu ? localStorage.dashlotMenu :localStorage.dashlotdarktheme ? "dark" :"dark",
@@ -18,16 +19,15 @@ export function Dark(actionfunction: any) {
 }
 
 export function Light(actionfunction: any) {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataThemeMode": "light",
         "dataHeaderStyles": "light",
-            "darkBg":"",
-            "bodyBg1" : "",
-            "bodyBg2" : "",
-            "inputBorder" : "",
-        "dataMenuStyles": theme.dataNavLayout == 'horizontal' ? 'light' : "dark"
+        "darkBg":"",
+        "bodyBg1" : "",
+        "bodyBg2" : "",
+        "inputBorder" : "",
     
     });
     localStorage.setItem("dashlotlighttheme", "light");
@@ -38,23 +38,23 @@ export function Light(actionfunction: any) {
     localStorage.removeItem('darkBgRGB4');
 }
 export function Ltr(actionfunction: any) {
-    const theme = store.getState();
-    actionfunction({ ...theme, dir: "ltr" });
+    // const theme = useAppSelector((state) => state.theme)
+    actionfunction({ dir: "ltr" });
     localStorage.setItem("dashlotltr", "ltr");
     localStorage.removeItem("dashlotrtl");
     // addOrRemoveCss(ltr);
 }
 export function Rtl(actionfunction: any) {
-    const theme = store.getState();
-    actionfunction({ ...theme, dir: "rtl" });
+    // const theme = useAppSelector((state) => state.theme)
+    actionfunction({ dir: "rtl" });
     localStorage.setItem("dashlotrtl", "rtl");
     localStorage.removeItem("dashlotltr");
     // addOrRemoveCss(rtl);
 }
 export const HorizontalClick = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataNavLayout": "horizontal",
         // "dataMenuStyles":  localStorage.darkBgRGB1 ? 'dark' : localStorage.dashlotMenu ? localStorage.dashlotMenu : "dark" ,
         //  localStorage.dashlotdarktheme ? 'dark' :
@@ -71,9 +71,9 @@ export const HorizontalClick = (actionfunction: any) => {
     }
 };
 export const Vertical = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataNavLayout": "vertical",
         "dataMenuStyles": "dark",
         "dataVerticalStyle": "overlay",
@@ -85,9 +85,9 @@ export const Vertical = (actionfunction: any) => {
 };
 
 export const Menuclick = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataNavStyle": "menu-click",
         "dataVerticalStyle": "",
         "toggled": "menu-click-closed",
@@ -100,9 +100,9 @@ export const Menuclick = (actionfunction: any) => {
     }
 };
 export const MenuHover = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataNavStyle": "menu-hover",
         "dataVerticalStyle": "",
         "toggled": "menu-hover-closed",
@@ -116,9 +116,9 @@ export const MenuHover = (actionfunction: any) => {
     }
 };
 export const IconClick = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataNavStyle": "icon-click",
         "dataVerticalStyle": "",
         "toggled": "icon-click-closed",
@@ -141,9 +141,9 @@ function closeMenuFn() {
     closeMenuRecursively(MENUITEMS);
 }
 export const IconHover = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataNavStyle": "icon-hover",
         "dataVerticalStyle": "",
         "toggled": "icon-hover-closed"
@@ -157,9 +157,9 @@ export const IconHover = (actionfunction: any) => {
     closeMenuFn();
 };
 export const Fullwidth = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataWidth": "fullwidth",
     });
     localStorage.setItem("dashlotfullwidth", "Fullwidth");
@@ -167,54 +167,54 @@ export const Fullwidth = (actionfunction: any) => {
 
 };
 export const Boxed = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataWidth": "boxed",
     });
     localStorage.setItem("dashlotboxed", "Boxed");
     localStorage.removeItem("dashlotfullwidth");
 };
 export const FixedMenu = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataMenuPosition": "fixed",
     });
     localStorage.setItem("dashlotmenufixed", "MenuFixed");
     localStorage.removeItem("dashlotmenuscrollable");
 };
 export const scrollMenu = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataMenuPosition": "scrollable",
     });
     localStorage.setItem("dashlotmenuscrollable", "Menuscrolled");
     localStorage.removeItem("dashlotmenufixed");
 };
 export const Headerpostionfixed = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataHeaderPosition": "fixed",
     });
     localStorage.setItem("dashlotheaderfixed", 'FixedHeader');
     localStorage.removeItem("dashlotheaderscrollable");
 };
 export const Headerpostionscroll = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataHeaderPosition": "scrollable",
     });
     localStorage.setItem("dashlotheaderscrollable", "ScrollableHeader");
     localStorage.removeItem("dashlotheaderfixed");
 };
 export const Regular = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataPageStyle": "regular"
     });
     localStorage.setItem("dashlotregular", "Regular");
@@ -222,9 +222,9 @@ export const Regular = (actionfunction: any) => {
     localStorage.removeItem("dashlotmodern");
 };
 export const Classic = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataPageStyle": "classic",
     });
     localStorage.setItem("dashlotclassic", "Classic");
@@ -232,9 +232,9 @@ export const Classic = (actionfunction: any) => {
     localStorage.removeItem("dashlotmodern");
 };
 export const Modern = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataPageStyle": "modern",
     });
     localStorage.setItem("dashlotmodern", "Modern");
@@ -243,9 +243,9 @@ export const Modern = (actionfunction: any) => {
 };
 
 export const Defaultmenu = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         // "dataVerticalStyle": "default",
         "dataVerticalStyle": "overlay",
         "dataNavLayout": "vertical",
@@ -261,9 +261,9 @@ export const Defaultmenu = (actionfunction: any) => {
 
 };
 export const Closedmenu = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataNavLayout": "vertical",
         "dataVerticalStyle": "closed",
         "toggled": "close-menu-close"
@@ -286,9 +286,9 @@ function icontextCloseFn() {
     }
 }
 export const iconTextfn = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataNavLayout": "vertical",
         "dataVerticalStyle": "icontext",
         "toggled": "icon-text-close"
@@ -306,9 +306,9 @@ export const iconTextfn = (actionfunction: any) => {
     });
 };
 export const iconOverayFn = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataNavLayout": "vertical",
         "dataVerticalStyle": "overlay",
         "toggled": "icon-overlay-close",
@@ -349,9 +349,9 @@ function DetachedCloseFn() {
     }
 }
 export const DetachedFn = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataNavLayout": "vertical",
         "dataVerticalStyle": "detached",
         "toggled": "detached-close",
@@ -373,9 +373,9 @@ export const DetachedFn = (actionfunction: any) => {
 
 export const DoubletFn = (actionfunction: any) => {
     
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataNavLayout": "vertical",
         "dataVerticalStyle": "doublemenu",
         "dataNavStyle":"",
@@ -386,7 +386,7 @@ export const DoubletFn = (actionfunction: any) => {
 
     setTimeout(() => {
         if(!document.querySelectorAll(".main-menu .slide.active")[0].querySelector('ul')){
-            const theme : any = store.getState();
+            const theme : any = useAppSelector((state) => state.theme)
             actionfunction(
                 {...theme,
                 "toggled": "double-menu-close",}
@@ -458,9 +458,9 @@ export const DoubletFn = (actionfunction: any) => {
     // }
 };
 export const bgImage1 = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "bgImg": "bgimg1"
     });
     localStorage.setItem("bgimage1", "bgimg1");
@@ -470,9 +470,9 @@ export const bgImage1 = (actionfunction: any) => {
     localStorage.removeItem("bgimage5");
 };
 export const bgImage2 = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "bgImg": "bgimg2"
     });
     localStorage.setItem("bgimage2", "bgimg2");
@@ -482,9 +482,9 @@ export const bgImage2 = (actionfunction: any) => {
     localStorage.removeItem("bgimage5");
 };
 export const bgImage3 = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "bgImg": "bgimg3"
     });
     localStorage.setItem("bgimage3", "bgimg3");
@@ -494,9 +494,9 @@ export const bgImage3 = (actionfunction: any) => {
     localStorage.removeItem("bgimage5");
 };
 export const bgImage4 = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "bgImg": "bgimg4"
     });
     localStorage.setItem("bgimage4", "bgimg4");
@@ -506,9 +506,9 @@ export const bgImage4 = (actionfunction: any) => {
     localStorage.removeItem("bgimage5");
 };
 export const bgImage5 = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "bgImg": "bgimg5"
     });
     localStorage.setItem("bgimage5", "bgimg5");
@@ -519,9 +519,9 @@ export const bgImage5 = (actionfunction: any) => {
 };
 
 export const colorMenu = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataMenuStyles": "color",
     });
     localStorage.setItem("dashlotMenu", "color");
@@ -529,9 +529,9 @@ export const colorMenu = (actionfunction: any) => {
 };
 
 export const lightMenu = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataMenuStyles": "light",
     });
     localStorage.setItem("dashlotMenu", "light");
@@ -539,9 +539,9 @@ export const lightMenu = (actionfunction: any) => {
 };
 
 export const darkMenu = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataMenuStyles": "dark",
     });
     localStorage.setItem("dashlotMenu", "dark");
@@ -549,18 +549,18 @@ export const darkMenu = (actionfunction: any) => {
 };
 
 export const gradientMenu = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataMenuStyles": "gradient",
     });
     localStorage.setItem("dashlotMenu", "gradient");
     localStorage.removeItem("color");
 };
 export const transparentMenu = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataMenuStyles": "transparent",
     });
     localStorage.setItem("dashlotMenu", "transparent");
@@ -568,36 +568,36 @@ export const transparentMenu = (actionfunction: any) => {
 };
 
 export const lightHeader = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataHeaderStyles": "light",
     });
     localStorage.setItem("dashlotHeader", "light");
     localStorage.removeItem("dark");
 };
 export const darkHeader = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataHeaderStyles": "dark",
     });
     localStorage.setItem("dashlotHeader", "dark");
     localStorage.removeItem("light");
 };
 export const colorHeader = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataHeaderStyles": "color",
     });
     localStorage.setItem("dashlotHeader", "color");
     localStorage.removeItem("dark");
 };
 export const gradientHeader = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataHeaderStyles": "gradient",
 
     });
@@ -605,9 +605,9 @@ export const gradientHeader = (actionfunction: any) => {
     localStorage.removeItem("transparent");
 };
 export const transparentHeader = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "dataHeaderStyles": "transparent",
     });
     localStorage.removeItem("gradient");
@@ -615,51 +615,51 @@ export const transparentHeader = (actionfunction: any) => {
 };
 
 export const primaryColor1 = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "colorPrimaryRgb": "58, 88, 146",
     });
     localStorage.setItem("primaryRGB", "58, 88, 146");
     
 };
 export const primaryColor2 = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "colorPrimaryRgb": "92, 144, 163",
     });
     localStorage.setItem("primaryRGB", "92, 144, 163");
 };
 export const primaryColor3 = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "colorPrimaryRgb": "161, 90, 223",
     });
     localStorage.setItem("primaryRGB", "161, 90, 223");
 };
 export const primaryColor4 = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "colorPrimaryRgb": "78, 172, 76",
     });
     localStorage.setItem("primaryRGB", "78, 172, 76");
 };
 export const primaryColor5 = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "colorPrimaryRgb": "223, 90, 90",
     });
     localStorage.setItem("primaryRGB", "223, 90, 90");
 };
 
 export const backgroundColor1 = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "bodyBg1": "20, 30, 96",
         "bodyBg2": "25, 38, 101",
         "darkBg": "25, 38, 101",
@@ -675,9 +675,9 @@ export const backgroundColor1 = (actionfunction: any) => {
     
 };
 export const backgroundColor2 = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "bodyBg1": "8, 78, 115",
         "bodyBg2": "13, 86, 120",
         "darkBg": "13, 86, 120",
@@ -692,9 +692,9 @@ export const backgroundColor2 = (actionfunction: any) => {
     localStorage.setItem('darkBgRGB4', "255, 255, 255, 0.1");
 };
 export const backgroundColor3 = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "bodyBg1": "90, 37, 135",
         "bodyBg2": "95, 45, 140",
         "darkBg": "95, 45, 140",
@@ -709,9 +709,9 @@ export const backgroundColor3 = (actionfunction: any) => {
     localStorage.setItem('darkBgRGB4', "255, 255, 255, 0.1");
 };
 export const backgroundColor4 = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "bodyBg1": "24, 101, 51",
         "bodyBg2": "29, 109, 56",
         "darkBg": "29, 109, 56",
@@ -726,9 +726,9 @@ export const backgroundColor4 = (actionfunction: any) => {
     localStorage.setItem('darkBgRGB4', "255, 255, 255, 0.1");
 };
 export const backgroundColor5 = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     actionfunction({
-        ...theme,
+        // ...theme,
         "bodyBg1": "120, 66, 20",
         "bodyBg2": "125, 74,25",
         "darkBg": "125, 74, 25",
@@ -760,7 +760,7 @@ function hexToRgb(hex: any) {
     } : null;
 }
 const Themeprimarycolor = ({ actionfunction }: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     const [state, updateState] = useState("#FFFFFF");
 
     const handleInput = (e: any) => {
@@ -770,7 +770,6 @@ const Themeprimarycolor = ({ actionfunction }: any) => {
             const { r, g, b } = rgb;
             updateState(e.target.value);
             actionfunction({
-                ...theme,
                 "colorPrimaryRgb": `${r} , ${g} , ${b}`,
             });
             localStorage.setItem("dynamiccolor", `${r}, ${g}, ${b}`);
@@ -788,13 +787,12 @@ export default Themeprimarycolor;
 
 //themeBackground
 export const Themebackgroundcolor = ({ actionfunction }: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     const [state, updateState] = useState("#FFFFFF");
     const handleInput = (e: any) => {
         const { r, g, b }: any = hexToRgb(e.target.value);
         updateState(e.target.value);
         actionfunction({
-            ...theme,
             "bodyBg1": `${r}, ${g}, ${b}`,
             "bodyBg2": `${r+19}, ${g+19}, ${b+19}`,
             "darkBg": `${r+19}, ${g+19}, ${b+19}`,
@@ -819,10 +817,10 @@ export const Themebackgroundcolor = ({ actionfunction }: any) => {
 };
 
 export const Reset = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     Vertical(actionfunction);
     actionfunction({
-        ...theme,
+        // ...theme,
         lang: "en",
         dir: "ltr",
         dataThemeMode: "light",
@@ -855,10 +853,10 @@ export const Reset = (actionfunction: any) => {
     localStorage.clear();
 };
 export const Reset1 = (actionfunction: any) => {
-    const theme = store.getState();
+    // const theme = useAppSelector((state) => state.theme)
     Vertical(actionfunction);
     actionfunction({
-        ...theme,
+        // ...theme,
         lang: "en",
         dir: "ltr",
         dataThemeMode: "light",
@@ -882,7 +880,7 @@ export const Reset1 = (actionfunction: any) => {
     localStorage.clear();
 };
 export const LocalStorageBackup = (actionfunction: any) => {
-
+    console.log("LocalStorageBackup");
     (localStorage.dashlotltr) ? Ltr(actionfunction) : "";
     (localStorage.dashlotrtl) ? Rtl(actionfunction) : "";
     (localStorage.dashlotdarktheme) ? Dark(actionfunction) : "";
@@ -1001,7 +999,7 @@ export const LocalStorageBackup = (actionfunction: any) => {
 
     //Theme Primary:
     if (localStorage.dynamiccolor) {
-        const theme = store.getState();
+        const theme = useAppSelector((state) => state.theme)
         actionfunction({
             ...theme,
             "colorPrimaryRgb": localStorage.dynamiccolor,
@@ -1010,7 +1008,7 @@ export const LocalStorageBackup = (actionfunction: any) => {
     }
     //Theme BAckground:
     if (localStorage.darkBgRGB1) {
-        const theme = store.getState();
+        const theme = useAppSelector((state) => state.theme)
         actionfunction({
             ...theme,
             "bodyBg1": localStorage.darkBgRGB1,
