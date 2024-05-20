@@ -31,15 +31,22 @@ function FormEditor(
         <SortableQueList queSeq={queSeq} allQuestions={allQuestions} selectedKey={selectedKey} selectQuestionRef={selectQuestionRef}/>
 
         <button
-          className='px-3 py-1 bg-purple-200 '
+          className='px-3 py-1 bg-purple-200 z-50'
           disabled={savingChanges}
           onClick={(event) => {
             event.preventDefault();
             setSaving(true)
+            console.log(queSeq)
+            console.log("queSeq")
+            console.log(allQuestions)
+            console.log("allQuestions")
+            setSaving(false)
+            // console.log(aboutForm)
+            // console.log("aboutForm")
             // saveForm(queSeq, allQuestions, aboutForm)
-            //   .finally(() => {
-            //     setSaving(false)
-            //   })
+              // .finally(() => {
+                // setSaving(false)
+              // })
           }}>
           Submit
         </button>

@@ -9,7 +9,6 @@ import { setErrMsg, setSucessMsg } from '../../redux/features/msgs/msgSlice';
 import FormPreview from '../../components/gForm/FormPreview';
 import Res from '../../components/gForm/FormEditor/response/Res';
 
-
 function GForm({ userInfo }: { userInfo?: IUser }) {
 
   const { formId } = useParams()
@@ -75,14 +74,14 @@ function GForm({ userInfo }: { userInfo?: IUser }) {
   },[])
   
   return (
-    <div className="position-relative d-flex flex-column w-100 h-100 custom-bg-purple overflow-hidden" style={{ minWidth: '352px' }}>
-      <div className='position-absolute top-0 start-0 w-100 bg-white d-none d-sm-block'>
+    <div className="position-relative d-flex flex-column w-100 h-100 custom-bg-purple " style={{ minWidth: '352px' }}>
+      <div className='absolute top-0 start-0 w-100 bg-white hidden sm:block z-50'>
         <NavBar currentState={currentState} setCurrentState={setCurrentState} userInfo={userInfo} />
       </div>
 
       {
-         errMsg !== '' && <div className='absolute w-full block top-24 z-30'>
-          <div className='px-4  top-0 w-full py-1 shadow-md border mb-4 z-30  max-w-md mx-auto flex items-center justify-between bg-red-100 dark:bg-gray-800'>
+         errMsg !== '' && <div className='position-absolute w-100 block top-6 z-30' style={{zIndex:30}}>
+          <div className="px-4 top-0 w-100 py-1 shadow-sm border mb-4" style={{ zIndex: 30, maxWidth: '28rem', marginLeft: 'auto', marginRight: 'auto' }}>
             <div className="text-sm text-red-800 rounded-lg  dark:text-red-400" role="alert">
               {errMsg}
             </div>
@@ -103,10 +102,10 @@ function GForm({ userInfo }: { userInfo?: IUser }) {
 
       <div 
         id="scrolling-paper"
-        className='w-full relative pt-24 sm:pt-20 justify-center  h-full overflow-y-auto'
+        className='w-full relative pt-24 sm:pt-20 justify-center  h-full '
         >
           
-        <div className='fixed top-0 left-0 z-20 w-full block bg-white sm:hidden'>
+        <div className='absolute top-0 left-0 z-20 w-full block bg-white sm:hidden'>
           <NavBar />
           <div className='flex space-x-3 mx-auto w-fit h-fit text-sm '>
             <button

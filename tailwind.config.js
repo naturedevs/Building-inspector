@@ -1,8 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-    "./src/**/**/*.{js,jsx,ts,tsx}",
+    "./src/pages/gform/Form.tsx",
+    "./src/components/gForm/**/*.{js,jsx,ts,tsx}",
+    "./src/components/gForm/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {},

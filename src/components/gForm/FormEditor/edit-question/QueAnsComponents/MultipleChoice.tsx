@@ -162,7 +162,7 @@ const MultipleChoice = (
 
       {
         isSelected && question && question.optionsArray && question.optionsArray.length < 50 && <button
-          className='flex items-center space-x-4 text-gray-400'
+          className='flex items-center space-x-4 py-2 text-gray-400'
           disabled={question.optionsArray.length >= 50}
           onClick={(event) => {
             event.preventDefault();

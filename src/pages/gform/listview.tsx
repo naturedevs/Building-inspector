@@ -172,8 +172,6 @@ const GFormListView: FC<GFormListViewProps> = () => {
                      <div className="table-responsive  ">
                         {loading?
                         "Loading...":
-                        gforms.length == 0 ?
-                        "No gforms found.":
                         <div>
                            <div className="input-group mb-3 flex justify-content-between">
                               <div className='input-group w-50'>
