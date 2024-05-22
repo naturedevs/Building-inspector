@@ -9,7 +9,7 @@ export function YesNoModal (
         modalShow:boolean, 
         handleOK: () => void,
         setModalShow: (b:boolean) => void,
-    }) {   
+    }) {
     return(
     <>
         <Modal centered show={modalShow} onHide={() => setModalShow(false)} keyboard={false} className="modal fade">
@@ -17,13 +17,11 @@ export function YesNoModal (
                 <Modal.Title as="h6">{title}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <p>{content}</p>
+                <p>{content}</p>
             </Modal.Body>
             <Modal.Footer>
-            <Button variant="secondary" onClick={() => setModalShow(false)}>
-                No
-            </Button>
-            <Button variant="primary" onClick={handleOK}>Yes</Button>
+                <Button variant="secondary" onClick={() => setModalShow(false)}>No</Button>
+                <Button variant="primary" onClick={handleOK}>Yes</Button>
             </Modal.Footer>
         </Modal>
     </>
