@@ -1,11 +1,7 @@
 import { FC, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Card, Col, Row, Form, Button } from 'react-bootstrap';
-import DateEditor from "react-tabulator/lib/editors/DateEditor";
-import MultiValueFormatter from "react-tabulator/lib/formatters/MultiValueFormatter";
 import { ReactTabulator, reactFormatter } from "react-tabulator";
 import toast from 'react-hot-toast';
-import axios from 'axios';
 import "react-tabulator/lib/styles.css"; // default theme
 import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css"; // use Theme(s)
 import { YesNoModal } from '../../components/ui/modal/YesNo';
@@ -17,15 +13,6 @@ import { RoleForm } from './Form';
 import { API_ROUTES } from "../../utils/constants"
 
 interface RoleListViewProps { }
-const data1 = [
-   { _id: 1, title: "Admin" },
-   { _id: 2, title: "Vadett Summers", position: "UI Developer", office: "Japan", age: 28, salary: "$270,750" },
-   { _id: 3, title: "Lisbon Mox", position: "Junior Lecturer", office: "San Deigo", age: 45, salary: "$286,000" },
-   { _id: 4, title: "Medric Belly", position: "Javascript Developer", office: "Eden Gards", age: 25, salary: "$1,060" },
-   { _id: 5, title: "Ayri Satovu", position: "Senior Engineer", office: "Elitr stet", age: 25, salary: "$262,700" },
-   { _id: 6, title: "Billie William", position: "Software Engineer", office: "Paris", age: 52, salary: "$472,000" },
-   { _id: 7, title: "Merrod Sailor", position: "Sales Assosiative", office: "Sydney", age: 35, salary: "$237,500" },
-];
 
 const RoleListView: FC<RoleListViewProps> = () => {
    const [currentPage, setCurrentPage] = useState(1);
@@ -94,7 +81,6 @@ const RoleListView: FC<RoleListViewProps> = () => {
          toast.error(error.message);
          setDeleting(false);
       });
-
    }
 
    const handleAddRole = () => {
