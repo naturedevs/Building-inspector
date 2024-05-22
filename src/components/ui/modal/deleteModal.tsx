@@ -11,7 +11,7 @@ export function DeleteModal (
     <>
         <Modal centered show={visible} onHide={() => setVisible(false)} keyboard={false} className="modal fade">
             <Modal.Header closeButton>
-                <Modal.Title as="h6">Confirm delete</Modal.Title>
+                <Modal.Title as="h5">Confirm delete</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <p>Are you sure you want to delete this item ?</p>

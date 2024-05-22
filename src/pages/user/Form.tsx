@@ -20,19 +20,19 @@ const Multipleselectdata=[
 
 const schema = z.object({
     username: z.string().min(1, { 
-       message: 'Required' 
+        message: 'Required' 
     }).min(4, { 
-       message: 'Must be 4 or more characters long.' 
+        message: 'Must be 4 or more characters long.' 
     }),
     email: z.string().min(1, {
-       message: 'Required'
+        message: 'Required'
     }).email({       
-       message: 'Must be an email address' 
+        message: 'Must be an email address' 
     }),
     password: z.string().min(1, {
-       message: 'Required'
+        message: 'Required'
     }).min(4, {
-      message: "Must be 4 or more characters long.",
+        message: "Must be 4 or more characters long.",
     }),
     confirmPassword: z.string(),
  });
@@ -144,9 +144,9 @@ export function UserForm (
     <Modal as="form" centered show={modalShow} onHide={() => setModalShow(false)} keyboard={false} className="modal fade">
         <form onSubmit={handleSubmit((d) => handleRegister(d))}>
             <Modal.Header closeButton className={`bg-success1`}>
-                <Modal.Title as="h6">{user?"Update":"Add"}</Modal.Title>
+                <Modal.Title as="h5">{user?"Update":"Add"}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>                
+            <Modal.Body>
                 <div className="mb-3">
                     <Form.Label htmlFor="form-text1" className=" fs-14 text-dark">Enter name</Form.Label>
                     <InputGroup>
