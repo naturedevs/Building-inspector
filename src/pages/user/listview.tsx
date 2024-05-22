@@ -12,17 +12,20 @@ import "react-tabulator/lib/styles.css";
 import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css";
 import "../../assets/css/tabulator.css";
 
-import { API_ROUTES } from "../../utils/constants"
+import { API_ROUTES, MSG } from "../../utils/constants"
 
 interface UserListViewProps { }
 
 const UserListView: FC<UserListViewProps> = () => {
+
+   const [items, setItems] = useState<User[]>([]);
+   const [filteredItems, setFilteredItems] = useState<User[]>([]);
+   const [selectedItem, setSelectedItem] = useState<User>();
+
    const [currentPage, setCurrentPage] = useState(1);
 	const [pageSize] = useState(10);
 	const [totalPages] = useState(1);
-   const [users, setUsers] = useState<User[]>([]);
-   const [filterdUsers, setFilteredUsers] = useState<User[]>([]);
-   const [selectedUser, setSelectedUser] = useState<User>();
+   
    const [loading, setLoading] = useState(false);   
    const [showDeleteAlertModal, setShowDeleteAlertModal] = useState(false);
    const [showUserFormModal, setShowUserFormModal] = useState(false);
@@ -40,8 +43,8 @@ const UserListView: FC<UserListViewProps> = () => {
       })
       .then((response) => response.json())
       .then((data : User[]) => {
-         setUsers(data);
-         setFilteredUsers(data);
+         setItems(data);
+         setFilteredItems(data);
          setLoading(false);
       })
       .catch((error) => {
@@ -52,14 +55,14 @@ const UserListView: FC<UserListViewProps> = () => {
    };
 
    const handleSearch = () => {
-      setFilteredUsers(users.filter(user => {
+      setFilteredItems(items.filter(item => {
          if(searchKey == ""){
             return true;
          }
-         if(user.username.includes(searchKey)){
+         if(item.username.includes(searchKey)){
             return true;
          }
-         if(user.email.includes(searchKey)){
+         if(item.email.includes(searchKey)){
             return true;
          }
          return false;
@@ -69,7 +72,7 @@ const UserListView: FC<UserListViewProps> = () => {
    const handleAction = (type:string, data:any) => {
       console.log("handleStateChange");
       console.log(data)
-      setSelectedUser(data);
+      setSelectedItem(data);
       if(type == "delete"){
          setShowDeleteAlertModal(true);
       }else if(type == "edit"){
@@ -78,21 +81,21 @@ const UserListView: FC<UserListViewProps> = () => {
    };
 
    const handleAddUser = () => {
-      setSelectedUser(undefined);
+      setSelectedItem(undefined);
       setShowUserFormModal(true);
    }
 
    const handleDeleteAlertModalOK = async () => {
       console.log("handleDeleteAlertModalOK");
-      console.log(selectedUser?._id);
+      console.log(selectedItem?._id);
       setDeleting(true);
-      if(!selectedUser){
+      if(!selectedItem){
          toast.error("Something went wrong, none user is selected");
          setDeleting(false);
          return;
       }
 
-      fetch(API_ROUTES.USER_API + `/${selectedUser._id}`, {
+      fetch(API_ROUTES.USER_API + `/${selectedItem._id}`, {
          method: "DELETE",
       })
       .then((res) => res.json())
@@ -107,7 +110,6 @@ const UserListView: FC<UserListViewProps> = () => {
          toast.error(error.message);
          setDeleting(false);
       });
-
    }
 
    const columns:any= [
@@ -128,17 +130,10 @@ const UserListView: FC<UserListViewProps> = () => {
       <Row>
          <Col xl={12}>
             <Card className="custom-card">
-                  <Card.Header>
-                     <Card.Title>
-                        Users
-                     </Card.Title>
-                  </Card.Header>
-                  <Card.Body>
-                     <div className="table-responsive  ">
-                        {loading?
-                        "Loading...":
-                        users.length == 0 ?
-                        "No users found.":
+               <Card.Body>
+                  <div className="table-responsive">
+                     {
+                        loading ? MSG.LOADING : items.length == 0 ? MSG.NO_DATA:
                         <div>
                            <div className="input-group mb-3 flex justify-content-between">
                               <div className='input-group w-50'>
@@ -153,7 +148,7 @@ const UserListView: FC<UserListViewProps> = () => {
                            </div>
                            <div className="" >
                               <ReactTabulator className="table-hover table-bordered"
-                                 data={filterdUsers}
+                                 data={filteredItems}
                                  columns={columns} 
                                  options={{pagination: 'local',
                                     paginationSize: pageSize,
@@ -166,9 +161,9 @@ const UserListView: FC<UserListViewProps> = () => {
                               />
                            </div>
                         </div>
-                        }
-                     </div>
-                  </Card.Body>
+                     }
+                  </div>
+               </Card.Body>
             </Card>
          </Col>
       </Row>
@@ -177,11 +172,11 @@ const UserListView: FC<UserListViewProps> = () => {
          setModalShow={setShowDeleteAlertModal} 
          title={"Confirm"} 
          type={"danger"}
-         content={`Are you sure to delete ${selectedUser?.username}?`} 
+         content={`Are you sure to delete ${selectedItem?.username}?`} 
          handleOK={handleDeleteAlertModalOK}
       />
       <UserForm
-         user={selectedUser} 
+         user={selectedItem} 
          modalShow={showUserFormModal} 
          setModalShow={setShowUserFormModal}
          updateUsers={fetchUsers}

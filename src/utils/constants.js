@@ -7,3 +7,8 @@ export const API_ROUTES = {
    ROLE_API: `${API_URL}/roles`,
    FORM_API: `${API_URL}/frms`,
 }
+
+export const MSG = {
+   LOADING: 'loading...',
+   NO_DATA: 'no data',
+}

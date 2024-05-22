@@ -102,7 +102,7 @@ const RoleListView: FC<RoleListViewProps> = () => {
                            Add Role
                         </Button>
                      </div>
-                     <div className="table-responsive  " >
+                     <div className="table-responsive  ">
                         <ReactTabulator className="table-hover table-bordered"
                            data={items}
                            columns={columns} 

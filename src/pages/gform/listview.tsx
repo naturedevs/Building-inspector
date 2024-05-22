@@ -10,7 +10,7 @@ import "react-tabulator/lib/styles.css";
 import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css";
 import "../../assets/css/tabulator.css";
 import { GForm } from './Form';
-import { API_ROUTES } from "../../utils/constants"
+import { API_ROUTES, MSG } from "../../utils/constants"
 
 interface GFormListViewProps { }
 
@@ -121,8 +121,8 @@ const GFormListView: FC<GFormListViewProps> = () => {
                   </Card.Header>
                   <Card.Body>
                      <div className="table-responsive  ">
-                        {loading?
-                           "Loading...":
+                        {
+                           loading ? MSG.LOADING : items.length == 0 ? MSG.NO_DATA:
                            <div>
                               <div className="input-group mb-3 flex justify-content-center justify-content-sm-between">
                                  <div className='input-group w-50 py-1' style={{minWidth:250}}>
