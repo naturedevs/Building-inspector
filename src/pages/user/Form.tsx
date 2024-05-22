@@ -206,10 +206,8 @@ export function UserForm (
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={() => setModalShow(false)}>
-                    Cancel
-                </Button>
-                <button className="btn btn-success" type="submit">{user?"Update":"Add"}</button>
+                <Button variant="light" onClick={() => setModalShow(false)}>Cancel</Button>
+                <Button className="btn btn-success" type="submit">{user?"Update":"Add"}</Button>
             </Modal.Footer>
         </form>
     </Modal>
