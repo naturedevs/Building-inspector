@@ -115,24 +115,24 @@ const GFormListView: FC<GFormListViewProps> = () => {
          <Col xl={12}>
             <Card className="custom-card">
                <Card.Body>
-                  <div className="table-responsive  ">
-                     {
-                        loading ? MSG.LOADING : items.length == 0 ? MSG.NO_DATA:
-                        <div>
-                           <div className="input-group mb-3 flex justify-content-center justify-content-sm-between">
-                              <div className='input-group w-50 py-1' style={{minWidth:250}}>
-                                 <Form.Control type="text" className='flex-grow-0' style={{minWidth:200}} value={searchKey} onChange={(d) => setSearchKey(d.target.value)} placeholder="" />
-                                 <Button className="btn btn-primary rounded" onClick={handleSearch}>
-                                    <i className="fa fa-search" aria-hidden="true"></i>
-                                 </Button>
-                              </div>
-                              <button onClick={handleAddItem} className="btn btn-primary rounded-1 my-1" >
-                                 Add GForm
-                              </button>
+                  <div className="table-responsive">
+                     <div>
+                        <div className="input-group mb-3 flex justify-content-center justify-content-sm-between">
+                           <div className='input-group w-50 py-1' style={{minWidth:250}}>
+                              <Form.Control type="text" className='flex-grow-0' style={{minWidth:200}} value={searchKey} onChange={(d) => setSearchKey(d.target.value)} placeholder="" />
+                              <Button className="btn btn-primary rounded" onClick={handleSearch}>
+                                 <i className="fa fa-search" aria-hidden="true"></i>
+                              </Button>
                            </div>
-                           
-                           <div className="" >
-                              <ReactTabulator className="table-hover table-bordered"
+                           <button onClick={handleAddItem} className="btn btn-primary rounded-1 my-1" >
+                              Add GForm
+                           </button>
+                        </div>
+                        <div className="" >
+                           {
+                              loading ? MSG.LOADING : items.length == 0 ? MSG.NO_DATA:
+                              <ReactTabulator 
+                                 className="table-hover table-bordered"
                                  data={filterdItems}
                                  columns={columns} 
                                  options={{
@@ -145,9 +145,9 @@ const GFormListView: FC<GFormListViewProps> = () => {
                                     paginationDataSent: { page: currentPage, size: pageSize },
                                  }}
                               />
-                           </div>
+                           }
                         </div>
-                     }
+                     </div>
                   </div>
                </Card.Body>
             </Card>

@@ -132,36 +132,36 @@ const UserListView: FC<UserListViewProps> = () => {
             <Card className="custom-card">
                <Card.Body>
                   <div className="table-responsive">
-                     {
-                        loading ? MSG.LOADING : items.length == 0 ? MSG.NO_DATA:
-                        <div>
-                           <div className="input-group mb-3 flex justify-content-between">
-                              <div className='input-group w-50'>
-                                 <Form.Control type="text" className='w-50 flex-grow-0' value={searchKey} onChange={(d) => setSearchKey(d.target.value)} placeholder="" />
-                                 <Button className="btn btn-primary rounded" onClick={handleSearch}>
-                                    <i className="fa fa-search" aria-hidden="true"></i>
-                                 </Button>
-                              </div>
-                              <Button className="btn btn-primary rounded-1" onClick={handleAddUser}>
-                                 Add User
+                     <div>
+                        <div className="input-group mb-3 flex justify-content-between">
+                           <div className='input-group w-50'>
+                              <Form.Control type="text" className='w-50 flex-grow-0' value={searchKey} onChange={(d) => setSearchKey(d.target.value)} placeholder="" />
+                              <Button className="btn btn-primary rounded" onClick={handleSearch}>
+                                 <i className="fa fa-search" aria-hidden="true"></i>
                               </Button>
                            </div>
-                           <div className="" >
-                              <ReactTabulator className="table-hover table-bordered"
-                                 data={filteredItems}
-                                 columns={columns} 
-                                 options={{pagination: 'local',
-                                    paginationSize: pageSize,
-                                    paginationSizeSelector: [20, 50, 100], // Define available page sizes
-                                    paginationInitialPage: currentPage,
-                                    paginationButtonCount: 3, // Number of pagination buttons to display
-                                    paginationDataReceived: { last_page: totalPages },
-                                    paginationDataSent: { page: currentPage, size: pageSize },
-                                 }}
-                              />
-                           </div>
+                           <Button className="btn btn-primary rounded-1" onClick={handleAddUser}>
+                              Add User
+                           </Button>
                         </div>
-                     }
+                        <div className="" >
+                        {
+                           loading ? MSG.LOADING : items.length == 0 ? MSG.NO_DATA:
+                           <ReactTabulator className="table-hover table-bordered"
+                              data={filteredItems}
+                              columns={columns} 
+                              options={{pagination: 'local',
+                                 paginationSize: pageSize,
+                                 paginationSizeSelector: [20, 50, 100], // Define available page sizes
+                                 paginationInitialPage: currentPage,
+                                 paginationButtonCount: 3, // Number of pagination buttons to display
+                                 paginationDataReceived: { last_page: totalPages },
+                                 paginationDataSent: { page: currentPage, size: pageSize },
+                              }}
+                           />
+                        }
+                        </div>
+                     </div>
                   </div>
                </Card.Body>
             </Card>

@@ -144,7 +144,7 @@ export function UserForm (
     <Modal as="form" centered show={modalShow} onHide={() => setModalShow(false)} keyboard={false} className="modal fade">
         <form onSubmit={handleSubmit((d) => handleRegister(d))}>
             <Modal.Header closeButton className={`bg-success1`}>
-                <Modal.Title as="h6">{user?.username?user.username:"New User"}</Modal.Title>
+                <Modal.Title as="h6">{user?"Update":"Add"}</Modal.Title>
             </Modal.Header>
             <Modal.Body>                
                 <div className="mb-3">
