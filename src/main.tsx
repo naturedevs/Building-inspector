@@ -19,8 +19,10 @@ import ViolationListView from './pages/violation/listview';
 import RoleListView from './pages/role/listview';
 import GFormListView from './pages/gform/listview';
 import TestListView from './pages/test/listview';
-import GForm from './pages/gform/Form';
+import GFormEditor from './pages/gformeditor';
 import store from './redux/store';
+import Section from './pages/gformeditor/section';
+import Section1 from './pages/gformeditor/section1';
 
 import PrivateRoute from './config/privateroute';
 
@@ -43,9 +45,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               <Route path={`${import.meta.env.BASE_URL}users`} element={<UserListView />} />
               <Route path={`${import.meta.env.BASE_URL}violations`} element={<ViolationListView />} />
               <Route path={`${import.meta.env.BASE_URL}gforms`} element={<GFormListView />} />
-              <Route path={`${import.meta.env.BASE_URL}gform/create`} element={<GForm />} />
+              <Route path={`${import.meta.env.BASE_URL}gform/:formId`} element={<GFormEditor />} />
+              <Route path={`${import.meta.env.BASE_URL}gform`} element={<GFormEditor />} />
               <Route path={`${import.meta.env.BASE_URL}roles`} element={<RoleListView />} />
               <Route path={`${import.meta.env.BASE_URL}tests`} element={<TestListView />} />
+              <Route path={`${import.meta.env.BASE_URL}testseditor`} element={<Section />} />
+              <Route path={`${import.meta.env.BASE_URL}testseditor1`} element={<Section1 />} />
             </Route>
             <Route path="*" element={<Error404 />} />
           </Routes>

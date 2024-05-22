@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { IUser } from '../../redux/types';
 
-const NavBar = ({ userInfo, currentState, setCurrentState, createNewForm }: {
-  userInfo?: IUser,
+const NavBar = ({ currentState, setCurrentState, createNewForm }: {
   currentState?: "Edit" | "Preview" | "Res",
   setCurrentState?: React.Dispatch<React.SetStateAction<"Edit" | "Preview" | "Res">>,
   createNewForm?: () => void

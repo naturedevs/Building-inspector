@@ -1,19 +1,20 @@
 import { useAppDispatch } from "../../../redux/hooks"
 import { functionForSorting } from "../../../redux/features/form/formSlice"
-import { IAllFormQuestions } from "../../../redux/types"
+import { IAllFormSections } from "../../../redux/types"
 import QuestionFormElement from "./edit-question/index"
+import SectionEditor from "./SectionEditor"
 import { DndItem, DndList } from "./react-sortable-hoc"
-import SortableQueList1 from "./SortableQueList1"
 
-const SortableQueList = ({ queSeq, allQuestions, selectedKey, selectQuestionRef }: {
-    queSeq: {
+const SortableSecList = ({ secSeq, allSections, selectedKey, selectSectionRef }: {
+    secSeq: {
         id: string;
         index?: number | undefined;
     }[],
-    allQuestions: IAllFormQuestions,
+    allSections: IAllFormSections,
     selectedKey: string | undefined,
-    selectQuestionRef: React.MutableRefObject<HTMLDivElement | null>
+    selectSectionRef: React.MutableRefObject<HTMLDivElement | null>
 }) => {
+
     const dispatch = useAppDispatch()
     const onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }): void => {
         dispatch(functionForSorting({ oldIndex, newIndex }))
@@ -28,19 +29,17 @@ const SortableQueList = ({ queSeq, allQuestions, selectedKey, selectQuestionRef 
             onSortEnd={onSortEnd}
             className="itemsContainer"
         >
-            {queSeq.map((ele, index: number) => {
+            {secSeq.map((ele, index: number) => {
                 let isSelected = (selectedKey === ele.id.toString()) ? 'true' : 'false'
-                if (!allQuestions[ele.id.toString()]) return <></>
+                if (!allSections[ele.id.toString()]) return <></>
 
                 return (
                     <DndItem key={ele.id} index={index} className="item my-2">
-                        <QuestionFormElement
-                            queKey={ele.id}
-                            question={allQuestions[ele.id.toString()]}
+                        <SectionEditor
+                            key={ele.id}
                             isSelected={isSelected}
-                            selectQuestionRef={selectQuestionRef}
+                            selectQuestionRef={selectSectionRef}
                         />
-                        {/* <SortableQueList1 queSeq={queSeq} allQuestions={allQuestions} selectedKey={selectedKey} selectQuestionRef={selectQuestionRef}/> */}
                     </DndItem>
                 )
             })}
@@ -49,4 +48,4 @@ const SortableQueList = ({ queSeq, allQuestions, selectedKey, selectQuestionRef 
     )
 }
 
-export default SortableQueList
+export default SortableSecList

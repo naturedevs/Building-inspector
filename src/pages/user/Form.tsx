@@ -140,7 +140,9 @@ export function UserForm (
             });
         }
     }
+    
     const [roles, setRoles] = useState<Role[]>([]);
+    
     return(
     <Modal as="form" centered show={modalShow} onHide={() => setModalShow(false)} keyboard={false} className="modal fade">
         <form onSubmit={handleSubmit((d) => handleRegister(d))}>

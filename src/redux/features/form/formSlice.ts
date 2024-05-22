@@ -1,14 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IAllFormQuestions, IQuestionForm } from '../../types'
+import { IAllFormQuestions, IQuestionForm, IAllFormSections, ISectionForm } from '../../types'
 
 const defaultQuestion: IQuestionForm = {
-  _id: "newId0",
+  _id: "newQueId0",
   formId: undefined,
   title: 'Untitled Question',
   'required': false,
   ans_type: 'mcq',
   optionsArray: ['Option 1'],
   correct_ans: undefined
+}
+const defaultSection: ISectionForm = {
+  _id: "newSecId0",
+  formId: undefined,
+  title: 'Untitled Section',
+  'required': true,
+  questionsArray: { "newQueId0": defaultQuestion },
 }
 
 interface FormSlice {
@@ -19,8 +26,11 @@ interface FormSlice {
   },
 
   queSeq: { id: string, index?: number }[],
+  secSeq: { id: string, index?: number }[],
   allQuestions: IAllFormQuestions,
+  allSections: IAllFormSections,
   selectedKey: string | undefined,
+  selectedSKey: string | undefined,
 }
 
 export const formSlice = createSlice({
@@ -31,9 +41,12 @@ export const formSlice = createSlice({
       title: 'Untitled Form',
       desc: '',
     },
-    queSeq: [{ id: "newId0" }],
-    allQuestions: { "newId0": defaultQuestion },
-    selectedKey: "newId0",
+    queSeq: [{ id: "newQueId0" }],
+    secSeq: [{ id: "newSecId0" }],
+    allQuestions: { "newQueId0": defaultQuestion },
+    allSections: { "newSecId0": defaultSection },
+    selectedKey: "newQueId0",
+    selectedSKey: "newSecId0",
   } as FormSlice,
   reducers: {
     setFormId: (state, action: PayloadAction<string>) => {
@@ -50,16 +63,26 @@ export const formSlice = createSlice({
     setQueSeq: (state, action: PayloadAction<{ id: string, index: number }[]>) => {
       state.queSeq = action.payload
     },
+    setSecSeq: (state, action: PayloadAction<{ id: string, index: number }[]>) => {
+      state.secSeq = action.payload
+    },
     setAllQuestions: (state, action: PayloadAction<IAllFormQuestions>) => {
       state.allQuestions = action.payload
+    },
+    setAllSections: (state, action: PayloadAction<IAllFormSections>) => {
+      state.allSections = action.payload
     },
     setSelectedKey: (state, action: PayloadAction<string>) => {
       state.selectedKey = action.payload
     },
+    setSelectedSKey: (state, action: PayloadAction<string>) => {
+      state.selectedSKey = action.payload
+      state.allQuestions = state.allSections[action.payload].questionsArray
+    },
 
     addQuestion: (state, action: PayloadAction<{ prev_id?: string, newQue?: IQuestionForm }>) => {
-      if (state.queSeq.length > 20) return;
-      const uniqueId = 'newId' + (new Date()).getTime();
+      // if (state.queSeq.length > 20) return;
+      const uniqueId = 'newQueId' + (new Date()).getTime();
 
 
       //  changing all questions
@@ -71,7 +94,8 @@ export const formSlice = createSlice({
           formId: state.formId
         }
       }
-
+      if(state.selectedSKey)
+        state.allSections[state.selectedSKey].questionsArray = state.allQuestions
       //  changing the question sequance
       let newSeq = state.queSeq
       if (action.payload.prev_id || state.selectedKey) {
@@ -88,11 +112,44 @@ export const formSlice = createSlice({
       // chaging selectedKey
       state.selectedKey = uniqueId
     },
+
+    addSection: (state, action: PayloadAction<{ prev_id?: string, newSec?: ISectionForm }>) => {
+      // if (state.queSeq.length > 20) return;
+      const uniqueId = 'newSecId' + (new Date()).getTime();
+
+
+      //  changing all questions
+      state.allSections = {
+        ...state.allSections,
+        [uniqueId]: {
+          ...((action.payload.newSec) ? action.payload.newSec : defaultSection),
+          _id: uniqueId,
+          formId: state.formId
+        }
+      }
+      //  changing the question sequance
+      let newSeq = state.secSeq
+      if (action.payload.prev_id || state.selectedSKey) {
+        let index_ = newSeq.findIndex((ele) => (ele.id === (action.payload.prev_id || state.selectedSKey)))
+        if (index_ === -1) {
+          state.secSeq = newSeq.concat([{ id: uniqueId, index: state.secSeq.length }])
+        } else {
+          state.secSeq = newSeq.slice(0, index_ + 1).concat([{ id: uniqueId, index: state.secSeq.length }, ...newSeq.slice(index_ + 1)])
+        }
+      } else {
+        state.secSeq = newSeq.concat([{ id: uniqueId, index: state.secSeq.length }])
+      }
+
+      // chaging selectedKey
+      state.selectedSKey = uniqueId
+    },
     editQuestion: (state, action: PayloadAction<{ queKey: string, newQue: IQuestionForm }>) => {
       state.allQuestions = {
         ...state.allQuestions,
         [action.payload.queKey]: action.payload.newQue
       }
+      if(state.selectedSKey)
+        state.allSections[state.selectedSKey].questionsArray = state.allQuestions
     },
     deleteQuestion: (state, action: PayloadAction<{ queKey: string }>) => {
       let x = state.queSeq.findIndex((ele) => ele.id === action.payload.queKey)
@@ -120,6 +177,8 @@ export const formSlice = createSlice({
         }
       }
       state.selectedKey = selectedKey
+      if(state.selectedSKey)
+        state.allSections[state.selectedSKey].questionsArray = state.allQuestions
     },
     functionForSorting: (state, action: PayloadAction<{ oldIndex: number, newIndex: number, questionId?: string }>) => {
 
@@ -192,6 +251,7 @@ export const {
   setAllQuestions,
 
   addQuestion,
+  addSection,
   deleteQuestion,
   editQuestion,
   functionForSorting,
@@ -199,8 +259,11 @@ export const {
 } = formSlice.actions
 
 export const selectedKey = (state: FormSlice) => state.selectedKey
+export const selectedSKey = (state: FormSlice) => state.selectedSKey
 export const queSeq = (state: FormSlice) => state.queSeq
+export const secSeq = (state: FormSlice) => state.secSeq
 export const allQuestions = (state: FormSlice) => state.allQuestions
+export const allSections = (state: FormSlice) => state.allSections
 
 export default formSlice.reducer
 

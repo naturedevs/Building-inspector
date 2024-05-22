@@ -14,7 +14,7 @@ import { GFormI } from "./types";
 import "react-tabulator/lib/styles.css";
 import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css";
 import "../../assets/css/tabulator.css";
-
+import { GForm } from './Form';
 import { API_ROUTES } from "../../utils/constants"
 
 interface GFormListViewProps { }
@@ -23,37 +23,34 @@ const GFormListView: FC<GFormListViewProps> = () => {
    const [currentPage, setCurrentPage] = useState(1);
 	const [pageSize] = useState(10);
 	const [totalPages] = useState(1);
-   const [gforms, setGForms] = useState<GFormI[]>([]);
-   const [filterdGForms, setFilteredGForms] = useState<GFormI[]>([]);
-   const [selectedGForm, setSelectedGForm] = useState<GFormI>();
+   const [items, setItems] = useState<GFormI[]>([]);
+   const [filterdItems, setFilteredItems] = useState<GFormI[]>([]);
+   const [selectedItem, setSelectedItem] = useState<GFormI>();
    const [loading, setLoading] = useState(false);   
    const paginationRef = useRef(null);
    const [showDeleteAlertModal, setShowDeleteAlertModal] = useState(false);
-   const [showGFormFormModal, setShowGFormFormModal] = useState(false);
+   const [showItemFormModal, setShowItemFormModal] = useState(false);
    const [deleting, setDeleting] = useState(false);
    const [searchKey, setSearchKey] = useState("");
 
    useEffect(() => {
-      fetchGForms();
+      fetchItems();
    },[])
 
-   const fetchGForms = async () => {
+   const fetchItems = async () => {
       setLoading(true);
-      fetch(API_ROUTES.GET_USER_LIST, {
+      fetch(API_ROUTES.GET_GFORM_LIST, {
          method: "GET"
       })
       .then((response) => response.json())
       .then((data : GFormI[]) => {
          console.log(data);
-         setGForms(data);
-         setFilteredGForms(data.filter(user => {
+         setItems(data);
+         setFilteredItems(data.filter(item => {
             if(searchKey == ""){
                return true;
             }
-            if(user.username.includes(searchKey)){
-               return true;
-            }
-            if(user.email.includes(searchKey)){
+            if(item._id.includes(searchKey)){
                return true;
             }
             return false;
@@ -68,14 +65,11 @@ const GFormListView: FC<GFormListViewProps> = () => {
    };
 
    const handleSearch = () => {
-      setFilteredGForms(gforms.filter(user => {
+      setFilteredItems(items.filter(item => {
          if(searchKey == ""){
             return true;
          }
-         if(user.username.includes(searchKey)){
-            return true;
-         }
-         if(user.email.includes(searchKey)){
+         if(item._id.includes(searchKey)){
             return true;
          }
          return false;
@@ -85,36 +79,36 @@ const GFormListView: FC<GFormListViewProps> = () => {
    const handleAction = (type:string, data:any) => {
       console.log("handleStateChange");
       console.log(data)
-      setSelectedGForm(data);
+      setSelectedItem(data);
       if(type == "delete"){
          setShowDeleteAlertModal(true);
       }else if(type == "edit"){
-         setShowGFormFormModal(true);
+         setShowItemFormModal(true);
       }
    };
 
    const handleAddGForm = () => {
-      setSelectedGForm(undefined);
-      setShowGFormFormModal(true);
+      setSelectedItem(undefined);
+      setShowItemFormModal(true);
    }
 
    const handleDeleteAlertModalOK = async () => {
       console.log("handleDeleteAlertModalOK");
-      console.log(selectedGForm?._id);
+      console.log(selectedItem?._id);
       setDeleting(true);
-      if(!selectedGForm){
-         toast.error("Something went wrong, none user is selected");
+      if(!selectedItem){
+         toast.error("Something went wrong, none item is selected");
          setDeleting(false);
          return;
       }
-      axios.post(API_ROUTES.DELETE_USER,{
-         id:selectedGForm._id
+      axios.post(API_ROUTES.DELETE_GFORM,{
+         id:selectedItem._id
       })
       .then(response => {
          console.log(response.data);
          if(response.data == "success"){
-            toast.success("The user is successfully deleted");
-            fetchGForms();
+            toast.success("The item is successfully deleted");
+            fetchItems();
          }else{
             toast.error(response.data);
          }
@@ -130,21 +124,16 @@ const GFormListView: FC<GFormListViewProps> = () => {
 
    const columns:any= [
       { title:"No", field:"No", width:80, formatter:"rownum", headerSort:false},
-      { title: "Name", field: "username", minWidth:200, sorter: "string"},
-      { title: "Email", field: "email", minWidth:200, sorter: "string"},
-      { title: "Role", field: "role", minWidth:200,
-         sorter: (a: string[], b: string[]) => a.toString().localeCompare(b.toString()),      
-         formatter: MultiValueFormatter,
-         formatterParams: { style: 'PILL' }
-      },
-      { title: "Created_at", field: "created_at", minWidth:200, sorter:'string' },
+      { title: "Name", field: "name", minWidth:200, sorter: "string"},
+      // { title: "Email", field: "email", minWidth:200, sorter: "string"},
+      // { title: "Created_at", field: "created_at", minWidth:200, sorter:'string' },
       { title: 'Actions', width:120, field: 'action', hozAlign: 'center',headerSort:false, formatter: reactFormatter(<ActionColumn handleAction={handleAction}/>) }
    ];
 
    const dataTable = useMemo(()=>{
       return (
          <ReactTabulator className="table-hover table-bordered"
-            data={filterdGForms}
+            data={filterdItems}
             columns={columns} 
             options={{pagination: 'local',
                paginationSize: pageSize,
@@ -156,7 +145,7 @@ const GFormListView: FC<GFormListViewProps> = () => {
             }}
          />
       )
-   }, [filterdGForms]);
+   }, [filterdItems]);
 
    return (
    <div className='main-container container-fluid mt-3'>
@@ -171,26 +160,26 @@ const GFormListView: FC<GFormListViewProps> = () => {
                   <Card.Body>
                      <div className="table-responsive  ">
                         {loading?
-                        "Loading...":
-                        <div>
-                           <div className="input-group mb-3 flex justify-content-between">
-                              <div className='input-group w-50'>
-                                 <Form.Control type="text" className='w-50 flex-grow-0' value={searchKey} onChange={(d) => setSearchKey(d.target.value)} placeholder="" />
-                                 <Button className="btn btn-primary rounded" onClick={handleSearch}>
-                                    <i className="fa fa-search" aria-hidden="true"></i>
-                                 </Button>
+                           "Loading...":
+                           <div>
+                              <div className="input-group mb-3 flex justify-content-center justify-content-sm-between">
+                                 <div className='input-group w-50 py-1' style={{minWidth:250}}>
+                                    <Form.Control type="text" className='flex-grow-0' style={{minWidth:200}} value={searchKey} onChange={(d) => setSearchKey(d.target.value)} placeholder="" />
+                                    <Button className="btn btn-primary rounded" onClick={handleSearch}>
+                                       <i className="fa fa-search" aria-hidden="true"></i>
+                                    </Button>
+                                 </div>
+                                 <button onClick={() => setShowItemFormModal(true)} className="btn btn-primary rounded-1 my-1" >
+                                    Add GForm
+                                 </button>
                               </div>
-                              <Link to={`${import.meta.env.BASE_URL}gform/create`} className="btn btn-primary rounded-1" >
-                                 Add GForm
-                              </Link>
+                              
+                              <div className="" >
+                                 {dataTable}
+                              </div>
+                              {/* <div ref={paginationRef} id="paginationContainer"> */}
+                              {/* </div> */}
                            </div>
-                           
-                           <div className="" >
-                              {dataTable}
-                           </div>
-                           {/* <div ref={paginationRef} id="paginationContainer"> */}
-                           {/* </div> */}
-                        </div>
                         }
                      </div>
                   </Card.Body>
@@ -202,8 +191,15 @@ const GFormListView: FC<GFormListViewProps> = () => {
          setModalShow={setShowDeleteAlertModal} 
          title={"Confirm"} 
          type={"danger"}
-         content={`Are you sure to delete ${selectedGForm?.username}?`} 
+         content={`Are you sure to delete ${selectedItem?._id}?`} 
          handleOK={handleDeleteAlertModalOK}
+      />
+      <GForm 
+         item={selectedItem}
+         modalShow={showItemFormModal}
+         setModalShow={setShowItemFormModal}
+         updateItems={fetchItems}
+         key={"gform"}
       />
    </div>
 )

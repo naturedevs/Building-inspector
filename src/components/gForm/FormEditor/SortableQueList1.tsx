@@ -3,9 +3,8 @@ import { functionForSorting } from "../../../redux/features/form/formSlice"
 import { IAllFormQuestions } from "../../../redux/types"
 import QuestionFormElement from "./edit-question/index"
 import { DndItem, DndList } from "./react-sortable-hoc"
-import SortableQueList1 from "./SortableQueList1"
 
-const SortableQueList = ({ queSeq, allQuestions, selectedKey, selectQuestionRef }: {
+const SortableQueList1 = ({ queSeq, allQuestions, selectedKey, selectQuestionRef }: {
     queSeq: {
         id: string;
         index?: number | undefined;
@@ -14,6 +13,7 @@ const SortableQueList = ({ queSeq, allQuestions, selectedKey, selectQuestionRef 
     selectedKey: string | undefined,
     selectQuestionRef: React.MutableRefObject<HTMLDivElement | null>
 }) => {
+
     const dispatch = useAppDispatch()
     const onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }): void => {
         dispatch(functionForSorting({ oldIndex, newIndex }))
@@ -40,7 +40,6 @@ const SortableQueList = ({ queSeq, allQuestions, selectedKey, selectQuestionRef 
                             isSelected={isSelected}
                             selectQuestionRef={selectQuestionRef}
                         />
-                        {/* <SortableQueList1 queSeq={queSeq} allQuestions={allQuestions} selectedKey={selectedKey} selectQuestionRef={selectQuestionRef}/> */}
                     </DndItem>
                 )
             })}
@@ -49,4 +48,4 @@ const SortableQueList = ({ queSeq, allQuestions, selectedKey, selectQuestionRef 
     )
 }
 
-export default SortableQueList
+export default SortableQueList1

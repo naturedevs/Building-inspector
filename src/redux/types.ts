@@ -12,6 +12,7 @@ export interface IQuestionForm {
     _id?: string,
     formId?: string,
     required: boolean,
+    img?: string,
     title: string,
     desc?: string,
     ans_type: 'short_ans' | 'long_ans' | 'mcq' | 'checkbox' | 'dropdown', // | 'mcq_grid' | 'checkboc_grid' | 'range' | 'date' | 'time',
@@ -20,8 +21,20 @@ export interface IQuestionForm {
     point?: number,
     savedChanges?: boolean,
 }
+export interface ISectionForm {
+    _id?: string,
+    formId?: string,
+    required: boolean,
+    img?: string,
+    title: string,
+    desc?: string,
+    questionsArray: IAllFormQuestions,
+}
 export interface IAllFormQuestions {
     [id: string]: IQuestionForm
+}
+export interface IAllFormSections {
+    [id: string]: ISectionForm
 }
 
 export interface IUserSnippet {
