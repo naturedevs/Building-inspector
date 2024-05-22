@@ -4,7 +4,8 @@ import { ReactTabulator, reactFormatter } from "react-tabulator";
 import toast from 'react-hot-toast';
 
 import { ActionColumn } from '../../components/ui/tabulator/ActionColumn';
-import { YesNoModal } from '../../components/ui/modal/YesNo';
+import { DeleteModal } from '../../components/ui/modal/deleteModal';
+
 import { GFormI } from "./types";
 import "react-tabulator/lib/styles.css";
 import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css";
@@ -15,17 +16,20 @@ import { API_ROUTES, MSG } from "../../utils/constants"
 interface GFormListViewProps { }
 
 const GFormListView: FC<GFormListViewProps> = () => {
+
+   const [items, setItems] = useState<GFormI[]>([]);
+   const [filteredItems, setFilteredItems] = useState<GFormI[]>([]);
+   const [selectedItem, setSelectedItem] = useState<GFormI>();
+
    const [currentPage, setCurrentPage] = useState(1);
 	const [pageSize] = useState(10);
 	const [totalPages] = useState(1);
-   const [items, setItems] = useState<GFormI[]>([]);
-   const [filterdItems, setFilteredItems] = useState<GFormI[]>([]);
-   const [selectedItem, setSelectedItem] = useState<GFormI>();
-   const [loading, setLoading] = useState(false);
-   const [showDeleteAlertModal, setShowDeleteAlertModal] = useState(false);
-   const [showItemFormModal, setShowItemFormModal] = useState(false);
-   const [deleting, setDeleting] = useState(false);
-   const [searchKey, setSearchKey] = useState("");
+   
+   const [isLoading, setLoading] = useState(false);
+   const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
+   const [isFormModalVisible, setFormModalVisible] = useState(false);
+
+   const [searchStr, setSearchStr] = useState("");
 
    useEffect(() => {
       fetchItems();
@@ -38,22 +42,27 @@ const GFormListView: FC<GFormListViewProps> = () => {
       })
       .then((response) => response.json())
       .then((data : GFormI[]) => {
+         setLoading(false);
          setItems(data);
          setFilteredItems(data);
-         setLoading(false);
       })
       .catch((error) => {
-         toast.error(error.message);
          setLoading(false);
+         toast.error(error.message);
       });
    };
 
-   const handleSearch = () => {
+   const handleAddItem = () => {
+      setSelectedItem(undefined);
+      setFormModalVisible(true);
+   }
+
+   const handleSearchItem = () => {
       setFilteredItems(items.filter(item => {
-         if(searchKey == ""){
+         if(searchStr == ""){
             return true;
          }
-         if(item._id.includes(searchKey)){
+         if(item.name.includes(searchStr)){
             return true;
          }
          return false;
@@ -61,28 +70,19 @@ const GFormListView: FC<GFormListViewProps> = () => {
    }
 
    const handleAction = (type:string, data:any) => {
-      console.log("handleStateChange");
-      console.log(data)
       setSelectedItem(data);
       if(type == "delete"){
-         setShowDeleteAlertModal(true);
-      }else if(type == "edit"){
-         setShowItemFormModal(true);
+         setDeleteModalVisible(true);
       }
-   };
-
-   const handleAddItem = () => {
-      setSelectedItem(undefined);
-      setShowItemFormModal(true);
+      if(type == "edit"){
+         setFormModalVisible(true);
+      }
    }
 
-   const handleDeleteAlertModalOK = async () => {
-      console.log("handleDeleteAlertModalOK");
-      console.log(selectedItem?._id);
-      setDeleting(true);
+   const handleDeleteItem = async () => {
+
       if(!selectedItem){
-         toast.error("Something went wrong, none item is selected");
-         setDeleting(false);
+         toast.error("Something went wrong");
          return;
       }
 
@@ -92,14 +92,12 @@ const GFormListView: FC<GFormListViewProps> = () => {
       .then((res) => res.json())
       .then((result) => {
          console.log(result);
+         setDeleteModalVisible(false);
          fetchItems();
-         setDeleting(false);
-         setShowDeleteAlertModal(false);
       })
       .catch((error) => {
          console.log(error);
          toast.error(error.message);
-         setDeleting(false);
       });
    }
 
@@ -115,56 +113,51 @@ const GFormListView: FC<GFormListViewProps> = () => {
          <Col xl={12}>
             <Card className="custom-card">
                <Card.Body>
-                  <div className="table-responsive">
-                     <div>
-                        <div className="input-group mb-3 flex justify-content-center justify-content-sm-between">
-                           <div className='input-group w-50 py-1' style={{minWidth:250}}>
-                              <Form.Control type="text" className='flex-grow-0' style={{minWidth:200}} value={searchKey} onChange={(d) => setSearchKey(d.target.value)} placeholder="" />
-                              <Button className="btn btn-primary rounded" onClick={handleSearch}>
-                                 <i className="fa fa-search" aria-hidden="true"></i>
-                              </Button>
-                           </div>
-                           <button onClick={handleAddItem} className="btn btn-primary rounded-1 my-1" >
-                              Add GForm
-                           </button>
-                        </div>
-                        <div className="" >
-                           {
-                              loading ? MSG.LOADING : items.length == 0 ? MSG.NO_DATA:
-                              <ReactTabulator 
-                                 className="table-hover table-bordered"
-                                 data={filterdItems}
-                                 columns={columns} 
-                                 options={{
-                                    pagination: 'local',
-                                    paginationSize: pageSize,
-                                    paginationSizeSelector: [20, 50, 100],
-                                    paginationInitialPage: currentPage,
-                                    paginationButtonCount: 3,
-                                    paginationDataReceived: { last_page: totalPages },
-                                    paginationDataSent: { page: currentPage, size: pageSize },
-                                 }}
-                              />
-                           }
-                        </div>
+                  <div className="input-group mb-3 flex justify-content-center justify-content-sm-between">
+                     <div className='input-group w-50 py-1' style={{minWidth:250}}>
+                        <Form.Control type="text" className='flex-grow-0' style={{minWidth:200}} value={searchStr} onChange={(d) => setSearchStr(d.target.value)} placeholder="" />
+                        <Button className="btn btn-primary rounded" onClick={handleSearchItem}>
+                           <i className="fa fa-search" aria-hidden="true"></i>
+                        </Button>
                      </div>
+                     <button onClick={handleAddItem} className="btn btn-primary rounded-1 my-1" >
+                        Add GForm
+                     </button>
+                  </div>
+                  <div className="table-responsive">
+                     {
+                        isLoading ? MSG.LOADING : items.length == 0 ? MSG.NO_DATA:
+                        <ReactTabulator 
+                           className="table-hover table-bordered"
+                           data={filteredItems}
+                           columns={columns} 
+                           options={{
+                              pagination: 'local',
+                              paginationSize: pageSize,
+                              paginationSizeSelector: [20, 50, 100],
+                              paginationInitialPage: currentPage,
+                              paginationButtonCount: 3,
+                              paginationDataReceived: { last_page: totalPages },
+                              paginationDataSent: { page: currentPage, size: pageSize },
+                           }}
+                        />
+                     }
                   </div>
                </Card.Body>
             </Card>
          </Col>
       </Row>
-      <YesNoModal 
-         modalShow={showDeleteAlertModal} 
-         setModalShow={setShowDeleteAlertModal} 
-         title={"Confirm"} 
-         type={"danger"}
-         content={`Are you sure to delete ${selectedItem?._id}?`} 
-         handleOK={handleDeleteAlertModalOK}
+
+      <DeleteModal 
+         visible={isDeleteModalVisible} 
+         setVisible={setDeleteModalVisible} 
+         handleDelete={handleDeleteItem}
       />
+
       <GForm 
          item={selectedItem}
-         modalShow={showItemFormModal}
-         setModalShow={setShowItemFormModal}
+         modalShow={isFormModalVisible}
+         setModalShow={setFormModalVisible}
          updateItems={fetchItems}
          key={"gform"}
       />

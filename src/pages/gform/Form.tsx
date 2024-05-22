@@ -1,10 +1,8 @@
 import { Button, Modal, Card, Col, Collapse, Form, InputGroup, Row } from 'react-bootstrap';
-import Select from 'react-select';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FieldValues } from "react-hook-form";
 import * as z from "zod";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { GFormI } from "./types";
 
@@ -111,12 +109,12 @@ export function GForm (
     return(
     <Modal as="form" centered show={modalShow} onHide={() => setModalShow(false)} keyboard={false} className="modal fade">
         <form onSubmit={handleSubmit((d) => handleRegister(d))}>
-            <Modal.Header closeButton className={`bg-success1`}>
-                <Modal.Title as="h6">{item?.name?item.name:"New Item"}</Modal.Title>
+            <Modal.Header closeButton>
+                <Modal.Title as="h5">{item?"Update":"Add"}</Modal.Title>
             </Modal.Header>
             <Modal.Body>                
                 <div className="mb-3">
-                    <Form.Label htmlFor="form-text1" className=" fs-14 text-dark">Enter title</Form.Label>
+                    <Form.Label htmlFor="form-text1" className=" fs-14 text-dark">title</Form.Label>
                     <InputGroup>
                         <InputGroup.Text className=""><i className="bi bi-card-checklist"></i></InputGroup.Text>
                         <Form.Control type="text" {...register('name')} className="" id="form-text1" placeholder=""/>
@@ -127,10 +125,8 @@ export function GForm (
                 </div>    
             </Modal.Body>
             <Modal.Footer>
-            <Button variant="secondary" onClick={() => setModalShow(false)}>
-                Cancel
-            </Button>
-            <button className="btn btn-success" type="submit">{item?"Update":"Add"}</button>
+                <Button variant="light" onClick={() => setModalShow(false)}>Cancel</Button>
+                <Button variant="primary" type="submit">{item?"Update":"Add"}</Button>
             </Modal.Footer>
         </form>
     </Modal>
