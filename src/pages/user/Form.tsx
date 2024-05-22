@@ -148,7 +148,7 @@ export function UserForm (
             </Modal.Header>
             <Modal.Body>
                 <div className="mb-3">
-                    <Form.Label htmlFor="form-text1" className=" fs-14 text-dark">Enter name</Form.Label>
+                    <Form.Label htmlFor="form-text1" className=" fs-14 text-dark">User name</Form.Label>
                     <InputGroup>
                         <InputGroup.Text className=""><i className="ri-user-line"></i></InputGroup.Text>
                         <Form.Control type="text" {...register('username')} className="" id="form-text1" placeholder=""/>
@@ -158,7 +158,7 @@ export function UserForm (
                     )}
                 </div>           
                 <div className="mb-3">
-                    <Form.Label htmlFor="form-text1" className=" fs-14 text-dark">Enter Email</Form.Label>
+                    <Form.Label htmlFor="form-text1" className=" fs-14 text-dark">Email</Form.Label>
                     <InputGroup>
                         <InputGroup.Text className=""><i className="ri-mail-line"></i></InputGroup.Text>
                         <Form.Control type="text" {...register('email')} className="" id="form-text1" placeholder=""/>
@@ -168,8 +168,7 @@ export function UserForm (
                     )}
                 </div>
                 <div className="mb-3">
-                    <Form.Label htmlFor="form-password1" className=" fs-14 text-dark">Enter
-                        Password</Form.Label>
+                    <Form.Label htmlFor="form-password1" className=" fs-14 text-dark">Password</Form.Label>
                     <InputGroup>
                         <InputGroup.Text className=""><i className="ri-lock-line"></i></InputGroup.Text>
                         <Form.Control type="password" {...register('password')} className="" id="form-password1" placeholder=""/>
@@ -179,8 +178,7 @@ export function UserForm (
                     )}
                 </div>
                 <div className="mb-3">
-                    <Form.Label htmlFor="form-password1" className=" fs-14 text-dark">Confirm
-                        Password</Form.Label>
+                    <Form.Label htmlFor="form-password1" className=" fs-14 text-dark">Confirm Password</Form.Label>
                     <InputGroup>
                         <InputGroup.Text className=""><i className="ri-lock-line"></i></InputGroup.Text>
                         <Form.Control type="password" {...register('confirmPassword')} className="" id="form-password1" placeholder=""/>
@@ -190,8 +188,7 @@ export function UserForm (
                     )}
                 </div>
                 <div className="mb-3">
-                    <Form.Label htmlFor="form-password1" className=" fs-14 text-dark">Enter
-                        Role</Form.Label>
+                    <Form.Label htmlFor="form-password1" className=" fs-14 text-dark">Role</Form.Label>
                     <InputGroup>
                         <InputGroup.Text className=""><i className="bx bx-user-check"></i></InputGroup.Text>                        
                         <Select isMulti name="colors" options={Multipleselectdata.map(d=>{
@@ -207,7 +204,7 @@ export function UserForm (
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="light" onClick={() => setModalShow(false)}>Cancel</Button>
-                <Button className="btn btn-success" type="submit">{user?"Update":"Add"}</Button>
+                <Button variant="primary" type="submit">{user?"Update":"Add"}</Button>
             </Modal.Footer>
         </form>
     </Modal>
