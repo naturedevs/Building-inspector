@@ -1,8 +1,7 @@
-import { FC, useEffect, useState, useRef } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Card, Col, Row, Form, Button } from 'react-bootstrap';
 import { ReactTabulator, reactFormatter } from "react-tabulator";
 import toast from 'react-hot-toast';
-import axios from 'axios';
 
 import { ActionColumn } from '../../components/ui/tabulator/ActionColumn';
 import { YesNoModal } from '../../components/ui/modal/YesNo';
