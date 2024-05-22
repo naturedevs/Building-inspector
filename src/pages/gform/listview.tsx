@@ -114,47 +114,42 @@ const GFormListView: FC<GFormListViewProps> = () => {
       <Row>
          <Col xl={12}>
             <Card className="custom-card">
-                  <Card.Header>
-                     <Card.Title>
-                        GForms
-                     </Card.Title>
-                  </Card.Header>
-                  <Card.Body>
-                     <div className="table-responsive  ">
-                        {
-                           loading ? MSG.LOADING : items.length == 0 ? MSG.NO_DATA:
-                           <div>
-                              <div className="input-group mb-3 flex justify-content-center justify-content-sm-between">
-                                 <div className='input-group w-50 py-1' style={{minWidth:250}}>
-                                    <Form.Control type="text" className='flex-grow-0' style={{minWidth:200}} value={searchKey} onChange={(d) => setSearchKey(d.target.value)} placeholder="" />
-                                    <Button className="btn btn-primary rounded" onClick={handleSearch}>
-                                       <i className="fa fa-search" aria-hidden="true"></i>
-                                    </Button>
-                                 </div>
-                                 <button onClick={handleAddItem} className="btn btn-primary rounded-1 my-1" >
-                                    Add GForm
-                                 </button>
+               <Card.Body>
+                  <div className="table-responsive  ">
+                     {
+                        loading ? MSG.LOADING : items.length == 0 ? MSG.NO_DATA:
+                        <div>
+                           <div className="input-group mb-3 flex justify-content-center justify-content-sm-between">
+                              <div className='input-group w-50 py-1' style={{minWidth:250}}>
+                                 <Form.Control type="text" className='flex-grow-0' style={{minWidth:200}} value={searchKey} onChange={(d) => setSearchKey(d.target.value)} placeholder="" />
+                                 <Button className="btn btn-primary rounded" onClick={handleSearch}>
+                                    <i className="fa fa-search" aria-hidden="true"></i>
+                                 </Button>
                               </div>
-                              
-                              <div className="" >
-                                 <ReactTabulator className="table-hover table-bordered"
-                                    data={filterdItems}
-                                    columns={columns} 
-                                    options={{
-                                       pagination: 'local',
-                                       paginationSize: pageSize,
-                                       paginationSizeSelector: [20, 50, 100],
-                                       paginationInitialPage: currentPage,
-                                       paginationButtonCount: 3,
-                                       paginationDataReceived: { last_page: totalPages },
-                                       paginationDataSent: { page: currentPage, size: pageSize },
-                                    }}
-                                 />
-                              </div>
+                              <button onClick={handleAddItem} className="btn btn-primary rounded-1 my-1" >
+                                 Add GForm
+                              </button>
                            </div>
-                        }
-                     </div>
-                  </Card.Body>
+                           
+                           <div className="" >
+                              <ReactTabulator className="table-hover table-bordered"
+                                 data={filterdItems}
+                                 columns={columns} 
+                                 options={{
+                                    pagination: 'local',
+                                    paginationSize: pageSize,
+                                    paginationSizeSelector: [20, 50, 100],
+                                    paginationInitialPage: currentPage,
+                                    paginationButtonCount: 3,
+                                    paginationDataReceived: { last_page: totalPages },
+                                    paginationDataSent: { page: currentPage, size: pageSize },
+                                 }}
+                              />
+                           </div>
+                        </div>
+                     }
+                  </div>
+               </Card.Body>
             </Card>
          </Col>
       </Row>

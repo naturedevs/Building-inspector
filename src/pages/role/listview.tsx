@@ -91,33 +91,28 @@ const RoleListView: FC<RoleListViewProps> = () => {
       <Row>
          <Col xl={12}>
             <Card className="custom-card">
-                  <Card.Header>
-                     <Card.Title>
-                     Roles
-                     </Card.Title>
-                  </Card.Header>
-                  <Card.Body>
-                     <div className="input-group mb-3 flex flex-row-reverse">
-                        <Button className="btn btn-primary rounded-1" onClick={handleAddRole}>
-                           Add Role
-                        </Button>
-                     </div>
-                     <div className="table-responsive  ">
-                        <ReactTabulator className="table-hover table-bordered"
-                           data={items}
-                           columns={columns} 
-                           options={{
-                              pagination: 'local',
-                              paginationSize: pageSize,
-                              paginationSizeSelector: [ 20, 50, 100],
-                              paginationInitialPage: currentPage,
-                              paginationButtonCount: 5,
-                              paginationDataReceived: { last_page: totalPages },
-                              paginationDataSent: { page: currentPage, size: pageSize }
-                           }}
-                        />
-                     </div>
-                  </Card.Body>
+               <Card.Body>
+                  <div className="input-group mb-3 flex flex-row-reverse">
+                     <Button className="btn btn-primary rounded-1" onClick={handleAddRole}>
+                        Add Role
+                     </Button>
+                  </div>
+                  <div className="table-responsive  ">
+                     <ReactTabulator className="table-hover table-bordered"
+                        data={items}
+                        columns={columns} 
+                        options={{
+                           pagination: 'local',
+                           paginationSize: pageSize,
+                           paginationSizeSelector: [ 20, 50, 100],
+                           paginationInitialPage: currentPage,
+                           paginationButtonCount: 5,
+                           paginationDataReceived: { last_page: totalPages },
+                           paginationDataSent: { page: currentPage, size: pageSize }
+                        }}
+                     />
+                  </div>
+               </Card.Body>
             </Card>
          </Col>
       </Row>
