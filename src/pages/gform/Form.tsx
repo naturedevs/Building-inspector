@@ -52,7 +52,7 @@ export function GForm (
         console.log(data);
         if(item){//update
             
-            fetch(API_ROUTES.ROLE_API + `/${item._id}`, {
+            fetch(API_ROUTES.FORM_API + `/${item._id}`, {
                 method: "PUT",
                 headers: {
                     'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ export function GForm (
 
         }else{//New
 
-            fetch(API_ROUTES.ROLE_API, {
+            fetch(API_ROUTES.FORM_API, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
