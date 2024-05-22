@@ -5,7 +5,6 @@ import { ReactTabulator, reactFormatter } from "react-tabulator";
 import toast from 'react-hot-toast';
 
 import { ActionColumn } from '../../components/ui/tabulator/ActionColumn';
-import { YesNoModal } from '../../components/ui/modal/YesNo';
 import { DeleteModal } from '../../components/ui/modal/deleteModal';
 import { User } from "./types";
 import { UserForm } from './Form';
@@ -83,7 +82,7 @@ const UserListView: FC<UserListViewProps> = () => {
 
       console.log(selectedItem?._id);
       if(!selectedItem){
-         toast.error("Something went wrong, none user is selected");
+         toast.error("Something went wrong.");
          return;
       }
 
@@ -121,37 +120,33 @@ const UserListView: FC<UserListViewProps> = () => {
          <Col xl={12}>
             <Card className="custom-card">
                <Card.Body>
-                  <div className="table-responsive">
-                     <div>
-                        <div className="input-group mb-3 flex justify-content-between">
-                           <div className='input-group w-50'>
-                              <Form.Control type="text" className='w-50 flex-grow-0' value={searchStr} onChange={(d) => setSearchStr(d.target.value)} placeholder="" />
-                              <Button className="btn btn-primary rounded" onClick={handleSearchItem}>
-                                 <i className="fa fa-search" aria-hidden="true"></i>
-                              </Button>
-                           </div>
-                           <Button className="btn btn-primary rounded-1" onClick={handleAddItem}>
-                              Add User
-                           </Button>
-                        </div>
-                        <div className="" >
-                        {
-                           isLoading ? MSG.LOADING : items.length == 0 ? MSG.NO_DATA:
-                           <ReactTabulator className="table-hover table-bordered"
-                              data={filteredItems}
-                              columns={columns} 
-                              options={{pagination: 'local',
-                                 paginationSize: pageSize,
-                                 paginationSizeSelector: [20, 50, 100], // Define available page sizes
-                                 paginationInitialPage: currentPage,
-                                 paginationButtonCount: 3, // Number of pagination buttons to display
-                                 paginationDataReceived: { last_page: totalPages },
-                                 paginationDataSent: { page: currentPage, size: pageSize },
-                              }}
-                           />
-                        }
-                        </div>
+                  <div className="input-group mb-3 flex justify-content-between">
+                     <div className='input-group w-50'>
+                        <Form.Control type="text" className='w-50 flex-grow-0' value={searchStr} onChange={(d) => setSearchStr(d.target.value)} placeholder="" />
+                        <Button className="btn btn-primary rounded" onClick={handleSearchItem}>
+                           <i className="fa fa-search" aria-hidden="true"></i>
+                        </Button>
                      </div>
+                     <Button className="btn btn-primary rounded-1" onClick={handleAddItem}>
+                        Add User
+                     </Button>
+                  </div>
+                  <div className="table-responsive">   
+                     {
+                        isLoading ? MSG.LOADING : items.length == 0 ? MSG.NO_DATA:
+                        <ReactTabulator className="table-hover table-bordered"
+                           data={filteredItems}
+                           columns={columns} 
+                           options={{pagination: 'local',
+                              paginationSize: pageSize,
+                              paginationSizeSelector: [20, 50, 100], // Define available page sizes
+                              paginationInitialPage: currentPage,
+                              paginationButtonCount: 3, // Number of pagination buttons to display
+                              paginationDataReceived: { last_page: totalPages },
+                              paginationDataSent: { page: currentPage, size: pageSize },
+                           }}
+                        />
+                     }
                   </div>
                </Card.Body>
             </Card>

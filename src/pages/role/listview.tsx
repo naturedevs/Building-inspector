@@ -4,25 +4,27 @@ import { ReactTabulator, reactFormatter } from "react-tabulator";
 import toast from 'react-hot-toast';
 import "react-tabulator/lib/styles.css";
 import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css";
-import { YesNoModal } from '../../components/ui/modal/YesNo';
+import { DeleteModal } from '../../components/ui/modal/deleteModal';
 import { ActionColumn } from '../../components/ui/tabulator/ActionColumn';
 import { Role } from './types';
 import { RoleForm } from './Form';
 
-import { API_ROUTES } from "../../utils/constants"
+import { API_ROUTES, MSG } from "../../utils/constants"
 
 interface RoleListViewProps { }
 
 const RoleListView: FC<RoleListViewProps> = () => {
+
+   const [items, setItems] = useState<Role[]>([]);   
+   const [selectedItem, setSelectedItem] = useState<Role>();
+
    const [currentPage, setCurrentPage] = useState(1);
 	const [pageSize] = useState(10);
 	const [totalPages] = useState(1);
-   const [items, setItems] = useState<Role[]>([]);   
-   const [selectedItem, setSelectedItem] = useState<Role>();
-   const [loading, setLoading] = useState(false);  
-   const [showDeleteAlertModal, setShowDeleteAlertModal] = useState(false);
-   const [showRoleFormModal, setShowRoleFormModal] = useState(false);
-   const [deleting, setDeleting] = useState(false);
+   
+   const [isLoading, setLoading] = useState(false);  
+   const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
+   const [isFormModalVisible, setFormModalVisible] = useState(false);
 
    useEffect(() => {
       fetchItems();
@@ -44,20 +46,25 @@ const RoleListView: FC<RoleListViewProps> = () => {
       });
    };
 
+   const handleAddItem = () => {
+      setSelectedItem(undefined);
+      setFormModalVisible(true);
+   }
+
    const handleAction = (type:string, data:any) => {
       setSelectedItem(data);
       if(type == "delete"){
-         setShowDeleteAlertModal(true);
-      }else if(type == "edit"){
-         setShowRoleFormModal(true);
+         setDeleteModalVisible(true);
+      }
+      else if(type == "edit"){
+         setFormModalVisible(true);
       }
    };
 
-   const handleDeleteAlertModalOK = () => {
+   const handleDeleteItem = () => {
       console.log(selectedItem?._id);
-      setDeleting(true);
       if(!selectedItem){
-         toast.error("Something went wrong, none user is selected");
+         toast.error("Something went wrong");
          return;
       }
       fetch(API_ROUTES.ROLE_API + `/${selectedItem._id}`, {
@@ -65,20 +72,14 @@ const RoleListView: FC<RoleListViewProps> = () => {
       })
       .then((res) => res.json())
       .then((result) => {
+         console.log(result);
+         setDeleteModalVisible(false);
          fetchItems();
-         setDeleting(false);
-         setShowDeleteAlertModal(false);
       })
       .catch((error) => {
          console.log(error);
          toast.error(error.message);
-         setDeleting(false);
       });
-   }
-
-   const handleAddRole = () => {
-      setSelectedItem(undefined);
-      setShowRoleFormModal(true);
    }
 
    const columns:any= [
@@ -93,43 +94,46 @@ const RoleListView: FC<RoleListViewProps> = () => {
             <Card className="custom-card">
                <Card.Body>
                   <div className="input-group mb-3 flex flex-row-reverse">
-                     <Button className="btn btn-primary rounded-1" onClick={handleAddRole}>
+                     <Button className="btn btn-primary rounded-1" onClick={handleAddItem}>
                         Add Role
                      </Button>
                   </div>
-                  <div className="table-responsive  ">
-                     <ReactTabulator className="table-hover table-bordered"
-                        data={items}
-                        columns={columns} 
-                        options={{
-                           pagination: 'local',
-                           paginationSize: pageSize,
-                           paginationSizeSelector: [ 20, 50, 100],
-                           paginationInitialPage: currentPage,
-                           paginationButtonCount: 5,
-                           paginationDataReceived: { last_page: totalPages },
-                           paginationDataSent: { page: currentPage, size: pageSize }
-                        }}
-                     />
+                  <div className="table-responsive">
+                     {
+                        isLoading ? MSG.LOADING : items.length == 0 ? MSG.NO_DATA:
+                        <ReactTabulator className="table-hover table-bordered"
+                           data={items}
+                           columns={columns} 
+                           options={{
+                              pagination: 'local',
+                              paginationSize: pageSize,
+                              paginationSizeSelector: [ 20, 50, 100],
+                              paginationInitialPage: currentPage,
+                              paginationButtonCount: 5,
+                              paginationDataReceived: { last_page: totalPages },
+                              paginationDataSent: { page: currentPage, size: pageSize }
+                           }}
+                        />
+                     }
                   </div>
                </Card.Body>
             </Card>
          </Col>
       </Row>
-      <YesNoModal 
-         modalShow={showDeleteAlertModal} 
-         setModalShow={setShowDeleteAlertModal} 
-         title={"Confirm"} 
-         type={"danger"}
-         content={`Are you sure to delete ${selectedItem?.title}?`} 
-         handleOK={handleDeleteAlertModalOK}
+
+      <DeleteModal 
+         visible={isDeleteModalVisible} 
+         setVisible={setDeleteModalVisible}
+         handleDelete={handleDeleteItem}
       />
+
       <RoleForm 
-         modalShow={showRoleFormModal}
-         setModalShow={setShowRoleFormModal}
+         modalShow={isFormModalVisible}
+         setModalShow={setFormModalVisible}
          role={selectedItem}
          updateRoles={fetchItems}
       />
+
    </div>
 )
 };
