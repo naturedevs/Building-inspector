@@ -44,9 +44,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               <Route path={`${import.meta.env.BASE_URL}dashboard`} element={<CrmDashboard />} />
               <Route path={`${import.meta.env.BASE_URL}users`} element={<UserListView />} />
               <Route path={`${import.meta.env.BASE_URL}violations`} element={<ViolationListView />} />
-              <Route path={`${import.meta.env.BASE_URL}gforms`} element={<GFormListView />} />
-              <Route path={`${import.meta.env.BASE_URL}gform/:formId`} element={<GFormEditor />} />
-              <Route path={`${import.meta.env.BASE_URL}gform`} element={<GFormEditor />} />
+              <Route path={`${import.meta.env.BASE_URL}forms`} element={<GFormListView />} />
+              <Route path={`${import.meta.env.BASE_URL}form/:formId`} element={<Section1 />} />
+              <Route path={`${import.meta.env.BASE_URL}form`} element={<Section1 />} />
               <Route path={`${import.meta.env.BASE_URL}roles`} element={<RoleListView />} />
               <Route path={`${import.meta.env.BASE_URL}tests`} element={<TestListView />} />
               <Route path={`${import.meta.env.BASE_URL}testseditor`} element={<Section />} />

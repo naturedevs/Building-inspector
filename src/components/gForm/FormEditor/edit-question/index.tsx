@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IQuestionForm } from '../../../../redux/types'
 import { Types } from 'mongoose'
 import { useAppDispatch } from '../../../../redux/hooks'
@@ -33,11 +33,12 @@ const QuestionFormElement = ({ queKey, question, isSelected, selectQuestionRef }
   function handleQuesClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     event.preventDefault();
 
-    if (isSelected === 'true') return;
+    console.log(`handleQuesClick`)
+    // if (isSelected === 'true') return;
     dispatch(setSelectedKey(queKey.toString()))
-    // console.log(event)
+    console.log(`que_${queKey.toString()}`)
 
-    const height = (document.getElementById(`que_${queKey.toString()}`)?.offsetTop || 100)
+    const height = (document.getElementById(`que_${queKey.toString()}`)?.offsetTop || 100) + 100
     document.documentElement.style.setProperty("--side-btn-height", `${height}px`);
     // console.log("\n\nHeight ", document.getElementById(`que_${queKey.toString()}`)?.getBoundingClientRect().top, height)
     // console.log("The property ", document.documentElement.style.getPropertyValue("--side-btn-height"))

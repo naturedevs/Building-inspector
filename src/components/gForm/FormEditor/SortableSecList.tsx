@@ -1,5 +1,5 @@
 import { useAppDispatch } from "../../../redux/hooks"
-import { functionForSorting } from "../../../redux/features/form/formSlice"
+import { functionForSortingS } from "../../../redux/features/form/formSlice"
 import { IAllFormSections } from "../../../redux/types"
 import QuestionFormElement from "./edit-question/index"
 import SectionEditor from "./SectionEditor"
@@ -17,8 +17,9 @@ const SortableSecList = ({ secSeq, allSections, selectedKey, selectSectionRef }:
 
     const dispatch = useAppDispatch()
     const onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }): void => {
-        dispatch(functionForSorting({ oldIndex, newIndex }))
+        dispatch(functionForSortingS({ oldIndex, newIndex }))
     }
+    // console.log(allSections, selectedKey)
 
     return (
 
@@ -30,12 +31,14 @@ const SortableSecList = ({ secSeq, allSections, selectedKey, selectSectionRef }:
             className="itemsContainer"
         >
             {secSeq.map((ele, index: number) => {
+                // console.log(ele)
                 let isSelected = (selectedKey === ele.id.toString()) ? 'true' : 'false'
                 if (!allSections[ele.id.toString()]) return <></>
 
                 return (
                     <DndItem key={ele.id} index={index} className="item my-2">
                         <SectionEditor
+                            secKey={ele.id}
                             key={ele.id}
                             isSelected={isSelected}
                             selectQuestionRef={selectSectionRef}

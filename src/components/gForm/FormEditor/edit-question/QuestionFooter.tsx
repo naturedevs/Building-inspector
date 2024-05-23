@@ -23,7 +23,7 @@ function QuestionFooter(
     <div className='px-4 mt-4'>
       <div className='w-full py-1  border-t border-t-gray-300 mt-2 flex  h-fit items-center space-x-6'>
         <div className='w-full flex justify-between'>
-          <div className='w-fit'>
+          <div className='w-fit d-none'>
             {
               (question.ans_type === 'mcq' || question.ans_type === 'checkbox' || question.ans_type === 'dropdown') &&
               <>
@@ -89,7 +89,7 @@ function QuestionFooter(
             <button
               onClick={(event) => {
                 // event.preventDefault();
-                console.log("Meow hrere")
+                console.log("deleteQuestion")
                 // dispatch(setSelectedKey("newId1682343837795"))
 
                 // dispatch(beforeDelete())
@@ -137,7 +137,7 @@ function QuestionFooter(
         {/* save changes */}
         <button
           disabled={(question._id?.slice(0, 3) === 'new') || (saveChangesLoading)}
-          className={`w-28  hidden sm:block ${((question._id?.slice(0, 3) === 'new') || (question.savedChanges)) ? "bg-blue-100 text-gray-600" : "bg-blue-500 text-white"} rounded-md p-2 text-xs `}
+          className={`w-28 d-none hidden sm:block ${((question._id?.slice(0, 3) === 'new') || (question.savedChanges)) ? "bg-blue-100 text-gray-600" : "bg-blue-500 text-white"} rounded-md p-2 text-xs `}
           onClick={(event) => {
             event.preventDefault();
             setLoading(true)

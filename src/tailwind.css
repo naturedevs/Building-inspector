@@ -5,14 +5,14 @@
     --side-btn-height: 100px
 }
 .side-button {
-    left : calc(50% + 350px);
+    left : calc(50% + 405px);
     top : var(--side-btn-height);
     /* top : clamp(5vh,var(--side-btn-height),95vh); */
     transition: 0.25s;
 }
-@media (max-width : 800px){
+@media (max-width : 1150px){
     .side-button {
-        left : calc(50% + 300px);
+        left : calc(100% - 50px);
         top : var(--side-btn-height);
         /* top : clamp(5vh,var(--side-btn-height),95vh); */
         transition: 0.25s;

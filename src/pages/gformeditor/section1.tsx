@@ -12,8 +12,8 @@ import Res from '../../components/gForm/FormEditor/response/Res';
 export default function Section1() {
 
   const { formId } = useParams()
-  console.log("formId")
-  console.log(formId)
+  // console.log("formId")
+  // console.log(formId)
 
   const allQuestions = useAppSelector((state)=> state.form.allQuestions)
   const selectedKey = useAppSelector((state)=> state.form.selectedKey)
@@ -76,8 +76,8 @@ export default function Section1() {
   },[])
   
   return (
-    <div className="position-relative d-flex flex-column w-100 h-100 custom-bg-purple " style={{ minWidth: '352px' }}>
-      <div className='absolute top-0 start-0 w-100 bg-white hidden sm:block z-50'>
+    <div className="position-relative d-flex flex-column w-100 h-100 hidden custom-bg-purple " style={{ minWidth: '352px' }}>
+      <div className='absolute  mt-4 px-5  top-0 start-0 w-100 bg-none hidden sm:block z-50 '>
         <NavBar currentState={currentState} setCurrentState={setCurrentState} />
       </div>
 
@@ -104,12 +104,12 @@ export default function Section1() {
 
       <div 
         id="scrolling-paper"
-        className='w-full relative pt-24 sm:pt-20 justify-center  h-full '
+        className='w-full relative pt-28 sm:pt-28 justify-center  h-full '
         >
           
-        <div className='absolute top-0 left-0 z-20 w-full block bg-white sm:hidden'>
+        <div className='hidden absolute top-0 left-0 z-20 w-full bg-white '>
           <NavBar />
-          <div className='flex space-x-3 mx-auto w-fit h-fit text-sm '>
+          <div className='flex space-x-3 mx-auto w-fit h-fit text-sm hidden'>
             <button
               className={`font-medium rounded-full`}
               onClick={(event) => { event.preventDefault(); setCurrentState('Edit') }}
@@ -122,7 +122,6 @@ export default function Section1() {
             >Responses
               <div className={`w-full h-1 bg-purple-800 rounded-t-md ${(currentState === 'Res') ? 'block' : 'hidden'}`}></div>
             </button>
-            {/* <button className='font-medium pb-2' >Settings</button> */}
             <button
               className={`font-medium rounded-full`}
               onClick={(event) => { event.preventDefault(); setCurrentState('Preview') }}
