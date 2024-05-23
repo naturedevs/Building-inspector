@@ -43,7 +43,7 @@ function Sections(
   }, [selectedSKey])
 
   return (
-    <div className='relative pl-3 pr-12 my-2 flex space-x-2  w-full max-w-[900px]  slg:max-w-[1000px] mx-auto'>
+    <div className='relative bg-slate-200 pl-3 pr-12 my-2 flex space-x-2  w-full max-w-[900px]  slg:max-w-[1000px] mx-auto'>
 
       <div className='w-full h-full  '>
         {/* {
@@ -53,7 +53,7 @@ function Sections(
         <SortableSecList secSeq={secSeq} allSections={allSections} selectedKey={selectedSKey} selectSectionRef={selectSectionRef}/>
 
         <button
-          className='px-3 py-1 bg-purple-200 z-50'
+          className='px-3 py-2 bg-blue-500 rounded-md z-50 mb-3'
           disabled={savingChanges}
           onClick={(event) => {
             event.preventDefault();

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 
@@ -7,15 +7,8 @@ import { GFormI } from '../../pages/gform/types';
 import { IUser } from '../../redux/types';
 import { setQueSeq, setSecSeq, setAllSections } from '../../redux/features/form/formSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-
-const Multipleselectdata=[
-  {name:'Choice 1', _id:"asdf"},
-  {name:'Choice 2', _id:"asdf1"},
-  {name:'Choice 3', _id:"asdf2"},
-  {name:'Choice 4', _id:"asdf3"},
-  {name:'Choice 5', _id:"asdf4"},
-  {name:'Choice 6', _id:"asdf5"},
-];
+import { API_ROUTES, MSG } from "../../utils/constants"
+import toast from 'react-hot-toast';
 
 const NavBar = ({ currentState, setCurrentState, createNewForm }: {
   currentState?: "Edit" | "Preview" | "Res",
@@ -23,24 +16,54 @@ const NavBar = ({ currentState, setCurrentState, createNewForm }: {
   createNewForm?: () => void
 }) => {
   const [dropdownToggle, setToggle] = useState<boolean>(false)
-  const navigate = useNavigate()
-  const [gForm, setGForm] = useState<GFormI>({
+  const [items, setItems] = useState<GFormI[]>([]);
+  const [isLoading, setLoading] = useState(false);
+  const [item, setItem] = useState<GFormI>({
     _id: '0',
     name:'default'
   });
-
+  
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
   const handleChange = (d:GFormI) => {
     console.log("handlechange")
-    setGForm(d);
+    setItem(d);
   }
+
+  useEffect(() => {
+    fetchItems();
+  },[])
+
+  useEffect(() => {
+    // TODO: update form data from form id
+    // dispatch(setQueSeq());
+    // dispatch(setSecSeq());
+    // dispatch(setAllSections());
+  },[item])
+
+  const fetchItems = async () => {
+      setLoading(true);
+      fetch(API_ROUTES.FORM_API, {
+        method: "GET"
+      })
+      .then((response) => response.json())
+      .then((data : GFormI[]) => {
+        setLoading(false);
+        setItems(data);
+      })
+      .catch((error) => {
+        setLoading(false);
+        toast.error(error.message);
+      });
+  };
+
   return (
     <header className='flex px-5 py-2 bg-white  items-center w-full  rounded-lg justify-between'>
-      <Link to='/' className='w-fit flex items-center space-x-1'>
-        <img src={'/google-form.svg'} className="w-12 h-12" />
-        <span className='font-bold text-lg text-gray-500'>Form</span>
-      </Link>
+      {/* <Link to='/' className='w-fit flex items-center space-x-1'> */}
+        {/* <img src={'/google-form.svg'} className="w-12 h-12" /> */}
+        {/* <span className='font-bold text-lg text-gray-500'>Form</span> */}
+      {/* </Link> */}
       {
         currentState && setCurrentState &&
         <div className=' space-x-5 mx-auto w-fit h-fit text-xs hidden'>
@@ -65,15 +88,15 @@ const NavBar = ({ currentState, setCurrentState, createNewForm }: {
           </button>
         </div>
       }
-      <Select name="colors" options={Multipleselectdata.map(d=>{
+      <Select name="colors" options={items.map(d=>{
           return {
               ...d,
               value: d.name,
               label: d.name
           }
           })} 
-          value={gForm} onChange={handleChange} className="w-[200px]" id=""
-          menuPlacement='auto' classNamePrefix="Select2" defaultValue={[Multipleselectdata[0]]}
+          value={item} onChange={handleChange} className="w-[200px]" id=""
+          menuPlacement='auto' classNamePrefix="Select2" defaultValue={[items[0]]}
       />
       <div className='flex items-center w-fit space-x-3'>
         
