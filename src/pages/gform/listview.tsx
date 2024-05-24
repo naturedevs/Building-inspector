@@ -121,7 +121,7 @@ const GFormListView: FC<GFormListViewProps> = () => {
                         </Button>
                      </div>
                      <button onClick={handleAddItem} className="btn btn-primary rounded-1 my-1" >
-                        Add GForm
+                        Add Form
                      </button>
                   </div>
                   <div className="table-responsive">

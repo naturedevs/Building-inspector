@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-
+import { Button } from 'react-bootstrap';
 import SortableSecList from './SortableSecList'
 import TitleDescFormElement from './FormTitleDesc'
 import { addSection, addQuestion } from '../../../redux/features/form/formSlice'
@@ -52,7 +52,8 @@ function Sections(
         {/* <TitleDescFormElement /> */}
         <SortableSecList secSeq={secSeq} allSections={allSections} selectedKey={selectedSKey} selectSectionRef={selectSectionRef}/>
 
-        <button
+        <Button
+          variant="primary" 
           className='px-3 py-2 bg-blue-500 rounded-md z-50 mb-3'
           disabled={savingChanges}
           onClick={(event) => {
@@ -66,8 +67,8 @@ function Sections(
             console.log("allQuestions")
             setSaving(false)
           }}>
-          Submit
-        </button>
+          Save
+        </Button>
       </div>
 
       {/* Side Button to add new question */}
